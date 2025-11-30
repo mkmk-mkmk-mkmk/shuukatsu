@@ -1,0 +1,15 @@
+# Visual Studio folders
+.vs/
+ipch/
+*.ipch
+
+# Build artifacts
+Debug/
+Release/
+*.obj
+*.o
+*.exe
+*.pdb
+*.ilk
+*.log
+*.cache

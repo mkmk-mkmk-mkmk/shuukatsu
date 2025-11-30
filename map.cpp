@@ -1,0 +1,119 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
+
+#include "map.h"
+#include "box.h"
+#include "main.h"
+#include "renderer.h"
+#include "texture.h"
+#include "manager.h"
+#include "scene.h"
+
+//int g_MapChipList[STAGEBLOCK_HEIGHT][STAGEBLOCK_WIDTH]; //マップチップ配列
+
+void Map::Init()
+{
+	//テキストファイル読み込み
+	std::ifstream load_file("map\\map1.txt");
+	std::string line;
+
+	//マップチップ配列ー＞テキストファイルに記載されている内容を読み込む
+	std::vector<int> g_MapChipList;
+
+	m_MapGetFinish = false;
+
+	while (!m_MapGetFinish)
+	{
+		if (m_MapTextLineGetFinish)
+		{
+			m_MapWidthGetFinish = true;
+			m_MapTextLineGetFinish = false;
+		}
+
+		std::getline(load_file, line);
+		std::istringstream stream(line);
+		STAGEBLOCK_HEIGHT++;
+
+		while (!m_MapTextLineGetFinish)
+		{
+			std::string cell;
+			std::getline(stream, cell, ' ');
+			if (cell == "n")
+			{
+				m_MapTextLineGetFinish = true;
+				break;
+			}
+			else if (cell == "e")
+			{
+				m_MapGetFinish = true;
+				break;
+			}
+			g_MapChipList.push_back(std::stoi(cell));
+			if (!m_MapWidthGetFinish)
+			{
+				STAGEBLOCK_WIDTH++;
+			}
+		}
+
+	}
+
+	//ファイルを閉じる
+	load_file.close();
+
+	int total_blocks = g_MapChipList.size();
+
+	for (int idx = 0; idx < total_blocks; idx++)
+	{
+		int i = idx / STAGEBLOCK_WIDTH; //行番号
+		int j = idx % STAGEBLOCK_WIDTH; //列番号
+
+		//マップチップ番号取得
+		int chip_id = g_MapChipList.at(idx);
+
+		//値をチェック
+		if (chip_id == 0) //空白の場合はスキップ
+		{
+
+		}
+		else if (chip_id == 1)
+		{
+			//描画座標を割り出す
+			float position_x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
+			float position_y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
+
+			//リストに保存
+			m_BoxPosList.push_back(Vector2(position_x, position_y));
+		}
+		else if (chip_id == 2)
+		{
+			//描画座標を割り出す
+			float position_x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
+			float position_y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
+
+			//リストに保存
+			m_TransparentBoxPosList.push_back(Vector2(position_x, position_y));
+		}
+
+		
+	}
+	//マップチップリストを開放
+	g_MapChipList.clear();
+}
+
+void Map::Uninit()
+{
+
+}
+
+void Map::Update()
+{
+
+}
+
+void Map::Draw()
+{
+
+}
