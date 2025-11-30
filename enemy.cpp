@@ -323,12 +323,12 @@ void Enemy::UpdatePatrol()
 
 	if (InRangePlayer(m_AttackRange, m_EnemyDirection))
 	{	//攻撃範囲内にプレイヤーが入った
-		m_AnimationState = AnimationState::Attack;
+		m_AnimationState = AnimationState::Attack;		//攻撃へ
 		m_PatrolAnimationFinished = true;
 	}
 	else if (InRangePlayer(m_VisibleRange, m_EnemyDirection))
 	{	//追跡範囲内にプレイヤーが入った
-		m_AnimationState = AnimationState::Chase;
+		m_AnimationState = AnimationState::FindPlayer;	//発見へ
 		m_PatrolAnimationFinished = true;
 	}
 }
@@ -343,12 +343,12 @@ void Enemy::UpdateChase()
 
 	if (InRangePlayer(m_AttackRange, m_EnemyDirection))
 	{	//攻撃範囲内にプレイヤーが入った
-		m_AnimationState = AnimationState::Attack;
+		m_AnimationState = AnimationState::Attack;		//攻撃へ
 		m_ChaseAnimationFinished = true;
 	}
 	else if (!InRangePlayer(m_VisibleRange, m_EnemyDirection))
 	{	//追跡範囲外に出た
-		m_AnimationState = AnimationState::Patrol;
+		m_AnimationState = AnimationState::LookAround;	//見回しへ
 		m_ChaseAnimationFinished = true;
 	}
 	
@@ -363,12 +363,12 @@ void Enemy::UpdateAttack()
 
 	if (!InRangePlayer(m_AttackRange, m_EnemyDirection) && InRangePlayer(m_VisibleRange, m_EnemyDirection))
 	{	//攻撃範囲外に出て追跡範囲内に入った
-		m_AnimationState = AnimationState::Chase;
+		m_AnimationState = AnimationState::Chase;		//追跡へ
 		m_AttackAnimationFinished = true;
 	}
 	else if (!InRangePlayer(m_VisibleRange, m_EnemyDirection))
 	{	//追跡範囲外に出た
-		m_AnimationState = AnimationState::Patrol;
+		m_AnimationState = AnimationState::LookAround;	//見回しへ
 		m_AttackAnimationFinished = true;
 	}
 }
@@ -377,11 +377,24 @@ void Enemy::UpdateFind()
 {
 	//発見アニメーション再生
 
+	m_AnimationState = AnimationState::Chase;		//追跡へ
+	m_AttackAnimationFinished = true;
 }
 
 void Enemy::UpdateLookAround()
 {
 	//見回しアニメーション再生
+
+	if (!InRangePlayer(m_AttackRange, m_EnemyDirection) && InRangePlayer(m_VisibleRange, m_EnemyDirection))
+	{	//攻撃範囲外に出て追跡範囲内に入った
+		m_AnimationState = AnimationState::Chase;		//追跡へ
+		m_AttackAnimationFinished = true;
+	}
+	else if (!InRangePlayer(m_VisibleRange, m_EnemyDirection))
+	{	//追跡範囲外に出た
+		m_AnimationState = AnimationState::LookAround;	//巡回へ
+		m_AttackAnimationFinished = true;
+	}
 
 }
 
