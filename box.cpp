@@ -38,13 +38,10 @@ void Box::Init()
 	vertex[3].TexCoord = XMFLOAT2(1.0f, 1.0f);
 
 	//初期位置設定
-	m_FirstPos = Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.front();
+	m_Position = Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.front();
 
 	//大きさ設定
 	m_Scale = Vector2(MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
-
-	//最初にも一度座標更新
-	m_Position = m_FirstPos + Manager::GetScene()->GetGameObject<Camera>()->GetPosition();
 
 	D3D11_BUFFER_DESC bd{};
 	bd.Usage = D3D11_USAGE_DEFAULT;
@@ -57,12 +54,7 @@ void Box::Init()
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	TexMetadata metadata;
-	ScratchImage image;
-	LoadFromWICFile(L"asset\\texture\\tile.png", WIC_FLAGS_NONE, &metadata, image);
-	CreateShaderResourceView(Renderer::GetDevice(), image.GetImages(),
-		image.GetImageCount(), metadata, &m_Texture);
-	assert(m_Texture);
+	m_Texture = Texture::Load("asset\\texture\\tile.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -80,17 +72,29 @@ void Box::Uninit()
 	m_PixelShader->Release();
 }
 
-void Box::Update()
+void Box::Update(const std::list<Enemy*>& enemies)
 {
-	//座標更新
-	m_Position = m_FirstPos - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+	//プレイヤーのボックス当たり判定
+	Vector2 playerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
+	Vector2 playerScale = Manager::GetScene()->GetGameObject<Player>()->GetScale();
+	Manager::GetScene()->GetGameObject<Player>()->BoxCollision(playerPos, playerScale, m_Position, m_Scale);
 
-	Manager::GetScene()->GetGameObject<Player>()->BoxCollision(m_Position, m_Scale);
-	Manager::GetScene()->GetGameObject<Enemy>()->BoxCollision(m_Position, m_Scale);
+	//敵のボックス当たり判定
+	for (auto enemy : enemies)
+	{
+		Vector2 enemyPos = enemy->GetPosition();
+		Vector2 enemyScale = enemy->GetScale();
+		enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
+	}
+
 }
 
 void Box::Draw()
 {
+	//描画位置更新
+	m_DrawPosition = 
+		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
@@ -102,7 +106,7 @@ void Box::Draw()
 	XMMATRIX world, scale, rot, trans;
 	scale = XMMatrixScaling(1.0f, 1.0f, 1.0f);
 	rot = XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);
-	trans = XMMatrixTranslation(m_Position.x, m_Position.y, 0.0f);
+	trans = XMMatrixTranslation(m_DrawPosition.x, m_DrawPosition.y, 0.0f);
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(world);

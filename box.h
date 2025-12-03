@@ -1,5 +1,6 @@
 #pragma once
 #include "gameObject.h"
+#include "enemy.h"
 #include <d3d11.h>
 
 class Box : public GameObject
@@ -19,10 +20,7 @@ private:
 public:
 	void Init();
 	void Uninit();
-	void Update();
+	void Update(const std::list<Enemy*>& enemies);
 	void Draw();
-
-	void SetPosition(Vector2 position) { m_Position = position; }
-	Vector2 GetPosition() { return m_Position; }
 
 };

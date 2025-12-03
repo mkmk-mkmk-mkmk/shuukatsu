@@ -55,43 +55,7 @@ public:
 
 	void PlayerMove();	//プレイヤー移動処理
 
-	bool EnemyCollision(const Vector2& enemyPosition, float enemyWidth, float enemyHeight);
+	void BoxCollisionExtra(Vector2 boxPos, Vector2 boxScale) override;
 
-protected:
-
-	void BoxCollisionExtraStep(Vector2 boxPos, Vector2 boxScale) override
-	{
-		//衝突判定
-		if (m_Position.x + m_Scale.x * 0.5f > boxPos.x - boxScale.x * 0.5f &&
-			m_Position.x - m_Scale.x * 0.5f < boxPos.x + boxScale.x * 0.5f &&
-			m_Position.y + m_Scale.x * 0.5f > boxPos.y - boxScale.y * 0.5f &&
-			m_Position.y - m_Scale.x * 0.5f < boxPos.y + boxScale.y * 0.5f)
-		{
-
-			if (m_Position.y < boxPos.y	//ボックスの上に乗っている場合
-				&& m_Position.x >= boxPos.x - boxScale.x * 0.5f && m_Position.x <= boxPos.x + boxScale.x * 0.5f)
-			{
-				m_Position.y = boxPos.y - boxScale.y * 0.5f - m_Scale.y * 0.5f; //位置をボックスの上に調整
-				m_OnGround = true;
-				m_Vector.y = 0.0f; //落下速度リセット
-			}
-			else if (m_Position.y > boxPos.y	//ボックスの下にいる場合
-				&& m_Position.x >= boxPos.x - boxScale.x * 0.5f && m_Position.x <= boxPos.x + boxScale.x * 0.5f)
-			{
-				m_Position.y = boxPos.y + boxScale.y * 0.5f + m_Scale.y * 0.5f; //位置をボックスの下に調整
-				m_Vector.y = 0.0f; //落下速度リセット
-			}
-			else if (m_Position.x < boxPos.x	//ボックスの左にいる場合
-				&& m_Position.y >= boxPos.y - boxScale.y * 0.5f && m_Position.y <= boxPos.y + boxScale.y * 0.5f)
-			{
-				m_Position.x = boxPos.x - boxScale.x * 0.5f - m_Scale.x * 0.5f; //位置をボックスの左に調整
-			}
-			else if (m_Position.x > boxPos.x	//ボックスの右にいる場合
-				&& m_Position.y >= boxPos.y - boxScale.y * 0.5f && m_Position.y <= boxPos.y + boxScale.y * 0.5f)
-			{
-				m_Position.x = boxPos.x + boxScale.x * 0.5f + m_Scale.x * 0.5f; //位置をボックスの右に調整
-			}
-		}
-	}
 
 };

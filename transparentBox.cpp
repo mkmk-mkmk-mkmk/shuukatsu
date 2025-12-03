@@ -65,10 +65,10 @@ void TransparentBox::Uninit()
 
 void TransparentBox::Update()
 {
-	//座標更新
-	m_Position = m_FirstPos - Manager::GetScene()->GetGameObject<Camera>()->GetPosition();
+	////座標更新
+	//m_Position = m_FirstPos - Manager::GetScene()->GetGameObject<Camera>()->GetPosition();
 
-	Manager::GetScene()->GetGameObject<Player>()->BoxCollision(m_Position, m_Scale);
+	//Manager::GetScene()->GetGameObject<Player>()->BoxCollision(m_Position, m_Scale);
 }
 
 void TransparentBox::Draw()

@@ -1,8 +1,9 @@
 #pragma once
 
-#include<list>
-#include<vector>
-#include"gameObject.h"
+#include <list>
+#include <vector>
+#include "gameObject.h"
+#include "enemy.h"
 
 class Scene
 {
@@ -41,7 +42,7 @@ public:
 	}
 
 	template <typename T>
-	std::vector<T*>GetGameObjects()
+	std::vector<T*> GetGameObjects()
 	{
 		std::vector<T*> finds;
 		for (int i = 0; i < 10; i++)

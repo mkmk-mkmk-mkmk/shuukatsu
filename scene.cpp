@@ -4,6 +4,8 @@
 #include "scene.h"
 
 #include "map.h"
+#include "box.h"
+#include "enemy.h"
 //#include "camera.h"
 //#include "fade.h"
 
@@ -31,19 +33,41 @@ void Scene::Update()
 {
 	for (int i = 0; i < 10; i++)
 	{
-		for (auto gameObject : m_GameObject[i])
+		auto& list = m_GameObject[i];
+		for (auto it = list.begin(); it != list.end(); )
 		{
-			gameObject->Update();
-		}
-	}
+			GameObject* obj = *it;
+			obj->Update();
 
-	for (int i = 0; i < 10; i++)
-	{
-		//ラムダ式
-		m_GameObject[i].remove_if([](GameObject* object)
+			//BoxのUpdate
+			if (Box* box = dynamic_cast<Box*>(obj))
 			{
-				return object->Destroy();
-			});
+				//enemyのリストが必要なので作る
+				std::list<Enemy*> enemies;
+				for (int j = 0; j < 10; j++)
+				{
+					for (auto enemyObj : m_GameObject[j])
+					{
+						if (Enemy* enemy = dynamic_cast<Enemy*>(enemyObj))
+						{
+							enemies.push_back(enemy);
+						}
+					}
+				}
+
+				box->Update(enemies);
+			}
+
+			if (obj->Destroy())
+			{
+				delete obj;
+				it = list.erase(it);	//ここでeraseした次のイテレータを返してる
+			}
+			else
+			{
+				it++;
+			}
+		}
 	}
 
 }

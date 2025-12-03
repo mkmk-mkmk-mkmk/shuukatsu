@@ -18,13 +18,29 @@
 
 Random random;
 
-void Enemy::Init()
+void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
 {
 	//敵キャラスタート位置
 	m_Position = Vector2(screenWidth * 0.75f, screenHeight * 0.5f);
+	//m_Position = pos;
 
 	//敵キャラの大きさ
 	m_Scale = { 100.0f, 100.0f };
+	//m_Scale = scale;
+
+	////敵のタイプ（地上or空中）
+	//if (enemyType == 0)
+	//{
+	//	EnemyType::Ground;
+	//}
+	//else if (enemyType == 1)
+	//{
+	//	EnemyType::Flying;
+	//}
+
+	//乱数を初期化しておく
+	//m_Random = random.RandomInt(0, 2);
+	m_Random = 2;
 
 	VERTEX_3D vertex[4];
 
@@ -104,31 +120,19 @@ void Enemy::Uninit()
 
 void Enemy::Update()
 {
-	if (m_HitSideBoxPos.size() == 1)
+	if (m_HitSideBoxPos.size() > 0)
 	{
 		CheckStairs();
 	}
 
-	//座標更新
-	m_DrawPosition = m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
-
 	//プレイヤーの位置取得
 	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
-
-	//重力を適用
-	if (!m_OnGround)
-	{
-		m_Vector.y += m_Gravity;
-	}
-
-	//位置更新
-	m_Position += m_Vector;
 
 	// ツリー実行
 	if (m_RootNode)
 	{
 		//発見・見回しアニメーション中はツリーを止める
-		if (m_AnimationState != AnimationState::FindPlayer && m_AnimationState != AnimationState::LookAround)
+		//if (m_AnimationState != AnimationState::FindPlayer && m_AnimationState != AnimationState::LookAround)
 		{
 			m_RootNode->Tick();
 		}
@@ -156,11 +160,29 @@ void Enemy::Update()
 		break;
 	}
 
+	//左右に力が働いている場合、重力を適用させる
+	if (m_Vector.x != 0.0f)
+	{
+		m_OnGround = false;
+	}
+
+	//重力を適用
+	if (!m_OnGround)
+	{
+		m_Vector.y += m_Gravity;
+	}
+
+	//位置更新
+	m_Position += m_Vector;
 
 }
 
 void Enemy::Draw()
 {
+	//描画位置更新
+	m_DrawPosition =
+		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
@@ -198,27 +220,26 @@ void Enemy::Draw()
 bool Enemy::InRangePlayer(Vector2 range, bool direction) //directionがtrueなら右方向、falseなら左方向
 {
 	//範囲内にプレイヤーがいるかどうかの判定処理
-	Vector2 m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
+	float dx = m_PlayerPos.x - m_Position.x;
+	float dy = modulus(m_PlayerPos.y - m_Position.y);	//y軸のみ絶対値を使う
+
+	if (dy > range.y)
+	{
+		return false;
+	}
+
 	if (direction) //右方向
 	{
-		if (m_PlayerPos.x >= m_DrawPosition.x && m_PlayerPos.x <= m_DrawPosition.x + range.x)
+		if (dx <= range.x && dx >= 0)
 		{
-			//Y軸の判定
-			if (m_PlayerPos.y >= m_DrawPosition.y - range.y && m_PlayerPos.y <= m_DrawPosition.y + range.y)
-			{
-				return true;
-			}
+			return true;
 		}
 	}
 	else //左方向
 	{
-		if (m_PlayerPos.x <= m_DrawPosition.x && m_PlayerPos.x >= m_DrawPosition.x - range.x)
+		if (dx >= -range.x && dx <= 0)
 		{
-			//Y軸の判定
-			if (m_PlayerPos.y >= m_DrawPosition.y - range.y && m_PlayerPos.y <= m_DrawPosition.y + range.y)
-			{
-				return true;
-			}
+			return true;
 		}
 	}
 
@@ -231,8 +252,8 @@ NodeStatus Enemy::Patrol() //徘徊中
 	if (!m_PatrolAnimationStarted)
 	{
 		m_AnimationState = AnimationState::Patrol;
+		m_Texture = Texture::Load("asset\\texture\\patrol.png");
 		m_PatrolAnimationStarted = true;
-		m_PatrolAnimationFinished = false;
 		return NodeStatus::Running;
 	}
 
@@ -241,8 +262,10 @@ NodeStatus Enemy::Patrol() //徘徊中
 		m_PatrolAnimationStarted = false;
 		return NodeStatus::Success;
 	}
-
-	return NodeStatus::Running;
+	else
+	{
+		return NodeStatus::Running;
+	}
 }
 
 NodeStatus Enemy::Chase() //プレイヤーに向かって移動中
@@ -250,6 +273,7 @@ NodeStatus Enemy::Chase() //プレイヤーに向かって移動中
 	if (!m_ChaseAnimationStarted)
 	{
 		m_AnimationState = AnimationState::Chase;
+		m_Texture = Texture::Load("asset\\texture\\chase.png");
 		m_ChaseAnimationStarted = true;
 		m_ChaseAnimationFinished = false;
 		return NodeStatus::Running;
@@ -260,8 +284,10 @@ NodeStatus Enemy::Chase() //プレイヤーに向かって移動中
 		m_ChaseAnimationStarted = false;
 		return NodeStatus::Success;
 	}
-
-	return NodeStatus::Running;
+	else
+	{
+		return NodeStatus::Running;
+	}
 }
 
 NodeStatus Enemy::Attack() //攻撃
@@ -269,6 +295,7 @@ NodeStatus Enemy::Attack() //攻撃
 	if (!m_AttackAnimationStarted)
 	{
 		m_AnimationState = AnimationState::Attack;
+		m_Texture = Texture::Load("asset\\texture\\attack.png");
 		m_AttackAnimationStarted = true;
 		m_AttackAnimationFinished = false;
 		return NodeStatus::Running;
@@ -279,8 +306,10 @@ NodeStatus Enemy::Attack() //攻撃
 		m_AttackAnimationStarted = false;
 		return NodeStatus::Success;
 	}
-
-	return NodeStatus::Running;
+	else
+	{
+		return NodeStatus::Running;
+	}
 }
 
 NodeStatus Enemy::OnlyAnimation() //アニメーションのみ再生
@@ -291,10 +320,9 @@ NodeStatus Enemy::OnlyAnimation() //アニメーションのみ再生
 void Enemy::UpdatePatrol()
 {
 	//徘徊処理
-	m_Texture = Texture::Load("asset\\texture\\patrol.png");
 
 	m_Frame++;
-	if (m_Frame > 120)
+	if (m_Frame > 150)
 	{
 		switch (m_Random)
 		{
@@ -302,23 +330,23 @@ void Enemy::UpdatePatrol()
 			m_Vector.x = m_Speed;
 			m_Random = 2;
 			m_EnemyDirection = true;
+			m_Frame = 0;
+
 			break;
 		case 1: //左移動
 			m_Vector.x = -m_Speed;
 			m_Random = 2;
 			m_EnemyDirection = false;
+			m_Frame = 0;
+
 			break;
 		case 2: //停止
 			m_Vector.x = 0.0f;
 			m_Random = random.RandomInt(0, 1);
+			m_Frame = 90;
+
 			break;
 		}
-		m_Frame = 0;
-	}
-
-	if (m_Vector.x != 0.0f)
-	{
-		m_OnGround = false;
 	}
 
 	if (InRangePlayer(m_AttackRange, m_EnemyDirection))
@@ -336,7 +364,6 @@ void Enemy::UpdatePatrol()
 void Enemy::UpdateChase()
 {
 	//追跡処理
-	m_Texture = Texture::Load("asset\\texture\\chase.png");
 
 	m_Vector.x = m_EnemyDirection ? m_Speed : -m_Speed; //敵の向きに応じて移動
 	m_OnGround = false;
@@ -357,7 +384,6 @@ void Enemy::UpdateChase()
 void Enemy::UpdateAttack()
 {
 	//攻撃処理
-	m_Texture = Texture::Load("asset\\texture\\attack.png");
 
 	m_Vector.x = 0.0f; //攻撃中は移動しない
 
@@ -378,43 +404,87 @@ void Enemy::UpdateFind()
 	//発見アニメーション再生
 
 	m_AnimationState = AnimationState::Chase;		//追跡へ
-	m_AttackAnimationFinished = true;
+	m_ChaseAnimationStarted = false;
 }
 
 void Enemy::UpdateLookAround()
 {
 	//見回しアニメーション再生
 
-	if (!InRangePlayer(m_AttackRange, m_EnemyDirection) && InRangePlayer(m_VisibleRange, m_EnemyDirection))
-	{	//攻撃範囲外に出て追跡範囲内に入った
-		m_AnimationState = AnimationState::Chase;		//追跡へ
-		m_AttackAnimationFinished = true;
+	m_AnimationState = AnimationState::Patrol;		//巡回へ
+	m_PatrolAnimationStarted = false;
+}
+
+void Enemy::BoxCollisionExtra(Vector2 boxPos, Vector2 boxScale)
+{
+
+	if (m_Position.y < boxPos.y	//ボックスの上に乗っている場合
+		&& m_Position.x + m_Scale.x * 0.25f >= boxPos.x - boxScale.x * 0.5f
+		&& m_Position.x - m_Scale.x * 0.25f <= boxPos.x + boxScale.x * 0.5f)
+	{
+		m_Position.y = boxPos.y - boxScale.y * 0.5f - m_Scale.y * 0.5f; //位置をボックスの上に調整
+		m_OnGround = true;
+		m_Vector.y = 0.0f; //落下速度リセット
 	}
-	else if (!InRangePlayer(m_VisibleRange, m_EnemyDirection))
-	{	//追跡範囲外に出た
-		m_AnimationState = AnimationState::LookAround;	//巡回へ
-		m_AttackAnimationFinished = true;
+	else if (m_Position.y > boxPos.y	//ボックスの下にいる場合
+		&& m_Position.x + m_Scale.x * 0.25f >= boxPos.x - boxScale.x * 0.5f
+		&& m_Position.x - m_Scale.x * 0.25f <= boxPos.x + boxScale.x * 0.5f)
+	{
+		m_Position.y = boxPos.y + boxScale.y * 0.5f + m_Scale.y * 0.5f; //位置をボックスの下に調整
+
+		if (m_Vector.y < 0)
+		{
+			m_Vector.y = 0.0f; //落下速度リセット
+		}
+	}
+	else if (m_Position.x < boxPos.x	//ボックスの左にいる場合
+		&& m_Position.y + m_Scale.y * 0.25f >= boxPos.y - boxScale.y * 0.5f
+		&& m_Position.y - m_Scale.y * 0.25f <= boxPos.y + boxScale.y * 0.5f)
+	{
+		m_Position.x = boxPos.x - boxScale.x * 0.5f - m_Scale.x * 0.5f; //位置をボックスの左に調整
+
+		m_HitSideBoxPos.push_back(boxPos); //当たっている箱の位置を保存
+	}
+	else if (m_Position.x > boxPos.x	//ボックスの右にいる場合
+		&& m_Position.y + m_Scale.y * 0.25f >= boxPos.y - boxScale.y * 0.5f
+		&& m_Position.y - m_Scale.y * 0.25f <= boxPos.y + boxScale.y * 0.5f)
+	{
+		m_Position.x = boxPos.x + boxScale.x * 0.5f + m_Scale.x * 0.5f; //位置をボックスの右に調整
+
+		m_HitSideBoxPos.push_back(boxPos); //当たっている箱の位置を保存
 	}
 
 }
 
 void Enemy::CheckStairs()
 {
-	//当たっている箱の位置的に登れないなら即リターン
+	m_JumpStairs = true;
+
+	//側面で当たっているboxの数だけループ
 	for (int i = 0; i < m_HitSideBoxPos.size(); i++)
 	{
-		if (m_DrawPosition.y < m_HitSideBoxPos.front().y - MAPCHIP_HEIGHT * 0.5f)
+		//体の半分より上に箱がある場合は飛べない
+		if (m_Position.y > m_HitSideBoxPos.front().y - MAPCHIP_HEIGHT * 0.5f)
 		{
-			m_HitSideBoxPos.clear();
-			return;
+			m_JumpStairs = false;
+
+			//ずっと壁に直進しないようにする
+			if (m_Position.x < m_HitSideBoxPos.front().x)	//ボックスの左にいる
+			{
+				m_Random = 1;
+			}
+			else											//ボックスの右にいる
+			{
+				m_Random = 0;
+			}
 		}
 		m_HitSideBoxPos.pop_front();
 	}
 
 	//階段上り処理
-	if (m_OnGround)
+	if (m_OnGround && m_JumpStairs)
 	{
-		m_Vector.y = -m_JumpPower; //上に移動
+		m_Vector.y += -m_JumpPower; //上に移動
 		m_OnGround = false;
 	}
 

@@ -13,9 +13,7 @@
 void Player::Init()
 {
 	//プレイヤースタート位置
-	SetPlayerPosition(Vector2(screenWidth * 0.5f + MAPCHIP_WIDTH, screenHeight * 0.5f));
-	//SetPlayerPosition(Vector2(4 * MAPCHIP_WIDTH - m_Scale * 0.5f,
-	//	(Manager::GetScene()->GetGameObject<Map>()->GetBlockHeight() * 0.5f) * MAPCHIP_HEIGHT - (m_Scale * 0.5f))); //* 0.75fが丁度いいのは謎
+	SetPosition(Vector2(screenWidth * 0.5f, screenHeight * 0.5f));
 
 	//スケール設定
 	m_Scale = { 100.0f,100.0f };
@@ -120,6 +118,7 @@ void Player::Update()
 		{
 			m_Vector.y += m_Gravity;
 		}
+
 		break;
 	}
 	case PlayerState::GettingTrail:	//軌跡取得中
@@ -172,71 +171,17 @@ void Player::Update()
 	}}
 	
 
-	//プレイヤーを移動（見せかけも含む）
-	//X軸
-	if (Manager::GetScene()->GetGameObject<Camera>()->GetCameraCenterPosition().x < screenWidth * 0.5f + MAPCHIP_WIDTH * 1.5f)
-	{ //画面左端で移動しようとしたとき
-		m_Position.x += m_Vector.x; //画面内でプレイヤーが移動
-
-		if (m_Position.x > screenWidth * 0.5f && m_Vector.x > 0.0f) //右移動で条件が変わる際の補正
-		{
-			Manager::GetScene()->GetGameObject<Camera>()->SetCameraCenterPositionX(screenWidth * 0.5f + MAPCHIP_WIDTH * 1.5f);
-		}
-
-	}
-	else if (Manager::GetScene()->GetGameObject<Camera>()->GetCameraCenterPosition().x >
-		MAPCHIP_WIDTH * Manager::GetScene()->GetGameObject<Map>()->GetBlockWidth() - screenWidth * 0.5f -  MAPCHIP_WIDTH * 1.5f)
-	{ //画面右端で移動しようとしたとき
-		m_Position.x += m_Vector.x; //画面内でプレイヤーが移動
-
-		float a = Manager::GetScene()->GetGameObject<Camera>()->GetCameraCenterPosition().x;
-
-		if (m_Position.x < screenWidth * 0.5f
-			&& m_Vector.x < 0.0f) //左移動で条件が変わる際の補正
-		{
-			Manager::GetScene()->GetGameObject<Camera>()->SetCameraCenterPositionX
-			(MAPCHIP_WIDTH * Manager::GetScene()->GetGameObject<Map>()->GetBlockWidth() - screenWidth * 0.5f - MAPCHIP_WIDTH * 1.5f);
-		}
-	}
-	else
-	{
-		//カメラ移動
-		Manager::GetScene()->GetGameObject<Camera>()->AddCameraCenterPositionX(m_Vector.x);
-	}
-
-	//Y軸
-	if (Manager::GetScene()->GetGameObject<Camera>()->GetCameraCenterPosition().y < screenHeight * 0.5f + MAPCHIP_HEIGHT * 1.5f)
-	{ //画面上端で移動しようとしたとき
-		m_Position.y += m_Vector.y; //画面内でプレイヤーが上に移動
-
-		if (m_Position.y > screenHeight * 0.5f && m_Vector.y > 0.0f) //下移動で条件が変わる際の補正
-		{
-			Manager::GetScene()->GetGameObject<Camera>()->SetCameraCenterPositionY(screenHeight * 0.5f + MAPCHIP_WIDTH * 1.5f);
-		}
-	}
-	else if (Manager::GetScene()->GetGameObject<Camera>()->GetCameraCenterPosition().y >
-		(MAPCHIP_HEIGHT * Manager::GetScene()->GetGameObject<Map>()->GetBlockHeight() - screenHeight * 0.65f) - (MAPCHIP_HEIGHT * 1.5f))
-	{ //画面下端で移動しようとしたとき
-		m_Position.y += m_Vector.y; //画面内でプレイヤーが下に移動
-
-		if (m_Position.y < screenHeight * 0.5f
-			&& m_Vector.y < 0.0f) //上移動で条件が変わる際の補正
-		{
-			Manager::GetScene()->GetGameObject<Camera>()->SetCameraCenterPositionY
-			(MAPCHIP_HEIGHT * Manager::GetScene()->GetGameObject<Map>()->GetBlockHeight() - screenHeight * 0.65f - MAPCHIP_HEIGHT * 1.5f);
-		}
-
-	}
-	else
-	{
-		//カメラ移動
-		Manager::GetScene()->GetGameObject<Camera>()->AddCameraCenterPositionY(m_Vector.y);
-	}
-
+	//ワールド座標更新
+	m_Position += m_Vector;
+	
 }
 
 void Player::Draw()
 {
+	//描画位置更新
+	m_DrawPosition =
+		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
@@ -248,7 +193,7 @@ void Player::Draw()
 	XMMATRIX world, scale, rot, trans;
 	scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
 	rot = XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);
-	trans = XMMatrixTranslation(m_Position.x, m_Position.y, 0.0f);
+	trans = XMMatrixTranslation(m_DrawPosition.x, m_DrawPosition.y, 0.0f);
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(world);
@@ -303,16 +248,38 @@ void Player::PlayerMove()
 
 }
 
-//敵との当たり判定
-bool Player::EnemyCollision(const Vector2& enemyPosition, float enemyWidth, float enemyHeight)
+void Player::BoxCollisionExtra(Vector2 boxPos, Vector2 boxScale)
 {
-	//衝突判定
-	if (m_Position.x + m_Scale.x * 0.5f > enemyPosition.x - enemyWidth * 0.5f &&
-		m_Position.x - m_Scale.x * 0.5f < enemyPosition.x + enemyWidth * 0.5f &&
-		m_Position.y + m_Scale.y * 0.5f > enemyPosition.y - enemyHeight * 0.5f &&
-		m_Position.y - m_Scale.y * 0.5f < enemyPosition.y + enemyHeight * 0.5f)
+	if (m_Position.y < boxPos.y	//ボックスの上に乗っている場合
+		&& m_Position.x + m_Scale.x * 0.25f >= boxPos.x - boxScale.x * 0.5f 
+		&& m_Position.x - m_Scale.x * 0.25f <= boxPos.x + boxScale.x * 0.5f)
 	{
-		return true;
+		m_Position.y = boxPos.y - boxScale.y * 0.5f - m_Scale.y * 0.5f; //位置をボックスの上に調整
+		m_OnGround = true;
+		m_Vector.y = 0.0f; //落下速度リセット
 	}
-	return false;
+	else if (m_Position.y > boxPos.y	//ボックスの下にいる場合
+		&& m_Position.x + m_Scale.x * 0.25f >= boxPos.x - boxScale.x * 0.5f
+		&& m_Position.x - m_Scale.x * 0.25f <= boxPos.x + boxScale.x * 0.5f)
+	{
+		m_Position.y = boxPos.y + boxScale.y * 0.5f + m_Scale.y * 0.5f; //位置をボックスの下に調整
+		
+		if (m_Vector.y < 0)
+		{
+			m_Vector.y = 0.0f; //落下速度リセット
+		}
+	}
+	else if (m_Position.x < boxPos.x	//ボックスの左にいる場合
+		&& m_Position.y + m_Scale.y * 0.25f >= boxPos.y - boxScale.y * 0.5f 
+		&& m_Position.y - m_Scale.y * 0.25f <= boxPos.y + boxScale.y * 0.5f)
+	{
+		m_Position.x = boxPos.x - boxScale.x * 0.5f - m_Scale.x * 0.5f; //位置をボックスの左に調整
+	}
+	else if (m_Position.x > boxPos.x	//ボックスの右にいる場合
+		&& m_Position.y + m_Scale.y * 0.25f >= boxPos.y - boxScale.y * 0.5f
+		&& m_Position.y - m_Scale.y * 0.25f <= boxPos.y + boxScale.y * 0.5f)
+	{
+		m_Position.x = boxPos.x + boxScale.x * 0.5f + m_Scale.x * 0.5f; //位置をボックスの右に調整
+	}
 }
+

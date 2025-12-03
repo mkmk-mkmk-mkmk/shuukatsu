@@ -38,3 +38,10 @@ HWND GetWindow();
 
 void Invoke(std::function<void()> Function, int Time);
 
+/*
+
+	命名規則について
+	ファイル名：
+
+
+*/
