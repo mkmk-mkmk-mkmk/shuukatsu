@@ -52,12 +52,7 @@ void Player::Init()
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	TexMetadata metadata;
-	ScratchImage image;
-	LoadFromWICFile(L"asset\\texture\\roboR1_Green.png", WIC_FLAGS_NONE, &metadata, image);
-	CreateShaderResourceView(Renderer::GetDevice(), image.GetImages(),
-		image.GetImageCount(), metadata, &m_Texture);
-	assert(m_Texture);
+	m_Texture = Texture::Load("asset\\texture\\roboR1_Green.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
