@@ -3,6 +3,8 @@
 #include "renderer.h"
 #include"input.h"
 #include "game.h"
+#include "title.h"
+
 #include "cursor.h"
 #include "polygon.h"
 #include "player.h"
@@ -23,20 +25,14 @@ void Manager::Init()
 	Renderer::Init();
 	Input::Init();	
 
-	m_Scene = new Game();
+	m_Scene = new Title();
 	m_Scene->Init();
 
-	//cursor.Init();
-	//polygon.Init();
-	//player.Init();
-}
+ }
 
 
 void Manager::Uninit()
 {
-	//player.Uninit();
-	//polygon.Uninit();
-	//cursor.Uninit();
 	m_Scene->Uninit();
 
 	Input::Uninit();
@@ -47,11 +43,19 @@ void Manager::Update()
 {
 	Input::Update();
 
-	m_Scene->Update();
+	if (m_NextScene == nullptr)
+	{
+		m_Scene->Update();
+	}
+	else
+	{
+		m_Scene->Uninit();
 
-	//cursor.Update();
-	//polygon.Update();
-	//player.Update();
+		m_Scene = m_NextScene;
+		m_NextScene = nullptr;
+
+		m_Scene->Init();
+	}
 }
 
 void Manager::Draw()
@@ -60,10 +64,6 @@ void Manager::Draw()
 
 	m_Scene->Draw();
 
-	//cursor.Draw();
-	//polygon.Draw();
-	//player.Draw();
-	//mapmanager.Draw();
 
 	Renderer::End();
 }
