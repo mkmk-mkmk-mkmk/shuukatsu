@@ -52,7 +52,7 @@ void Player::Init()
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	m_Texture = Texture::Load("asset\\texture\\roboR1_Green.png");
+	m_Texture = Texture::Load("asset\\texture\\roboR1_green.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -89,23 +89,22 @@ void Player::Update()
 			m_PlayerState = PlayerState::GettingTrail;
 		}
 
-		if (Input::GetKeyPress(VK_SPACE)) //スペースキーで移動開始
+		if (m_HaveTrail)
 		{
-			if (!m_HaveTrail)
+			if (Input::GetKeyPress(VK_SPACE)) //スペースキーで移動開始
 			{
-				return;
+				m_PlayerState = PlayerState::MoveTrail;
+
 			}
-			m_PlayerState = PlayerState::MoveTrail;
+			else if (Input::GetKeyPress('C') || Input::GetKeyPress('c')) //Cキーで軌跡クリア
+			{
+				m_TrailDiffList.clear();
+				m_HaveTrail = false;
+			}
+			else
+			{
 
-		}
-		else if (Input::GetKeyPress('C') || Input::GetKeyPress('c')) //Cキーで軌跡クリア
-		{
-			m_TrailDiffList.clear();
-			m_HaveTrail = false;
-		}
-		else
-		{
-
+			}
 		}
 
 		// 重力を適用
@@ -160,6 +159,7 @@ void Player::Update()
 			m_TrailDiffList.clear();
 
 			m_OnGround = false;
+			m_HaveTrail = false;
 			m_PlayerState = PlayerState::Normal;
 		}
 		break;
