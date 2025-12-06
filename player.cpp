@@ -13,7 +13,7 @@
 void Player::Init()
 {
 	//プレイヤースタート位置
-	SetPosition(Vector2(screenWidth * 0.5f, screenHeight * 0.5f));
+	SetPosition(Vector2(screenWidth * 0.5f + MAPCHIP_WIDTH * 1.5f, screenHeight * 0.5 + MAPCHIP_HEIGHT * 1.5f));
 
 	//スケール設定
 	m_Scale = { 100.0f,100.0f };

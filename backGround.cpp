@@ -3,18 +3,17 @@
 #include "Vector2.h"
 #include "texture.h"
 #include "cursor.h"
-#include "input.h"
 #include "scene.h"
 #include "manager.h"
 
-#include "box.h"
-#include "map.h"
-#include "player.h"
+#include "backGround.h"
 #include "camera.h"
-#include "enemy.h"
 
-void Box::Init()
+void BackGround::Init()
 {
+	m_Position = Vector2(screenWidth * 0.5f, screenHeight * 0.5f);
+	m_Scale = Vector2(screenWidth, screenHeight);
+
 	VERTEX_3D vertex[4];
 
 	vertex[0].Position = XMFLOAT3(-0.5f, -0.5f, 0.0f);
@@ -37,11 +36,6 @@ void Box::Init()
 	vertex[3].Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[3].TexCoord = XMFLOAT2(1.0f, 1.0f);
 
-	//初期位置設定
-	m_Position = Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.front();
-
-	//大きさ設定
-	m_Scale = Vector2(MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 	D3D11_BUFFER_DESC bd{};
 	bd.Usage = D3D11_USAGE_DEFAULT;
@@ -62,7 +56,7 @@ void Box::Init()
 
 }
 
-void Box::Uninit()
+void BackGround::Uninit()
 {
 	m_Texture->Release();
 
@@ -72,28 +66,16 @@ void Box::Uninit()
 	m_PixelShader->Release();
 }
 
-void Box::Update(const std::list<Enemy*>& enemies)
+void BackGround::Update()
 {
-	//プレイヤーのボックス当たり判定
-	Vector2 playerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
-	Vector2 playerScale = Manager::GetScene()->GetGameObject<Player>()->GetScale();
-	Manager::GetScene()->GetGameObject<Player>()->BoxCollision(playerPos, playerScale, m_Position, m_Scale);
-
-	//敵のボックス当たり判定
-	for (auto enemy : enemies)
-	{
-		Vector2 enemyPos = enemy->GetPosition();
-		Vector2 enemyScale = enemy->GetScale();
-		enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
-	}
 
 }
 
-void Box::Draw()
+void BackGround::Draw()
 {
-	//描画位置更新
-	m_DrawPosition = 
-		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+	////描画位置更新
+	//m_DrawPosition =
+	//	m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
@@ -106,7 +88,7 @@ void Box::Draw()
 	XMMATRIX world, scale, rot, trans;
 	scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
 	rot = XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);
-	trans = XMMatrixTranslation(m_DrawPosition.x, m_DrawPosition.y, 0.0f);
+	trans = XMMatrixTranslation(m_Position.x, m_Position.y, 0.0f);
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(world);

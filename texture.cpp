@@ -27,6 +27,7 @@ ID3D11ShaderResourceView* Texture::Load(const char* FileName)
 	assert(texture);
 
 	m_TexturePool[FileName] = texture;
+	m_TexturePool.erase(FileName);
 
 	return texture;
 

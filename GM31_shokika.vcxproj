@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="backGround.h" />
     <ClInclude Include="BehaviorTree\actionNode.h" />
     <ClInclude Include="BehaviorTree\behaviorNode.h" />
     <ClInclude Include="BehaviorTree\compositeNode.h" />
@@ -180,6 +181,7 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="backGround.cpp" />
     <ClCompile Include="box.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collision.cpp" />

@@ -48,10 +48,12 @@ public:
 	Vector2 GetPosition() { return m_Position; }
 	Vector2 GetRotation() { return m_Rotation; }
 	Vector2 GetScale(){ return m_Scale; }
+	Vector2 GetVector() { return m_Vector; }
 
 	void SetPosition(Vector2 Position) { m_Position = Position; }
 	void SetRotation(Vector2 Rotation) { m_Position = Rotation; }
 	void SetScale(Vector2 Scale) { m_Scale = Scale; }
+	void SetVector(Vector2 Vector) { m_Vector = Vector; }
 
 	//‹——£Žæ“¾
 	float GetDistance(Vector2 Position)
