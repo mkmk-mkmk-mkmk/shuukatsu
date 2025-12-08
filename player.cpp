@@ -213,6 +213,7 @@ void Player::Draw()
 
 void Player::PlayerMove()
 {
+
 	if (Input::GetKeyPress('W') || Input::GetKeyPress('w'))
 	{
 		//ƒWƒƒƒ“ƒv
@@ -239,6 +240,16 @@ void Player::PlayerMove()
 	{
 		m_Vector.x = m_Speed; //‰E‚ÉˆÚ“®
 		m_OnGround = false;
+	}
+
+	if (Input::GetKeyPress(VK_SHIFT))
+	{
+		m_Dash = true;
+		m_Vector.x *= 2.0f;
+	}
+	else
+	{
+		m_Dash = false;
 	}
 
 }

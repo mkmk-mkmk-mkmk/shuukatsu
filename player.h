@@ -26,6 +26,7 @@ private:
 	float m_Speed = 10.0f;			//プレイヤーの移動速度
 	float m_JumpPower = -12.0f;		//ジャンプ力
 	bool m_OnGround = false;		//地面に接地しているかどうか
+	bool m_Dash = false;
 
 	Vector2 m_ClickPos;
 

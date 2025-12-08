@@ -8,7 +8,7 @@
 #include "cursor.h"
 #include "polygon.h"
 #include "box.h"
-#include "transparentbox.h"
+#include "breakableBox.h"
 #include "map.h"
 #include "camera.h"
 #include "enemy.h"
@@ -32,7 +32,7 @@ void Game::Init()
 	//ゲームオブジェクトを追加するときはScene.cppとScene.hも編集すること
 
 	//マップの追加
-	AddGameObject<Map>(0)->Init();
+	AddGameObject<Map>(0)->Init(1);
 
 	//プレイヤーの追加
 	AddGameObject<Player>(1)->Init();
@@ -65,12 +65,12 @@ void Game::Init()
 	}
 
 	//透明箱の追加
-	int m_TransparentBoxCount = Manager::GetScene()->GetGameObject<Map>()->m_TransparentBoxPosList.size(); //透明箱の数を保存しておく
+	int m_BreakableBoxCount = Manager::GetScene()->GetGameObject<Map>()->m_BreakableBoxPosList.size(); //透明箱の数を保存しておく
 
-	for (int i = 0; i < m_TransparentBoxCount; i++)
+	for (int i = 0; i < m_BreakableBoxCount; i++)
 	{
-		AddGameObject<TransparentBox>(5)->Init();
-		Manager::GetScene()->GetGameObject<Map>()->m_TransparentBoxPosList.pop_front();
+		AddGameObject<BreakableBox>(5)->Init();
+		Manager::GetScene()->GetGameObject<Map>()->m_BreakableBoxPosList.pop_front();
 	}
 
 	//カーソルの追加

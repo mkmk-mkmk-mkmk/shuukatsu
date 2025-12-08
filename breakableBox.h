@@ -2,7 +2,7 @@
 #include "gameObject.h"
 #include <d3d11.h>
 
-class TransparentBox : public GameObject
+class BreakableBox : public GameObject
 {
 private:
 

@@ -14,10 +14,25 @@
 
 //int g_MapChipList[STAGEBLOCK_HEIGHT][STAGEBLOCK_WIDTH]; //マップチップ配列
 
-void Map::Init()
+void Map::Init(int maptype)
 {
 	//テキストファイル読み込み
-	std::ifstream load_file("map\\map1.txt");
+	std::ifstream load_file;
+	if (load_file.is_open()) load_file.close();
+	load_file.clear();
+
+	switch (maptype)
+	{
+	case 0:
+		load_file.open("map\\title.txt");
+		break;
+
+	case 1:
+		load_file.open("map\\map1.txt");
+		break;
+
+	}
+
 	std::string line;
 
 	//マップチップ配列ー＞テキストファイルに記載されている内容を読み込む
@@ -94,7 +109,7 @@ void Map::Init()
 			float position_y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
 
 			//リストに保存
-			m_TransparentBoxPosList.push_back(Vector2(position_x, position_y));
+			m_BreakableBoxPosList.push_back(Vector2(position_x, position_y));
 		}
 
 		

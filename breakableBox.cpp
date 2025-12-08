@@ -7,12 +7,12 @@
 #include "scene.h"
 #include "manager.h"
 
-#include "transparentBox.h"
+#include "breakableBox.h"
 #include "map.h"
 #include "player.h"
 #include "camera.h"
 
-void TransparentBox::Init()
+void BreakableBox::Init()
 {
 	VERTEX_3D vertex[4];
 
@@ -37,7 +37,7 @@ void TransparentBox::Init()
 	vertex[3].TexCoord = XMFLOAT2(1.0f, 1.0f);
 
 	//初期位置設定
-	m_FirstPos = Manager::GetScene()->GetGameObject<Map>()->m_TransparentBoxPosList.front();
+	m_FirstPos = Manager::GetScene()->GetGameObject<Map>()->m_BreakableBoxPosList.front();
 
 	//大きさ設定
 	m_Scale = Vector2(MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
@@ -58,12 +58,12 @@ void TransparentBox::Init()
 
 }
 
-void TransparentBox::Uninit()
+void BreakableBox::Uninit()
 {
 
 }
 
-void TransparentBox::Update()
+void BreakableBox::Update()
 {
 	////座標更新
 	//m_Position = m_FirstPos - Manager::GetScene()->GetGameObject<Camera>()->GetPosition();
@@ -71,7 +71,7 @@ void TransparentBox::Update()
 	//Manager::GetScene()->GetGameObject<Player>()->BoxCollision(m_Position, m_Scale);
 }
 
-void TransparentBox::Draw()
+void BreakableBox::Draw()
 {
 	//透明箱のため描画無し
 }

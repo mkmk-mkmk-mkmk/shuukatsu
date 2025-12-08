@@ -48,7 +48,7 @@ void BackGround::Init()
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	m_Texture = Texture::Load("asset\\texture\\tile.png");
+	m_Texture = Texture::Load("asset\\texture\\title.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
