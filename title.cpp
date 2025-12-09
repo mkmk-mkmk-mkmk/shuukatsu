@@ -35,6 +35,8 @@ void Title::Init()
 		Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.pop_front();
 	}
 
+	//ƒJ[ƒ\ƒ‹‚Ì’Ç‰Á
+	AddGameObject<Cursor>(4)->Init();
 }
 
 void Title::Uninit()
