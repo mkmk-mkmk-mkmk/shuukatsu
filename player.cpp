@@ -10,8 +10,13 @@
 #include "camera.h"
 #include "map.h"
 
+#include "gameOver.h"
+
 void Player::Init()
 {
+	//プレイヤーのライフ初期設定
+	m_Life = 100;
+
 	//プレイヤースタート位置
 	SetPosition(Vector2(screenWidth * 0.5f + MAPCHIP_WIDTH * 1.5f, screenHeight * 0.5 + MAPCHIP_HEIGHT * 1.5f));
 
@@ -72,6 +77,17 @@ void Player::Uninit()
 
 void Player::Update()
 {
+	//体力0以下でタイトルへ
+	if (m_Life <= 0)
+	{
+		Manager::SetScene<GameOver>();
+	}
+
+	if (Input::GetKeyPress('g') || Input::GetKeyPress('G'))
+	{
+		m_Life = 0;
+	}
+
 	m_OldPosition = m_Position;
 
 	m_Vector.x *= 0.5f; // 横移動リセット

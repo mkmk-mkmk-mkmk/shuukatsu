@@ -45,6 +45,7 @@ private:
 	CompositeNode* m_RootNode = nullptr;
 
 	AnimationState m_AnimationState;
+	AnimationState m_OldAnimationState;
 
 	Vector2 m_FirstPosition;		//初期座標
 	Vector2 m_DrawPosition;			//描画位置、m_Positionは実際の位置を保存してこっちはカメラとの相対位置
@@ -71,6 +72,8 @@ private:
 	bool m_ChaseAnimationFinished = false;		//追跡アニメーションが終了したかどうか
 	bool m_PatrolAnimationStarted = false;		//徘徊アニメーション開始したかどうか
 	bool m_PatrolAnimationFinished = false;		//徘徊アニメーションが終了したかどうか
+
+	bool m_StopTick = false;					//tickを止める（攻撃などのアニメーション再生中に使用）
 
 	int m_Random;	//乱数用
 

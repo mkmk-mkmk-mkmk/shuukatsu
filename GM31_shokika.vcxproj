@@ -152,6 +152,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="gameOver.h" />
     <ClInclude Include="GM31_shokika.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="main.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="save.h" />
     <ClInclude Include="scene.h" />
+    <ClInclude Include="stageClear.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="title.h" />
@@ -187,6 +189,7 @@
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="gameOver.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
@@ -202,6 +205,7 @@
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="save.cpp" />
     <ClCompile Include="scene.cpp" />
+    <ClCompile Include="stageClear.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="breakableBox.cpp" />

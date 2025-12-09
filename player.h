@@ -26,7 +26,7 @@ private:
 	float m_Speed = 10.0f;			//プレイヤーの移動速度
 	float m_JumpPower = -12.0f;		//ジャンプ力
 	bool m_OnGround = false;		//地面に接地しているかどうか
-	bool m_Dash = false;
+	bool m_Dash = false;			//ダッシュ中かどうか
 
 	Vector2 m_ClickPos;
 
@@ -43,18 +43,25 @@ public:
 	void Draw();
 
 	void SetPlayerPosition(Vector2 position) { m_Position = position; }
-
 	Vector2 GetPlayerPosition()
 	{
 		return m_Position;
 	}
 
+	void SetPlayerVector(Vector2 vector) { m_Vector = vector; }
 	Vector2 GetPlayerVector()
 	{
 		return m_Vector;
 	}
 
+	void AddPlayerLife(int add) { m_Life += add; }
+	int GetPlayerLife()
+	{
+		return m_Life;
+	}
+
 	void PlayerMove();	//プレイヤー移動処理
+
 
 	void BoxCollisionExtra(Vector2 boxPos, Vector2 boxScale) override;
 

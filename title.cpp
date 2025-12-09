@@ -35,7 +35,7 @@ void Title::Init()
 		Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.pop_front();
 	}
 
-	//カーソルの追加
+	//カーソルの取得
 	AddGameObject<Cursor>(4)->Init();
 }
 

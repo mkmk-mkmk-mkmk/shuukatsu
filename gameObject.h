@@ -12,6 +12,8 @@ protected:
 
 	bool m_Destroy = false;
 
+	int m_Life;
+
 	Vector2 m_Position{ 0.0f,0.0f };		//ワールド座標（判定などに使用）
 	Vector2 m_DrawPosition{ 0.0f, 0.0f };	//描画座標（描画のみに使用）
 	Vector2 m_OldPosition{ 0.0f, 0.0f };	//1フレーム前のワールド座標

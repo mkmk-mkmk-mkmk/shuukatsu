@@ -131,8 +131,8 @@ void Enemy::Update()
 	// ツリー実行
 	if (m_RootNode)
 	{
-		//発見・見回しアニメーション中はツリーを止める
-		//if (m_AnimationState != AnimationState::FindPlayer && m_AnimationState != AnimationState::LookAround)
+		//攻撃、発見、見回しなどのアニメーション中はツリーを止める
+		if (!m_StopTick)
 		{
 			m_RootNode->Tick();
 		}
@@ -249,67 +249,41 @@ bool Enemy::InRangePlayer(Vector2 range, bool direction) //directionがtrueなら右
 
 NodeStatus Enemy::Patrol() //徘徊中
 {
-	if (!m_PatrolAnimationStarted)
+	m_OldAnimationState = m_AnimationState;
+	m_AnimationState = AnimationState::Patrol;
+	if (m_AnimationState != m_OldAnimationState)
 	{
-		m_AnimationState = AnimationState::Patrol;
+		m_Frame = 0;
 		m_Texture = Texture::Load("asset\\texture\\patrol.png");
-		m_PatrolAnimationStarted = true;
-		return NodeStatus::Running;
 	}
+	return NodeStatus::Running;
 
-	if (m_PatrolAnimationFinished)
-	{
-		m_PatrolAnimationStarted = false;
-		return NodeStatus::Success;
-	}
-	else
-	{
-		return NodeStatus::Running;
-	}
 }
 
 NodeStatus Enemy::Chase() //プレイヤーに向かって移動中
 {
-	if (!m_ChaseAnimationStarted)
+	m_OldAnimationState = m_AnimationState;
+	m_AnimationState = AnimationState::Chase;
+	if (m_AnimationState != m_OldAnimationState)
 	{
-		m_AnimationState = AnimationState::Chase;
+		m_Frame = 0;
 		m_Texture = Texture::Load("asset\\texture\\chase.png");
-		m_ChaseAnimationStarted = true;
-		m_ChaseAnimationFinished = false;
-		return NodeStatus::Running;
 	}
+	return NodeStatus::Running;
 
-	if (m_ChaseAnimationFinished)
-	{
-		m_ChaseAnimationStarted = false;
-		return NodeStatus::Success;
-	}
-	else
-	{
-		return NodeStatus::Running;
-	}
 }
 
 NodeStatus Enemy::Attack() //攻撃
 {
-	if (!m_AttackAnimationStarted)
+	m_OldAnimationState = m_AnimationState;
+	m_AnimationState = AnimationState::Attack;
+	if (m_AnimationState != m_OldAnimationState)
 	{
-		m_AnimationState = AnimationState::Attack;
+		m_Frame = 0;
 		m_Texture = Texture::Load("asset\\texture\\attack.png");
-		m_AttackAnimationStarted = true;
-		m_AttackAnimationFinished = false;
-		return NodeStatus::Running;
 	}
+	return NodeStatus::Running;
 
-	if (m_AttackAnimationFinished)
-	{
-		m_AttackAnimationStarted = false;
-		return NodeStatus::Success;
-	}
-	else
-	{
-		return NodeStatus::Running;
-	}
 }
 
 NodeStatus Enemy::OnlyAnimation() //アニメーションのみ再生
@@ -348,17 +322,6 @@ void Enemy::UpdatePatrol()
 			break;
 		}
 	}
-
-	if (InRangePlayer(m_AttackRange, m_EnemyDirection))
-	{	//攻撃範囲内にプレイヤーが入った
-		m_AnimationState = AnimationState::Attack;		//攻撃へ
-		m_PatrolAnimationFinished = true;
-	}
-	else if (InRangePlayer(m_VisibleRange, m_EnemyDirection))
-	{	//追跡範囲内にプレイヤーが入った
-		m_AnimationState = AnimationState::FindPlayer;	//発見へ
-		m_PatrolAnimationFinished = true;
-	}
 }
 
 void Enemy::UpdateChase()
@@ -368,34 +331,29 @@ void Enemy::UpdateChase()
 	m_Vector.x = m_EnemyDirection ? m_Speed : -m_Speed; //敵の向きに応じて移動
 	m_OnGround = false;
 
-	if (InRangePlayer(m_AttackRange, m_EnemyDirection))
-	{	//攻撃範囲内にプレイヤーが入った
-		m_AnimationState = AnimationState::Attack;		//攻撃へ
-		m_ChaseAnimationFinished = true;
-	}
-	else if (!InRangePlayer(m_VisibleRange, m_EnemyDirection))
-	{	//追跡範囲外に出た
-		m_AnimationState = AnimationState::LookAround;	//見回しへ
-		m_ChaseAnimationFinished = true;
-	}
-	
 }
 
 void Enemy::UpdateAttack()
 {
+	//攻撃中は移動しない
+	m_Vector.x = 0.0f;
+
+	//攻撃アニメーション中はTickを止める
+	m_StopTick = true;
+
+	m_Frame++;
+
 	//攻撃処理
-
-	m_Vector.x = 0.0f; //攻撃中は移動しない
-
-	if (!InRangePlayer(m_AttackRange, m_EnemyDirection) && InRangePlayer(m_VisibleRange, m_EnemyDirection))
-	{	//攻撃範囲外に出て追跡範囲内に入った
-		m_AnimationState = AnimationState::Chase;		//追跡へ
+	if (m_Frame > 200)	//攻撃アニメーションを継続するか判定
+	{
 		m_AttackAnimationFinished = true;
+		m_StopTick = false;
+
+		m_Frame = 0;
 	}
-	else if (!InRangePlayer(m_VisibleRange, m_EnemyDirection))
-	{	//追跡範囲外に出た
-		m_AnimationState = AnimationState::LookAround;	//見回しへ
-		m_AttackAnimationFinished = true;
+	else if (m_Frame > 100)	//攻撃判定が発生するタイミング
+	{
+
 	}
 }
 

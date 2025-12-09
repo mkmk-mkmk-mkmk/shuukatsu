@@ -73,7 +73,7 @@ void Game::Init()
 		Manager::GetScene()->GetGameObject<Map>()->m_BreakableBoxPosList.pop_front();
 	}
 
-	//カーソルの追加
+	//カーソルの取得
 	AddGameObject<Cursor>(6)->Init();
 
 }
