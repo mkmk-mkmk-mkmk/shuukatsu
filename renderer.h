@@ -4,6 +4,7 @@
 struct VERTEX_2D
 {
 	XMFLOAT2 Position;
+	XMFLOAT4 Diffuse;
 	XMFLOAT2 TexCoord;
 };
 
