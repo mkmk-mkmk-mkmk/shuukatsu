@@ -84,8 +84,6 @@ public:
 	void Update();
 	void Draw();
 
-	bool InRangePlayer(Vector2 range, bool direction);
-
 	NodeStatus Patrol();
 	NodeStatus Chase();
 	NodeStatus Attack();

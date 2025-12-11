@@ -28,6 +28,10 @@ void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
 	m_Scale = { 100.0f, 100.0f };
 	//m_Scale = scale;
 
+	//プレイヤーの位置と大きさも取得
+	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
+	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetScale();
+
 	////敵のタイプ（地上or空中）
 	//if (enemyType == 0)
 	//{
@@ -87,8 +91,10 @@ void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
 
 	//攻撃
 	auto attackSeq = new SequenceNode();
-	attackSeq->AddChild(new ConditionNode([this] { return InRangePlayer(m_VisibleRange, m_EnemyDirection); }));
-	attackSeq->AddChild(new ConditionNode([this] { return InRangePlayer(m_AttackRange, m_EnemyDirection); }));
+	attackSeq->AddChild(new ConditionNode([this]
+		{ return InRangeObject(m_Position, m_PlayerPos, m_VisibleRange, m_EnemyDirection); }));
+	attackSeq->AddChild(new ConditionNode([this]
+		{ return InRangeObject(m_Position, m_PlayerPos, m_AttackRange, m_EnemyDirection); }));
 	attackSeq->AddChild(new ActionNode([this] { return Attack(); }));
 
 	//追跡
@@ -215,35 +221,6 @@ void Enemy::Draw()
 
 	Renderer::GetDeviceContext()->Draw(4, 0);
 
-}
-
-bool Enemy::InRangePlayer(Vector2 range, bool direction) //directionがtrueなら右方向、falseなら左方向
-{
-	//範囲内にプレイヤーがいるかどうかの判定処理
-	float dx = m_PlayerPos.x - m_Position.x;
-	float dy = modulus(m_PlayerPos.y - m_Position.y);	//y軸のみ絶対値を使う
-
-	if (dy > range.y)
-	{
-		return false;
-	}
-
-	if (direction) //右方向
-	{
-		if (dx <= range.x && dx >= 0)
-		{
-			return true;
-		}
-	}
-	else //左方向
-	{
-		if (dx >= -range.x && dx <= 0)
-		{
-			return true;
-		}
-	}
-
-	return false;
 }
 
 

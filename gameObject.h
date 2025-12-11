@@ -64,4 +64,33 @@ public:
 		return direction.length();
 	}
 
+	bool InRangeObject(Vector2 mainObjPos, Vector2 hitObjPos, Vector2 range, bool direction) //directionがtrueなら右方向、falseなら左方向
+	{
+		//範囲内にプレイヤーがいるかどうかの判定処理
+		float dx = hitObjPos.x - mainObjPos.x;
+		float dy = modulus(hitObjPos.y - mainObjPos.y);	//y軸のみ絶対値を使う
+
+		if (dy > range.y)
+		{
+			return false;
+		}
+
+		if (direction) //右方向
+		{
+			if (dx <= range.x && dx >= 0)
+			{
+				return true;
+			}
+		}
+		else //左方向
+		{
+			if (dx >= -range.x && dx <= 0)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 };
