@@ -50,12 +50,14 @@ public:
 	}
 
 	Vector2 GetPosition() { return m_Position; }
+	Vector2 GetDrawPosition() { return m_DrawPosition; }
 	Vector2 GetRotation() { return m_Rotation; }
 	Vector2 GetScale(){ return m_Scale; }
 	Vector2 GetVector() { return m_Vector; }
 	int GetLife() { return m_Life; }
 
 	void SetPosition(Vector2 Position) { m_Position = Position; }
+	void SetDrawPosition(Vector2 drawPosition) { m_DrawPosition = drawPosition; }
 	void SetRotation(Vector2 Rotation) { m_Position = Rotation; }
 	void SetScale(Vector2 Scale) { m_Scale = Scale; }
 	void SetVector(Vector2 Vector) { m_Vector = Vector; }

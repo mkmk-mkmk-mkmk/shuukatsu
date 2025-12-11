@@ -45,6 +45,10 @@ public:
 
 	void PlayerMove();	//ƒvƒŒƒCƒ„[ˆÚ“®ˆ—
 
+	bool GetMoveTrail()
+	{
+		return m_MoveTrail;
+	}
 
 	void BoxCollisionExtra(Vector2 boxPos, Vector2 boxScale) override;
 

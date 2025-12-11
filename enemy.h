@@ -73,9 +73,11 @@ private:
 	bool m_PatrolAnimationFinished = false;		//徘徊アニメーションが終了したかどうか
 
 	bool m_StopTick = false;		//tickを止める（攻撃などのアニメーション再生中に使用）
-	bool m_HitOnce = false;			//一度のattackで一回だけ当たり判定を発生させる
-	bool m_AttackHit = false;		//攻撃が当たったか
-	bool m_HitPlayerAttack = false; //プレイヤーの攻撃が当たったか
+	bool m_HitOnce = false;			//自分の攻撃が多段ヒットしないように
+	bool m_HitAttack = false;		//自分の攻撃が当たったか
+
+	bool m_HitPlayerAttackOnce = false;	//プレイヤーの攻撃が多段ヒットしないように
+	bool m_HitPlayerAttack = false;		//プレイヤーの攻撃が当たったか
 
 	int m_Random;	//乱数用
 

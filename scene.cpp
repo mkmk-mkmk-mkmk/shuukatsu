@@ -60,7 +60,6 @@ void Scene::Update()
 
 			if (obj->Destroy())
 			{
-				delete obj;
 				it = list.erase(it);	//ここでeraseした次のイテレータを返してる
 			}
 			else

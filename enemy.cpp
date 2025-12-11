@@ -28,6 +28,9 @@ void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
 	m_Scale = { 100.0f, 100.0f };
 	//m_Scale = scale;
 
+	//敵のHP
+	m_Life = 1;
+
 	//プレイヤーの位置と大きさも取得
 	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
 	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetScale();
@@ -183,10 +186,26 @@ void Enemy::Update()
 	//位置更新
 	m_Position += m_Vector;
 
-	//体力が0以下なら自身を消す
+	//プレイヤーの軌跡行動中に当たったらダメージ
 	m_HitPlayerAttack = Collision::BoxCollisionCommon(m_Position, m_Scale, m_PlayerPos, m_PlayerScale);
 
+	if (m_HitPlayerAttack && Manager::GetScene()->GetGameObject<Player>()->GetMoveTrail()
+		&& !m_HitPlayerAttackOnce)
+	{
+		AddLife(-1);
+		m_HitPlayerAttackOnce = true;
+	}
 
+	if (!Manager::GetScene()->GetGameObject<Player>()->GetMoveTrail())
+	{
+		m_HitPlayerAttackOnce = false;
+	}
+
+	//体力が0以下なら自身を消す
+	if (m_Life = 0 || m_Life < 0)
+	{
+ 		m_Destroy = true;
+	}
 }
 
 void Enemy::Draw()
@@ -331,18 +350,18 @@ void Enemy::UpdateAttack()
 	{
 		m_AttackAnimationFinished = true;
 		m_StopTick = false;
-		m_AttackHit = false;
+		m_HitAttack = false;
 
 		m_Frame = 0;
 	}
 	else if (m_Frame > 100)	//攻撃判定が発生するタイミング
 	{
-		m_AttackHit = InRangeObject(m_Position, m_PlayerPos, m_AttackRange, m_Direction);
+		m_HitAttack = InRangeObject(m_Position, m_PlayerPos, m_AttackRange, m_Direction);
 
-		if (!m_HitOnce && m_AttackHit)
+		if (!m_HitOnce && m_HitAttack)
 		{
 			Manager::GetScene()->GetGameObject<Player>()->AddLife(-100);
-			m_AttackHit = true;
+			m_HitAttack = true;
 		}
 	}
 }
