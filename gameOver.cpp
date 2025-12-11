@@ -17,7 +17,7 @@
 
 void GameOver::Init()
 {
-	AddGameObject<BackGround>(0)->Init();
+	AddGameObject<BackGround>(0)->Init(3);
 
 	//ƒJ[ƒ\ƒ‹‚Ìæ“¾
 	AddGameObject<Cursor>(1)->Init();

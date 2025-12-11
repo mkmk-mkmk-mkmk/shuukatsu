@@ -16,7 +16,7 @@ private:
 
 
 public:
-	void Init();
+	void Init(int sceneType);
 	void Uninit();
 	void Update();
 	void Draw();

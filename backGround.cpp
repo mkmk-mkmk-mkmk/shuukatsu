@@ -9,7 +9,7 @@
 #include "backGround.h"
 #include "camera.h"
 
-void BackGround::Init()
+void BackGround::Init(int sceneType)
 {
 	m_Position = Vector2(screenWidth * 0.5f, screenHeight * 0.5f);
 	m_Scale = Vector2(screenWidth, screenHeight);
@@ -48,7 +48,24 @@ void BackGround::Init()
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	m_Texture = Texture::Load("asset\\texture\\title.png");
+	switch (sceneType)
+	{
+	case 0:
+		m_Texture = Texture::Load("asset\\texture\\title.png");
+		break;
+	case 1:
+		m_Texture = Texture::Load("asset\\texture\\background.png");
+		break;
+	case 2:
+		m_Texture = Texture::Load("asset\\texture\\stageclear.png");
+		break;
+	case 3:
+		m_Texture = Texture::Load("asset\\texture\\gameover.png");
+		break;
+	default:
+		m_Texture = Texture::Load("asset\\texture\\title.png");
+		break;
+	}
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -95,7 +112,7 @@ void BackGround::Draw()
 
 	//ƒ}ƒeƒŠƒAƒ‹İ’è
 	MATERIAL material{};
-	material.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+	material.Diffuse = { 1.0f, 1.0f, 1.0f, 0.5f };
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 

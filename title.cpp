@@ -16,7 +16,7 @@
 
 void Title::Init()
 {
-	AddGameObject<BackGround>(0)->Init();
+	AddGameObject<BackGround>(0)->Init(0);
 	
 	AddGameObject<Map>(0)->Init(0);
 

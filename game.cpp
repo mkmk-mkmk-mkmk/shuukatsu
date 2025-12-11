@@ -7,6 +7,7 @@
 #include "player.h"
 #include "cursor.h"
 #include "polygon.h"
+#include "backGround.h"
 #include "box.h"
 #include "breakableBox.h"
 #include "goal.h"
@@ -34,6 +35,8 @@ void Game::Init()
 
 	//マップの追加
 	AddGameObject<Map>(0)->Init(1);
+
+	AddGameObject<BackGround>(0)->Init(1);
 
 	//プレイヤーの追加
 	AddGameObject<Player>(1)->Init();
