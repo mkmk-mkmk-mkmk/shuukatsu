@@ -1,12 +1,7 @@
-//-----------------------------------
-// 画面表示
-//-----------------------------------
+
 #include "sprite.h"
 
-//------------------------
-// 初期化処理
-//------------------------
-void InitSprite(void)
+void InitSprite()
 {
 	ID3D11Device* pDevice = Renderer::GetDevice();
 
@@ -42,14 +37,11 @@ void InitSprite(void)
 
 
 	////頂点バッファ更新
-	//SetVertexSprite();
+	SetVertexSprite();
 
 }
 
-//---------------------
-// 終了処理
-//---------------------
-void UnInitSprite(void)
+void UnInitSprite()
 {
 	//終了処理
 	if (g_VertexBuffer)
@@ -60,17 +52,11 @@ void UnInitSprite(void)
 
 }
 
-//---------------------
-// 更新処理
-//---------------------
-void UpdateSprite(void)
+void UpdateSprite()
 {
 
 }
 
-//---------------------
-// 描画処理（ベジェ曲線用）
-//---------------------
 void DrawSprite(XMFLOAT2 pos, float Rotate, XMFLOAT2 Scale, float alpha)
 {
 	//頂点バッファ設定
@@ -111,16 +97,13 @@ void DrawSprite(XMFLOAT2 pos, float Rotate, XMFLOAT2 Scale, float alpha)
 	g_Vertex[2].texCoord = XMFLOAT2(0.0f, 1.0f);
 	g_Vertex[3].texCoord = XMFLOAT2(1.0f, 1.0f);
 
-	//SetVertexSprite();
+	SetVertexSprite();
 
 
 	//スプライト描画
 	Renderer::GetDeviceContext()->Draw(4, 0);
 }
 
-//---------------------
-// 描画処理
-//---------------------
 void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha, int pattern, int cols, int rows)
 {
 	//頂点バッファ設定
@@ -165,8 +148,31 @@ void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha
 	g_Vertex[2].texCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * (y + 1));
 	g_Vertex[3].texCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * (y + 1));
 
-	//SetVertexSprite();
+	SetVertexSprite();
 
 	//スプライト描画
 	Renderer::GetDeviceContext()->Draw(4, 0);
+}
+
+void SetVertexSprite()
+{
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+
+	// 動的バッファ更新（WRITE_DISCARD）
+	HRESULT hr = Renderer::GetDeviceContext()->Map(
+		g_VertexBuffer,
+		0,
+		D3D11_MAP_WRITE_DISCARD,
+		0,
+		&mappedResource
+	);
+
+	if (SUCCEEDED(hr))
+	{
+		// 頂点配列 → バッファへコピー
+		memcpy(mappedResource.pData, g_Vertex, sizeof(VERTEX_3D) * NUM_VERTEX);
+
+		// アンマップ
+		Renderer::GetDeviceContext()->Unmap(g_VertexBuffer, 0);
+	}
 }

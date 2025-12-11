@@ -31,6 +31,8 @@ ID3D11BlendState*		Renderer::m_BlendStateATC{};
 //int screenWidth = GetSystemMetrics(SM_CXSCREEN);
 //int screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
+
+
 void Renderer::Init()
 {
 	HRESULT hr = S_OK;

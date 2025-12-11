@@ -2,6 +2,7 @@
 
 #include "main.h"
 #include "manager.h"
+#include "sprite.h"
 #include <thread>
 
 #include "cursor.h"
@@ -50,12 +51,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		screenHeight = rc.bottom - rc.top;
 
 		g_Window = CreateWindowEx(0, CLASS_NAME, WINDOW_NAME, WS_POPUP, CW_USEDEFAULT, CW_USEDEFAULT,
-			screenWidth, screenHeight, nullptr, nullptr, hInstance, nullptr);
+			screenWidth, screenHeight, NULL, NULL, hInstance, NULL);
 	}
 
 	CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
 
-
+	//InitSprite();
 	Manager::Init();
 
 

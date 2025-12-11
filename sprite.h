@@ -40,9 +40,9 @@ static VERTEX_T g_Vertex[NUM_VERTEX];
 static int g_AnimPattern = 0;
 static int g_AnimFrame = 0;
 
-void InitSprite(void);
-void UnInitSprite(void);
-void UpdateSprite(void);
+void InitSprite();
+void UnInitSprite();
+void UpdateSprite();
 void DrawSprite(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha = 1.0f);
 void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha, int pattern, int cols, int rows);
 //void DrawSprite(const ObjectManager& obj, bool EnableShake = true, TextureCoord Texcoord = { XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 0.0f), XMFLOAT2(0.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) });
@@ -51,4 +51,4 @@ void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha
 ////void DrawSpriteBar(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha, float end);
 //void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int AnimCols, int AnimRows, int AnimPattern, float alpha = 1.0f, bool EnableShake = true);
 //void DrawSpriteAnim(ObjectManager& obj, int AnimCols, int AnimRows, int AnimPattern, XMFLOAT4 col = { 1.0f, 1.0f, 1.0f, 1.0f }, bool EnableShake = true);
-//void SetVertexSprite(void);
+void SetVertexSprite();
