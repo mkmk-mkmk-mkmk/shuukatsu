@@ -71,7 +71,7 @@ void UpdateSprite(void)
 //---------------------
 // 描画処理（ベジェ曲線用）
 //---------------------
-void DrawSpriteBezier(XMFLOAT2 pos, float Rotate, XMFLOAT2 Scale, float alpha, float texCoordLeft, float texCoordRight)
+void DrawSprite(XMFLOAT2 pos, float Rotate, XMFLOAT2 Scale, float alpha)
 {
 	//頂点バッファ設定
 	UINT stride = sizeof(VERTEX_3D);
@@ -106,10 +106,10 @@ void DrawSpriteBezier(XMFLOAT2 pos, float Rotate, XMFLOAT2 Scale, float alpha, f
 	material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, alpha);
 	Renderer::SetMaterial(material);
 
-	g_Vertex[0].texCoord = XMFLOAT2(texCoordLeft, 0.0f);
-	g_Vertex[1].texCoord = XMFLOAT2(texCoordRight, 0.0f);
-	g_Vertex[2].texCoord = XMFLOAT2(texCoordLeft, 1.0f);
-	g_Vertex[3].texCoord = XMFLOAT2(texCoordRight, 1.0f);
+	g_Vertex[0].texCoord = XMFLOAT2(0.0f, 0.0f);
+	g_Vertex[1].texCoord = XMFLOAT2(1.0f, 0.0f);
+	g_Vertex[2].texCoord = XMFLOAT2(0.0f, 1.0f);
+	g_Vertex[3].texCoord = XMFLOAT2(1.0f, 1.0f);
 
 	SetVertexSprite();
 
