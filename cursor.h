@@ -28,8 +28,6 @@ private:
 
 	Vector2  m_CursorLockPos;		//カーソル位置固定座標
 
-	Vector2  m_TextureSplit;		//テクスチャの分割数
-
 	int m_Frame;
 
 public:

@@ -16,7 +16,7 @@
 
 #include <d3d11.h>
 
-#include "UserInterface.h"
+#include "UI.h"
 
 static int screenWidth = GetSystemMetrics(SM_CXSCREEN);
 static int screenHeight = GetSystemMetrics(SM_CYSCREEN);

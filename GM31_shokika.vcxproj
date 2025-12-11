@@ -173,7 +173,7 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="breakableBox.h" />
-    <ClInclude Include="UserInterface.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
@@ -213,7 +213,6 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="breakableBox.cpp" />
-    <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">

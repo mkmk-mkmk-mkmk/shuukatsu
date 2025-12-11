@@ -22,8 +22,10 @@ protected:
 	Vector2 m_Vector{ 0.0f,0.0f };			//移動ベクトル
 	
 	bool m_OnGround = false;	//地面に接地しているかどうか
-
 	bool m_Direction = true;	//体の向き true：右向き、false：左向き
+
+	Vector2 m_AnimationSplit = { 1.0f, 1.0f };
+	bool m_DeleteAnimationFinished = false;
 
 public:
 	float m_Gravity = 0.3f;
@@ -33,15 +35,22 @@ public:
 	virtual void Update() {}
 	virtual void Draw() {}
 
+	virtual void DeleteAnimation() {}
+
 	void SetDestroy() { m_Destroy = true; }
 
 	bool Destroy()
 	{
 		if (m_Destroy)
 		{
-			Uninit();
-			delete this;
-			return true;
+			this->DeleteAnimation();
+
+			if (!m_DeleteAnimationFinished)
+			{
+				Uninit();
+				delete this;
+			}
+			return m_DeleteAnimationFinished;
 		}
 		else
 		{

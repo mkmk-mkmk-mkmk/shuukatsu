@@ -99,11 +99,7 @@ public:
 	void UpdateFind();
 	void UpdateLookAround();
 
-	Vector2 GetDrawPosition() { return m_DrawPosition; }
-	void SetDrawPosition(Vector2 pos)
-	{
-		m_DrawPosition = pos;
-	}
+	void DeleteAnimation() override;
 
 	void BoxCollisionExtra(Vector2 boxPos, Vector2 boxScale) override;
 

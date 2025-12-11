@@ -348,7 +348,6 @@ void Enemy::UpdateAttack()
 	//攻撃処理
 	if (m_Frame > 200)	//攻撃アニメーションを継続するか判定
 	{
-		m_AttackAnimationFinished = true;
 		m_StopTick = false;
 		m_HitAttack = false;
 
@@ -370,16 +369,44 @@ void Enemy::UpdateFind()
 {
 	//発見アニメーション再生
 
-	m_AnimationState = AnimationState::Chase;		//追跡へ
-	m_ChaseAnimationStarted = false;
+
+	//アニメーション再生時はTickを止める
+	//m_StopTick = true;
+
+	//発見アニメーション終了後にstate変更
+	//if()
+	{
+		//m_StopTick = false;
+		m_AnimationState = AnimationState::Chase;		//追跡へ
+		m_ChaseAnimationStarted = false;
+	}
 }
 
 void Enemy::UpdateLookAround()
 {
 	//見回しアニメーション再生
 
-	m_AnimationState = AnimationState::Patrol;		//巡回へ
-	m_PatrolAnimationStarted = false;
+	//アニメーション再生時はTickを止める
+	//m_StopTick = true;
+
+	//発見アニメーション終了後にstate変更
+	//if()
+	{
+		//m_StopTick = false;
+		m_AnimationState = AnimationState::Patrol;		//巡回へ
+		m_PatrolAnimationStarted = false;
+	}
+}
+
+void Enemy::DeleteAnimation()
+{
+	//消滅アニメーション再生
+
+	//アニメーション再生時はTickを止める
+	//m_StopTick = true;
+
+	//m_DeleteAnimationFinishedをtrueにすると自動的に消える
+	m_DeleteAnimationFinished = true;
 }
 
 void Enemy::BoxCollisionExtra(Vector2 boxPos, Vector2 boxScale)
