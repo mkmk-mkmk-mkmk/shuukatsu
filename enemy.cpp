@@ -95,15 +95,15 @@ void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
 	//UŒ‚
 	auto attackSeq = new SequenceNode();
 	attackSeq->AddChild(new ConditionNode([this]
-		{ return InRangeObject(m_Position, m_PlayerPos, m_VisibleRange, m_Direction); }));
+		{ return InRangeObject(m_Position, m_Scale, m_PlayerPos, m_PlayerScale, m_VisibleRange, m_Direction); }));
 	attackSeq->AddChild(new ConditionNode([this]
-		{ return InRangeObject(m_Position, m_PlayerPos, m_AttackRange, m_Direction); }));
+		{ return InRangeObject(m_Position, m_Scale, m_PlayerPos, m_PlayerScale, m_AttackRange, m_Direction); }));
 	attackSeq->AddChild(new ActionNode([this] { return Attack(); }));
 
 	//’ÇÕ
 	auto chaseSeq = new SequenceNode();
 	chaseSeq->AddChild(new ConditionNode([this]
-		{ return InRangeObject(m_Position, m_PlayerPos, m_VisibleRange, m_Direction); }));
+		{ return InRangeObject(m_Position, m_Scale, m_PlayerPos, m_PlayerScale, m_VisibleRange, m_Direction); }));
 	chaseSeq->AddChild(new ActionNode([this] { return Chase(); }));
 
 	//œpœj
@@ -356,7 +356,7 @@ void Enemy::UpdateAttack()
 	}
 	else if (m_Frame > 100)	//UŒ‚”»’è‚ª”­¶‚·‚éƒ^ƒCƒ~ƒ“ƒO
 	{
-		m_HitAttack = InRangeObject(m_Position, m_PlayerPos, m_AttackRange, m_Direction);
+		m_HitAttack = InRangeObject(m_Position, m_Scale, m_PlayerPos, m_PlayerScale, m_AttackRange, m_Direction);
 
 		if (!m_HitOnce && m_HitAttack)
 		{

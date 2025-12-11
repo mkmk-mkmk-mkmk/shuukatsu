@@ -26,8 +26,9 @@ public:
 	void Draw();
 
 
-	std::list<Vector2> m_BoxPosList; //箱の位置リスト
-	std::list<Vector2> m_BreakableBoxPosList; //壊せる箱の位置リスト
+	std::list<Vector2> m_BoxPosList;			//箱の位置リスト
+	std::list<Vector2> m_BreakableBoxPosList;	//壊せる箱の位置リスト
+	std::list<Vector2> m_GoalPosList;			//ゴールの位置リスト
 
 	int GetBlockWidth() const { return STAGEBLOCK_WIDTH; }
 	int GetBlockHeight() const { return STAGEBLOCK_HEIGHT; }

@@ -154,6 +154,7 @@
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameOver.h" />
     <ClInclude Include="GM31_shokika.h" />
+    <ClInclude Include="goal.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="gameOver.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="goal.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />

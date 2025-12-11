@@ -9,6 +9,7 @@
 #include "polygon.h"
 #include "box.h"
 #include "breakableBox.h"
+#include "goal.h"
 #include "map.h"
 #include "camera.h"
 #include "enemy.h"
@@ -69,12 +70,22 @@ void Game::Init()
 
 	for (int i = 0; i < m_BreakableBoxCount; i++)
 	{
-		AddGameObject<BreakableBox>(5)->Init();
+		AddGameObject<BreakableBox>(4)->Init();
 		Manager::GetScene()->GetGameObject<Map>()->m_BreakableBoxPosList.pop_front();
 	}
 
+	//ゴールの追加
+	int m_GoalCount = Manager::GetScene()->GetGameObject<Map>()->m_GoalPosList.size(); //箱の数を保存しておく
+
+	for (int i = 0; i < m_GoalCount; i++)
+	{
+		AddGameObject<Goal>(4)->Init();
+		Manager::GetScene()->GetGameObject<Map>()->m_GoalPosList.pop_front();
+	}
+
+
 	//カーソルの取得
-	AddGameObject<Cursor>(6)->Init();
+	AddGameObject<Cursor>(5)->Init();
 
 }
 
