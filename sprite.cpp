@@ -41,8 +41,8 @@ void InitSprite(void)
 	g_Vertex[3].texCoord = XMFLOAT2(1.0f, 1.0f);
 
 
-	//頂点バッファ更新
-	SetVertexSprite();
+	////頂点バッファ更新
+	//SetVertexSprite();
 
 }
 
@@ -111,7 +111,7 @@ void DrawSprite(XMFLOAT2 pos, float Rotate, XMFLOAT2 Scale, float alpha)
 	g_Vertex[2].texCoord = XMFLOAT2(0.0f, 1.0f);
 	g_Vertex[3].texCoord = XMFLOAT2(1.0f, 1.0f);
 
-	SetVertexSprite();
+	//SetVertexSprite();
 
 
 	//スプライト描画
@@ -165,7 +165,7 @@ void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha
 	g_Vertex[2].texCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * (y + 1));
 	g_Vertex[3].texCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * (y + 1));
 
-	SetVertexSprite();
+	//SetVertexSprite();
 
 	//スプライト描画
 	Renderer::GetDeviceContext()->Draw(4, 0);

@@ -23,6 +23,8 @@ protected:
 	
 	bool m_OnGround = false;	//地面に接地しているかどうか
 
+	bool m_Direction = true;	//体の向き true：右向き、false：左向き
+
 public:
 	float m_Gravity = 0.3f;
 
@@ -51,11 +53,13 @@ public:
 	Vector2 GetRotation() { return m_Rotation; }
 	Vector2 GetScale(){ return m_Scale; }
 	Vector2 GetVector() { return m_Vector; }
+	int GetLife() { return m_Life; }
 
 	void SetPosition(Vector2 Position) { m_Position = Position; }
 	void SetRotation(Vector2 Rotation) { m_Position = Rotation; }
 	void SetScale(Vector2 Scale) { m_Scale = Scale; }
 	void SetVector(Vector2 Vector) { m_Vector = Vector; }
+	void AddLife(int add) { m_Life += add; }
 
 	//距離取得
 	float GetDistance(Vector2 Position)

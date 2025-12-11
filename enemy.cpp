@@ -92,14 +92,15 @@ void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
 	//攻撃
 	auto attackSeq = new SequenceNode();
 	attackSeq->AddChild(new ConditionNode([this]
-		{ return InRangeObject(m_Position, m_PlayerPos, m_VisibleRange, m_EnemyDirection); }));
+		{ return InRangeObject(m_Position, m_PlayerPos, m_VisibleRange, m_Direction); }));
 	attackSeq->AddChild(new ConditionNode([this]
-		{ return InRangeObject(m_Position, m_PlayerPos, m_AttackRange, m_EnemyDirection); }));
+		{ return InRangeObject(m_Position, m_PlayerPos, m_AttackRange, m_Direction); }));
 	attackSeq->AddChild(new ActionNode([this] { return Attack(); }));
 
 	//追跡
 	auto chaseSeq = new SequenceNode();
-	chaseSeq->AddChild(new ConditionNode([this] { return InRangePlayer(m_VisibleRange, m_EnemyDirection); }));
+	chaseSeq->AddChild(new ConditionNode([this]
+		{ return InRangeObject(m_Position, m_PlayerPos, m_VisibleRange, m_Direction); }));
 	chaseSeq->AddChild(new ActionNode([this] { return Chase(); }));
 
 	//徘徊
@@ -126,13 +127,14 @@ void Enemy::Uninit()
 
 void Enemy::Update()
 {
+	//プレイヤーの位置と大きさ更新
+	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
+	m_PlayerScale = Manager::GetScene()->GetGameObject<Player>()->GetScale();
+
 	if (m_HitSideBoxPos.size() > 0)
 	{
 		CheckStairs();
 	}
-
-	//プレイヤーの位置取得
-	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
 
 	// ツリー実行
 	if (m_RootNode)
@@ -180,6 +182,10 @@ void Enemy::Update()
 
 	//位置更新
 	m_Position += m_Vector;
+
+	//体力が0以下なら自身を消す
+	m_HitPlayerAttack = Collision::BoxCollisionCommon(m_Position, m_Scale, m_PlayerPos, m_PlayerScale);
+
 
 }
 
@@ -280,14 +286,14 @@ void Enemy::UpdatePatrol()
 		case 0: //右移動
 			m_Vector.x = m_Speed;
 			m_Random = 2;
-			m_EnemyDirection = true;
+			m_Direction = true;
 			m_Frame = 0;
 
 			break;
 		case 1: //左移動
 			m_Vector.x = -m_Speed;
 			m_Random = 2;
-			m_EnemyDirection = false;
+			m_Direction = false;
 			m_Frame = 0;
 
 			break;
@@ -305,7 +311,7 @@ void Enemy::UpdateChase()
 {
 	//追跡処理
 
-	m_Vector.x = m_EnemyDirection ? m_Speed : -m_Speed; //敵の向きに応じて移動
+	m_Vector.x = m_Direction ? m_Speed : -m_Speed; //敵の向きに応じて移動
 	m_OnGround = false;
 
 }
@@ -325,12 +331,19 @@ void Enemy::UpdateAttack()
 	{
 		m_AttackAnimationFinished = true;
 		m_StopTick = false;
+		m_AttackHit = false;
 
 		m_Frame = 0;
 	}
 	else if (m_Frame > 100)	//攻撃判定が発生するタイミング
 	{
+		m_AttackHit = InRangeObject(m_Position, m_PlayerPos, m_AttackRange, m_Direction);
 
+		if (!m_HitOnce && m_AttackHit)
+		{
+			Manager::GetScene()->GetGameObject<Player>()->AddLife(-100);
+			m_AttackHit = true;
+		}
 	}
 }
 

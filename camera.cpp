@@ -10,7 +10,7 @@
 void Camera::Init()
 {
 	//初期化の時点でも一度カメラ位置を設定しておく
-	m_CameraCenterPosition = Manager::GetScene()->GetGameObject<Player>()->GetPlayerPosition();
+	m_CameraCenterPosition = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
 	m_CameraTopLeftPosition = m_CameraCenterPosition - Vector2(screenWidth * 0.5f, screenHeight * 0.5f);
 
 	m_StageBlockWidth = Manager::GetScene()->GetGameObject<Map>()->GetBlockWidth();
@@ -25,7 +25,7 @@ void Camera::Uninit()
 void Camera::Update()
 {
 	//カメラの中心座標をプレイヤーの位置から取得
-	m_CameraCenterPosition = Manager::GetScene()->GetGameObject<Player>()->GetPlayerPosition();
+	m_CameraCenterPosition = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
 
 	//画面端だった場合の補正
 	//x座標

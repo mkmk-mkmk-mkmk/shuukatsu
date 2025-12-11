@@ -33,6 +33,7 @@ private:
 	std::list<Vector2> m_TrailPosList;
 	std::list<Vector2> m_TrailDiffList;
 	bool m_HaveTrail = false;		//軌跡を持っているかどうか
+	bool m_MoveTrail = false;		//軌跡移動中かどうか
 
 	PlayerState m_PlayerState = PlayerState::Normal;	//プレイヤーの状態
 
@@ -41,24 +42,6 @@ public:
 	void Uninit();
 	void Update();
 	void Draw();
-
-	void SetPlayerPosition(Vector2 position) { m_Position = position; }
-	Vector2 GetPlayerPosition()
-	{
-		return m_Position;
-	}
-
-	void SetPlayerVector(Vector2 vector) { m_Vector = vector; }
-	Vector2 GetPlayerVector()
-	{
-		return m_Vector;
-	}
-
-	void AddPlayerLife(int add) { m_Life += add; }
-	int GetPlayerLife()
-	{
-		return m_Life;
-	}
 
 	void PlayerMove();	//プレイヤー移動処理
 

@@ -51,6 +51,7 @@ private:
 	Vector2 m_DrawPosition;			//描画位置、m_Positionは実際の位置を保存してこっちはカメラとの相対位置
 
 	Vector2 m_PlayerPos;			//プレイヤー座標(追跡用)
+	Vector2 m_PlayerScale;			//プレイヤースケール
 	std::list<Vector2> m_HitSideBoxPos; //左右で当たっている箱のリスト
 
 	float m_Speed = 2.0f;			//移動速度
@@ -58,8 +59,6 @@ private:
 	bool m_JumpStairs;				//段差をジャンプするか
 	Vector2 m_VisibleRange = { 300.0f, 100.0f };//発見範囲
 	Vector2 m_AttackRange = { 120.0f, 80.0f };	//攻撃範囲
-
-	bool m_EnemyDirection = true;	//敵の向き(true:右 false:左)
 
 	bool m_VisiblePlayer = false;	//プレイヤーが見えているかどうか
 	bool m_InAttackRange = false;	//攻撃範囲内かどうか
@@ -73,7 +72,10 @@ private:
 	bool m_PatrolAnimationStarted = false;		//徘徊アニメーション開始したかどうか
 	bool m_PatrolAnimationFinished = false;		//徘徊アニメーションが終了したかどうか
 
-	bool m_StopTick = false;					//tickを止める（攻撃などのアニメーション再生中に使用）
+	bool m_StopTick = false;		//tickを止める（攻撃などのアニメーション再生中に使用）
+	bool m_HitOnce = false;			//一度のattackで一回だけ当たり判定を発生させる
+	bool m_AttackHit = false;		//攻撃が当たったか
+	bool m_HitPlayerAttack = false; //プレイヤーの攻撃が当たったか
 
 	int m_Random;	//乱数用
 

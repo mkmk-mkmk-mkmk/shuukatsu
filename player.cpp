@@ -31,7 +31,7 @@ void Player::Init()
 	vertex[0].TexCoord = XMFLOAT2(0.0f, 0.0f);
 
 	vertex[1].Position = XMFLOAT3(0.5f, -0.5f, 0.0f);
-	//vertex[1].Normal = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	vertex[1].Normal = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	vertex[1].Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[1].TexCoord = XMFLOAT2(1.0f, 0.0f);
 
@@ -168,6 +168,7 @@ void Player::Update()
 		Vector2 diff = m_TrailDiffList.front();
 		m_Vector = diff;
 		m_TrailDiffList.pop_front();
+		m_MoveTrail = true;
 
 		//ëSÇƒà⁄ìÆÇµèIÇÌÇ¡ÇΩÇÁèIóπ
 		if (m_TrailDiffList.empty())
@@ -176,6 +177,7 @@ void Player::Update()
 
 			m_OnGround = false;
 			m_HaveTrail = false;
+			m_MoveTrail = false;
 			m_PlayerState = PlayerState::Normal;
 		}
 		break;
