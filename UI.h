@@ -18,9 +18,8 @@ protected:
 	bool m_CanClick;						//クリック可能か（ボタンの役割を持つか）
 
 public:
-	float m_Gravity = 0.3f;
 
-	virtual void Init() {}
+	virtual void Init(Vector2 position, Vector2 scale) {}
 	virtual void Uninit() {}
 	virtual void Update() {}
 	virtual void Draw() {}
