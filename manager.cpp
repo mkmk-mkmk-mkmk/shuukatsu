@@ -1,7 +1,8 @@
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
-#include"input.h"
+#include "sprite.h"
+#include "input.h"
 #include "game.h"
 #include "title.h"
 
@@ -23,7 +24,8 @@ Scene* Manager::m_FadeScene = nullptr;
 void Manager::Init()
 {
 	Renderer::Init();
-	Input::Init();	
+	Input::Init();
+	//InitSprite();
 
 	m_Scene = new Title();
 	m_Scene->Init();

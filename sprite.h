@@ -24,7 +24,8 @@ class ObjectManager;
 //------------------------
 static ID3D11Buffer* g_VertexBuffer = NULL;		//線用の頂点情報
 
-struct VERTEX_T {
+struct VERTEX_T
+{
 	XMFLOAT2		pos;		//位置ベクトル
 	XMFLOAT2		vel;		//速度ベクトル
 	XMFLOAT4		color;		//頂点カラー

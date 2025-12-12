@@ -56,7 +56,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
 
-	//InitSprite();
 	Manager::Init();
 
 

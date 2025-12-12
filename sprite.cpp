@@ -57,50 +57,30 @@ void UpdateSprite()
 
 }
 
-void DrawSprite(XMFLOAT2 pos, float Rotate, XMFLOAT2 Scale, float alpha)
+void DrawSprite(XMFLOAT2 Pos, float Rotate, XMFLOAT2 Scale, float alpha)
 {
-	//頂点バッファ設定
-	UINT stride = sizeof(VERTEX_3D);
-	UINT offset = 0;
-	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &g_VertexBuffer, &stride, &offset);
+	//マトリクス設定
+	Renderer::SetWorldViewProjection2D();
 
-
-	//プロジェクションマトリクス設定
-	XMMATRIX projection;
-	projection = XMMatrixOrthographicOffCenterLH(0.0f, screenWidth, screenHeight, 0.0f, 0.0f, 1.0f);
-	Renderer::SetProjectionMatrix(projection);
-
-	//ビューマトリクス設定
-	XMMATRIX view;
-	view = XMMatrixIdentity();
-	Renderer::SetViewMatrix(view);
-
-	//移動・回転マトリクス設定
-	XMMATRIX trans, world, rot, scale;
-	scale = XMMatrixScaling(Scale.x, Scale.y, 0.0f);
-	trans = XMMatrixTranslation(pos.x, pos.y, 0.0f);
-	rot = XMMatrixRotationZ(Rotate);	//ラジアン角
+	XMMATRIX world, scale, rot, trans;
+	scale = XMMatrixScaling(Scale.x, Scale.y, 1.0f);
+	rot = XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);
+	trans = XMMatrixTranslation(Pos.x, Pos.y, 0.0f);
 	world = scale * rot * trans;
+
 	Renderer::SetWorldMatrix(world);
 
-	//プリミティブトポロジ設定
-	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-
-	//マテリアル設定(半年後に登場)
-	MATERIAL material;
-	ZeroMemory(&material, sizeof(material));
-	material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, alpha);
+	//マテリアル設定
+	MATERIAL material{};
+	material.Diffuse = { 1.0f, 1.0f, 1.0f, alpha };
+	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 
-	g_Vertex[0].texCoord = XMFLOAT2(0.0f, 0.0f);
-	g_Vertex[1].texCoord = XMFLOAT2(1.0f, 0.0f);
-	g_Vertex[2].texCoord = XMFLOAT2(0.0f, 1.0f);
-	g_Vertex[3].texCoord = XMFLOAT2(1.0f, 1.0f);
+	UINT stride = sizeof(VERTEX_3D);
+	UINT offset = 0;
 
-	SetVertexSprite();
+	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-
-	//スプライト描画
 	Renderer::GetDeviceContext()->Draw(4, 0);
 }
 

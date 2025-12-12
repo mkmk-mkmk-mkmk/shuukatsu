@@ -9,6 +9,7 @@
 #include "manager.h"
 #include "camera.h"
 #include "map.h"
+#include "sprite.h"
 
 #include "gameOver.h"
 
@@ -191,6 +192,9 @@ void Player::Update()
 
 void Player::Draw()
 {
+	//テクスチャセット
+	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
+
 	//描画位置更新
 	m_DrawPosition =
 		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
@@ -220,8 +224,6 @@ void Player::Draw()
 	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;
 	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
-
-	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
 
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
