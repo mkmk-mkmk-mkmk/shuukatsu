@@ -1,7 +1,5 @@
 #pragma once
 #include "gameObject.h"
-#include <list>
-
 
 //マップチップのサイズ（ここは指定）
 #define MAPCHIP_WIDTH (50)

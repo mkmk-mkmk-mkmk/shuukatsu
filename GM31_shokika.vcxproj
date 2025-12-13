@@ -167,6 +167,9 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="save.h" />
     <ClInclude Include="scene.h" />
+    <ClInclude Include="spring.h" />
+    <ClInclude Include="springBoard.h" />
+    <ClInclude Include="springChain.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="stageClear.h" />
     <ClInclude Include="targetver.h" />
@@ -208,6 +211,9 @@
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="save.cpp" />
     <ClCompile Include="scene.cpp" />
+    <ClCompile Include="spring.cpp" />
+    <ClCompile Include="springBoard.cpp" />
+    <ClCompile Include="springChain.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="stageClear.cpp" />
     <ClCompile Include="texture.cpp" />

@@ -3,6 +3,7 @@
 #include "Vector2.h"
 #include "collision.h"
 #include "framework.h"
+#include <list>
 
 class GameObject : public Vector2, public Collision
 {
