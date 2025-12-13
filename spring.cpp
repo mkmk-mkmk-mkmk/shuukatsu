@@ -24,21 +24,29 @@ void Spring::Init(Vector2 topLeftPos, Vector2 bottomLeftPos, Vector2 topRightPos
 	rightChain.Init(topRightPos, bottomRightPos, chainSplitRight, chainWidth);
 
 	//ボードオブジェクト作成
-	Manager::GetScene()->AddGameObject<SpringBoard>(gameObjectNumber)
-		->Init(bottomLeftPos, bottomRightPos, boardWidth);
+	board.Init(bottomLeftPos, bottomRightPos, boardWidth);
 }
 
 void Spring::Uninit()
 {
+	leftChain.Uninit();
+	rightChain.Uninit();
 
+	board.Uninit();
 }
 
 void Spring::Update()
 {
+	leftChain.Update();
+	rightChain.Update();
 
+	board.Update();
 }
 
 void Spring::Draw()
 {
+	leftChain.Draw();
+	rightChain.Draw();
 
+	board.Draw();
 }

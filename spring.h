@@ -12,6 +12,8 @@ private:
 	SpringChain leftChain;
 	SpringChain rightChain;
 
+	SpringBoard board;
+
 public:
 
 	void Init(Vector2 topLeftPos, Vector2 bottomLeftPos, Vector2 topRightPos, Vector2 bottomRightPos,

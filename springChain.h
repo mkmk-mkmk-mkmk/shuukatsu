@@ -1,5 +1,12 @@
 #pragma once
 
+struct ChainPointList
+{
+	Vector2 pos;
+	Vector2 oldPos;
+	bool lock;
+};
+
 class SpringChain : public GameObject
 {
 private:
@@ -12,7 +19,10 @@ private:
 
 	ID3D11ShaderResourceView* m_Texture;
 
-	std::list<Vector2> m_ChainPointList;
+	int m_ChainPieceCount;
+	std::vector<ChainPointList> m_ChainPointList;
+
+	float m_ChainLength;
 
 public:
 

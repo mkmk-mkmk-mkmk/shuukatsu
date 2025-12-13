@@ -16,14 +16,14 @@
 void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, float chainWidth)
 {
 	//分割数+1が点の数
-	int chainPieceCount = (int)chainSplit + 1;
+	m_ChainPieceCount = (int)chainSplit + 1;
 
 	//一つ一つのチェーンの大きさ取得（絶対値で）
 	Vector2 chainPieceScale = (bottomPos - topPos) / chainSplit;
 	modulus(chainPieceScale);
 
 	//点のリスト初期化
-	for (int i = 0; i < chainPieceCount; i++)
+	for (int i = 0; i < m_ChainPieceCount; i++)
 	{
 		m_ChainPointList.push_back(topPos + (chainPieceScale * i));
 	}
@@ -84,10 +84,10 @@ void SpringChain::Update()
 
 void SpringChain::Draw()
 {
-	//for ()
-	//{
-	//	DrawPiece();
-	//}
+	for (int i = 0; i < m_ChainPieceCount; i++)
+	{
+		DrawPiece();
+	}
 }
 
 void SpringChain::DrawPiece()
