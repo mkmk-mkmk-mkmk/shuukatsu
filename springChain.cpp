@@ -25,7 +25,7 @@ void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, floa
 	//“_‚ÌƒŠƒXƒg‰Šú‰»
 	for (int i = 0; i < m_ChainPieceCount; i++)
 	{
-		m_ChainPointList.push_back(topPos + (chainPieceScale * i));
+		//m_ChainPointList.push_back(topPos + (chainPieceScale * i));
 	}
 
 	m_Scale = Vector2(chainWidth, chainPieceScale.y);

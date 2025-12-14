@@ -58,7 +58,10 @@ void Player::Init()
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	m_Texture = Texture::Load("asset\\texture\\roboR1_green.png");
+	m_Texture[0] = Texture::Load("asset\\texture\\roboR1_green.png");
+	m_Texture[1] = Texture::Load("asset\\texture\\roboR1_red.png");
+	m_Texture[2] = Texture::Load("asset\\texture\\roboR1_blue.png");
+	m_Texture[3] = Texture::Load("asset\\texture\\roboR1_green.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -68,7 +71,10 @@ void Player::Init()
 
 void Player::Uninit()
 {
-	m_Texture->Release();
+	m_Texture[0]->Release();
+	m_Texture[1]->Release();
+	m_Texture[2]->Release();
+	m_Texture[3]->Release();
 
 	m_VertexBuffer->Release();
 	m_VertexLayout->Release();
@@ -140,6 +146,7 @@ void Player::Update()
 		m_ClickPos = Manager::GetScene()->GetGameObject<Cursor>()->GetPosition();
 		if (Input::GetKeyPress(VK_RBUTTON)) //右クリックで軌跡取得
 		{
+			m_GettingTrail = true;
 			m_HaveTrail = true;
 
 			m_TrailDiffList.push_back(m_Vector);
@@ -147,12 +154,14 @@ void Player::Update()
 		}
 		else if (Input::GetKeyPress(VK_LBUTTON)) //左クリックで逆走の取得
 		{
+			m_GettingTrail = true;
 			m_HaveTrail = true;
 
 			m_TrailDiffList.push_front(-m_Vector);
 		}
 		else
 		{
+			m_GettingTrail = false;
 			m_PlayerState = PlayerState::Normal;
 		}
 
@@ -193,7 +202,22 @@ void Player::Update()
 void Player::Draw()
 {
 	//テクスチャセット
-	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
+	if (m_MoveTrail)
+	{
+		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[0]);
+	}
+	else if (m_GettingTrail)
+	{
+		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[1]);
+	}
+	else if (m_HaveTrail)
+	{
+		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[2]);
+	}
+	else
+	{
+		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[0]);
+	}
 
 	//描画位置更新
 	m_DrawPosition =

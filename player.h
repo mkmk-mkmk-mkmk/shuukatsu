@@ -18,7 +18,7 @@ private:
 	ID3D11VertexShader* m_VertexShader;
 	ID3D11PixelShader* m_PixelShader;
 
-	ID3D11ShaderResourceView* m_Texture;
+	ID3D11ShaderResourceView* m_Texture[4];
 
 	//int frame = 0;
 
@@ -33,6 +33,7 @@ private:
 	std::list<Vector2> m_TrailPosList;
 	std::list<Vector2> m_TrailDiffList;
 	bool m_HaveTrail = false;		//‹OÕ‚ğ‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
+	bool m_GettingTrail = false;
 	bool m_MoveTrail = false;		//‹OÕˆÚ“®’†‚©‚Ç‚¤‚©
 
 	PlayerState m_PlayerState = PlayerState::Normal;	//ƒvƒŒƒCƒ„[‚Ìó‘Ô
