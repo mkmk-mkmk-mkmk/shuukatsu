@@ -20,15 +20,27 @@ void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, floa
 
 	//一つ一つのチェーンの大きさ取得（絶対値で）
 	Vector2 chainPieceScale = (bottomPos - topPos) / chainSplit;
-	modulus(chainPieceScale);
+	m_ChainLength = length(chainPieceScale);
+
+	//リストをクリアしておく
+	m_ChainPointList.clear();
 
 	//点のリスト初期化
 	for (int i = 0; i < m_ChainPieceCount; i++)
 	{
-		//m_ChainPointList.push_back(topPos + (chainPieceScale * i));
+		ChainPoint pointList;
+		pointList.pos = topPos + (chainPieceScale * (float)i);
+		pointList.oldPos = pointList.pos;	//初期速度は0
+		pointList.acceleration = Vector2(0.0f, 0.0f);
+		pointList.lock = (i == 0);			//一番上だけ固定する
+
+		m_ChainPointList.push_back(pointList);
 	}
 
 	m_Scale = Vector2(chainWidth, chainPieceScale.y);
+
+
+
 
 	VERTEX_3D vertex[4];
 
@@ -79,7 +91,62 @@ void SpringChain::Uninit()
 
 void SpringChain::Update()
 {
+	//重力適用
+	for (auto point : m_ChainPointList)
+	{
+		if (!point.lock)
+		{
+			point.acceleration.y += m_Gravity;
+		}
+	}
 
+	//位置更新
+	for (auto point : m_ChainPointList)
+	{
+		if (point.lock)
+		{
+			continue;
+		}
+
+		Vector2 oldPointPos = point.pos;
+
+		// 位置更新
+		point.pos += (point.pos - point.oldPos) + point.acceleration;
+		point.oldPos = oldPointPos;
+		point.acceleration = Vector2(0, 0);
+	}
+
+	//距離制約
+	const int constraintLoop = 5;	//距離制約をフレームごとに何回解くか
+	//なんかブランコとかだとこのくらいの数値がいいらしい
+
+	for (int n = 0; n < constraintLoop; n++)
+	{
+		for (int i = 0; i < m_ChainPieceCount - 1; i++)
+		{
+			ChainPoint& point1 = m_ChainPointList[i];
+			ChainPoint& point2 = m_ChainPointList[i + 1];
+
+			Vector2 delta = point2.pos - point1.pos;
+			float pointDistance = length(delta);
+			if (pointDistance == 0.0f)
+			{
+				continue;
+			}
+
+			float diff = (pointDistance - m_ChainLength) / pointDistance;
+
+			if (!point1.lock)
+			{
+				point1.pos += delta * 0.5f * diff;
+			}
+
+			if (!point2.lock)
+			{
+				point2.pos -= delta * 0.5f * diff;
+			}
+		}
+	}
 }
 
 void SpringChain::Draw()

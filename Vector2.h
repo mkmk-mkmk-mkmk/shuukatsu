@@ -111,13 +111,13 @@ public:
 		return a;
 	}
 
-	float length() const
-	{
-		return sqrt(x * x + y * y);
-	}
+	//float length() const
+	//{
+	//	return sqrt(x * x + y * y);
+	//}
 
-	//“àÏ
-	float vector(Vector2& a)
+	//‹——£
+	float length(Vector2& a)
 	{
 		return sqrt(a.x * a.x + a.y * a.y);
 	}

@@ -1,9 +1,10 @@
 #pragma once
 
-struct ChainPointList
+struct ChainPoint
 {
 	Vector2 pos;
 	Vector2 oldPos;
+	Vector2 acceleration;
 	bool lock;
 };
 
@@ -20,7 +21,7 @@ private:
 	ID3D11ShaderResourceView* m_Texture;
 
 	int m_ChainPieceCount;
-	std::vector<ChainPointList> m_ChainPointList;
+	std::vector<ChainPoint> m_ChainPointList;
 
 	float m_ChainLength;
 

@@ -73,12 +73,6 @@ public:
 	void SetVector(Vector2 Vector) { m_Vector = Vector; }
 	void AddLife(int add) { m_Life += add; }
 
-	//‹——£Žæ“¾
-	float GetDistance(Vector2 Position)
-	{
-		Vector2 direction = m_Position - Position;
-		return direction.length();
-	}
 
 	bool InRangeObject(Vector2 mainObjPos, Vector2 mainObjScale,
 		Vector2 hitObjPos, Vector2 hitObjScale, Vector2 range, bool direction) 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "springChain.h"
+
 class SpringBoard : public GameObject
 {
 private:
@@ -11,6 +13,9 @@ private:
 	ID3D11PixelShader* m_PixelShader;
 
 	ID3D11ShaderResourceView* m_Texture;
+
+	ChainPoint leftPoint;
+	ChainPoint rightPoint;
 
 public:
 

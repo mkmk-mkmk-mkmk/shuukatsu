@@ -15,9 +15,17 @@
 
 void SpringBoard::Init(Vector2 boardLeftPos, Vector2 boardRightPos, float height)
 {
-	m_Position = boardRightPos + ((boardRightPos - boardLeftPos) * 0.5f);
+	// 左端
+	leftPoint.pos = boardLeftPos;
+	leftPoint.oldPos = boardLeftPos;
+	leftPoint.acceleration = Vector2(0, 0);
+	leftPoint.lock = false;
 
-	m_Scale = Vector2(boardRightPos.x - boardLeftPos.x, height);
+	// 右端
+	rightPoint.pos = boardRightPos;
+	rightPoint.oldPos = boardRightPos;
+	rightPoint.acceleration = Vector2(0, 0);
+	rightPoint.lock = false;
 
 	VERTEX_3D vertex[4];
 
@@ -68,7 +76,57 @@ void SpringBoard::Uninit()
 
 void SpringBoard::Update()
 {
+	//重力適用
+	if (!leftPoint.lock)
+	{
+		leftPoint.acceleration.y += m_Gravity;
+	}
 
+	if (!rightPoint.lock)
+	{
+		rightPoint.acceleration.y += m_Gravity;
+	}
+
+	// 左端
+	if (!leftPoint.lock)
+	{
+		Vector2 temp = leftPoint.pos;
+		leftPoint.pos += (leftPoint.pos - leftPoint.oldPos) + leftPoint.acceleration;
+		leftPoint.oldPos = temp;
+		leftPoint.acceleration = Vector2(0, 0);
+	}
+
+	// 右端
+	if (!rightPoint.lock)
+	{
+		Vector2 temp = rightPoint.pos;
+		rightPoint.pos += (rightPoint.pos - rightPoint.oldPos) + rightPoint.acceleration;
+		rightPoint.oldPos = temp;
+		rightPoint.acceleration = Vector2(0, 0);
+	}
+
+	//距離制約
+	Vector2 delta = rightPoint.pos - leftPoint.pos;
+	float pointDistance = length(delta);
+	if (pointDistance == 0.0f)
+	{
+		return;
+	}
+
+	// 板の元の長さを保ちたい
+	static float boardLength = pointDistance; // 初回のみ記録
+
+	float diff = (pointDistance - boardLength) / pointDistance;
+
+	if (!leftPoint.lock)
+	{
+		leftPoint.pos += delta * 0.5f * diff;
+	}
+
+	if (!rightPoint.lock)
+	{
+		rightPoint.pos -= delta * 0.5f * diff;
+	}
 }
 
 void SpringBoard::Draw()
