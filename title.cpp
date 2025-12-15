@@ -46,12 +46,11 @@ void Title::Uninit()
 
 void Title::Update()
 {
-	Scene::Update();
-
 	if (Input::GetKeyPress(VK_RETURN))
 	{
 		Manager::SetScene<Game>();
 	}
+	Scene::Update();
 }
 
 void Title::Draw()

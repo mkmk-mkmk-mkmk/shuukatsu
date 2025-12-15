@@ -21,19 +21,10 @@ Random random;
 void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
 {
 	//敵キャラスタート位置
-	m_Position = Vector2(screenWidth * 0.75f, screenHeight * 0.5f);
-	//m_Position = pos;
+	m_Position = pos;
 
 	//敵キャラの大きさ
-	m_Scale = { 100.0f, 100.0f };
-	//m_Scale = scale;
-
-	//敵のHP
-	m_Life = 1;
-
-	//プレイヤーの位置と大きさも取得
-	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
-	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetScale();
+	m_Scale = scale;
 
 	////敵のタイプ（地上or空中）
 	//if (enemyType == 0)
@@ -44,10 +35,20 @@ void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
 	//{
 	//	EnemyType::Flying;
 	//}
+	
+	//敵のHP（enmeyの種類に応じて体力設定）
+	//switch(enemyType)
+	m_Life = 1;
+
+	//プレイヤーの位置と大きさも取得
+	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
+	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetScale();
 
 	//乱数を初期化しておく
-	//m_Random = random.RandomInt(0, 2);
-	m_Random = 2;
+	m_Random = random.RandomInt(0, 2);
+
+	//動き始めのタイミングをランダムにする
+	m_Frame = random.RandomInt(0, 100);
 
 	VERTEX_3D vertex[4];
 
@@ -204,7 +205,7 @@ void Enemy::Update()
 	//体力が0以下なら自身を消す
 	if (m_Life = 0 || m_Life < 0)
 	{
- 		m_Destroy = true;
+		m_Destroy = true;
 	}
 }
 

@@ -19,7 +19,11 @@ void Player::Init()
 	m_Life = 100;
 
 	//プレイヤースタート位置
-	SetPosition(Vector2(screenWidth * 0.5f + MAPCHIP_WIDTH * 1.5f, screenHeight * 0.5 + MAPCHIP_HEIGHT * 1.5f));
+	float playerFirstPosX = MAPCHIP_WIDTH * 5.0f + m_Scale.x * 0.5f;
+	float playerFirstPosY = Manager::GetScene()->GetGameObject<Map>()->GetBlockHeight() * MAPCHIP_HEIGHT
+		- (MAPCHIP_HEIGHT + m_Scale.y * 0.5f);
+
+	SetPosition(Vector2(playerFirstPosX, playerFirstPosY));
 
 	//スケール設定
 	m_Scale = { 100.0f,100.0f };

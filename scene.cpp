@@ -5,6 +5,7 @@
 
 #include "map.h"
 #include "box.h"
+#include "breakableBox.h"
 #include "enemy.h"
 //#include "camera.h"
 //#include "fade.h"
@@ -56,6 +57,25 @@ void Scene::Update()
 				}
 
 				box->Update(enemies);
+			}
+
+			//BoxのUpdate
+			if (BreakableBox* bBox = dynamic_cast<BreakableBox*>(obj))
+			{
+				//enemyのリストが必要なので作る
+				std::list<Enemy*> enemies;
+				for (int j = 0; j < 10; j++)
+				{
+					for (auto enemyObj : m_GameObject[j])
+					{
+						if (Enemy* enemy = dynamic_cast<Enemy*>(enemyObj))
+						{
+							enemies.push_back(enemy);
+						}
+					}
+				}
+
+				bBox->Update(enemies);
 			}
 
 			if (obj->Destroy())

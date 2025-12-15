@@ -30,12 +30,11 @@ void GameOver::Uninit()
 
 void GameOver::Update()
 {
-	Scene::Update();
-
 	if (Input::GetKeyPress(VK_RETURN))
 	{
 		Manager::SetScene<Title>();
 	}
+	Scene::Update();
 }
 
 void GameOver::Draw()

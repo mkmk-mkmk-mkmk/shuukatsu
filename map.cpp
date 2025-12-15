@@ -50,7 +50,6 @@ void Map::Init(int maptype)
 
 		std::getline(load_file, line);
 		std::istringstream stream(line);
-		STAGEBLOCK_HEIGHT++;
 
 		while (!m_MapTextLineGetFinish)
 		{
@@ -72,7 +71,7 @@ void Map::Init(int maptype)
 				STAGEBLOCK_WIDTH++;
 			}
 		}
-
+		STAGEBLOCK_HEIGHT++;
 	}
 
 	//ファイルを閉じる
@@ -93,7 +92,7 @@ void Map::Init(int maptype)
 		{
 
 		}
-		else if (chip_id == 1)
+		else if (chip_id == 1)	//ブロック
 		{
 			//描画座標を割り出す
 			float position_x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
@@ -102,7 +101,7 @@ void Map::Init(int maptype)
 			//リストに保存
 			m_BoxPosList.push_back(Vector2(position_x, position_y));
 		}
-		else if (chip_id == 2)
+		else if (chip_id == 2)	//破壊可能ブロック
 		{
 			//描画座標を割り出す
 			float position_x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
@@ -111,7 +110,7 @@ void Map::Init(int maptype)
 			//リストに保存
 			m_BreakableBoxPosList.push_back(Vector2(position_x, position_y));
 		}
-		else if (chip_id == 3)
+		else if (chip_id == 3)	//ゴール
 		{
 			//描画座標を割り出す
 			float position_x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
@@ -120,8 +119,16 @@ void Map::Init(int maptype)
 			//リストに保存
 			m_GoalPosList.push_back(Vector2(position_x, position_y));
 		}
+		else if (chip_id == 4)	//エネミー①
+		{
+			//描画座標を割り出す
+			float position_x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
+			float position_y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
 
-		
+			//リストに保存
+			m_EnemyPosList.push_back(Vector2(position_x, position_y));
+		}
+
 	}
 	//マップチップリストを開放
 	g_MapChipList.clear();

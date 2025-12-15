@@ -49,8 +49,17 @@ void Game::Init()
 	AddGameObject<Camera>(2)->Init();
 
 	//敵追加（変数は、pos、scale、enemyType。enemyTypeが0 : 地上の敵、1 : 飛んでいる敵）
-	m_EnemiesInitVal.push_back({{0.0f, 0.0f}, {0.0f, 0.0f}, 0 });
-
+	int enemyCount = GetGameObject<Map>()->m_EnemyPosList.size();
+	for (int i = 0; i < enemyCount; i++)
+	{
+		//エネミーの位置、大きさ、タイプを入れて生成（大きさとタイプは後々いじれるように）
+		Vector2 enemyScale = { 100.0f, 100.0f };
+		Vector2 enemyPos = { GetGameObject<Map>()->m_EnemyPosList.front().x,
+			GetGameObject<Map>()->m_EnemyPosList.front().y  - (MAPCHIP_HEIGHT + enemyScale.y * 0.5f)};
+		int enemyType = 0;
+		m_EnemiesInitVal.push_back({ enemyPos, enemyScale, enemyType });
+		GetGameObject<Map>()->m_EnemyPosList.pop_front();
+	}
 
 	//追加した敵を生成
 	for (auto& enemies : m_EnemiesInitVal)
@@ -64,7 +73,7 @@ void Game::Init()
 	}
 
 	//箱の追加
-	int m_BoxCount = Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.size(); //箱の数を保存しておく
+	int m_BoxCount = GetGameObject<Map>()->m_BoxPosList.size(); //箱の数を保存しておく
 
 	for (int i = 0; i < m_BoxCount; i++)
 	{
@@ -73,7 +82,7 @@ void Game::Init()
 	}
 
 	//透明箱の追加
-	int m_BreakableBoxCount = Manager::GetScene()->GetGameObject<Map>()->m_BreakableBoxPosList.size(); //透明箱の数を保存しておく
+	int m_BreakableBoxCount = GetGameObject<Map>()->m_BreakableBoxPosList.size(); //透明箱の数を保存しておく
 
 	for (int i = 0; i < m_BreakableBoxCount; i++)
 	{
@@ -82,7 +91,7 @@ void Game::Init()
 	}
 
 	//ゴールの追加
-	int m_GoalCount = Manager::GetScene()->GetGameObject<Map>()->m_GoalPosList.size(); //箱の数を保存しておく
+	int m_GoalCount = GetGameObject<Map>()->m_GoalPosList.size(); //箱の数を保存しておく
 
 	for (int i = 0; i < m_GoalCount; i++)
 	{
@@ -103,7 +112,6 @@ void Game::Uninit()
 
 void Game::Update()
 {
-
 	Scene::Update();
 }
 

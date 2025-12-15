@@ -57,6 +57,7 @@ void Manager::Update()
 		m_NextScene = nullptr;
 
 		m_Scene->Init();
+		m_Scene->Update();
 	}
 }
 
@@ -65,7 +66,6 @@ void Manager::Draw()
 	Renderer::Begin();
 
 	m_Scene->Draw();
-
 
 	Renderer::End();
 }
