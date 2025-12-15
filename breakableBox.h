@@ -16,16 +16,12 @@ private:
 
 	Vector2  m_FirstPos; //ボックス初期座標
 
+	bool m_HitPlayerMoveTrail;	//プレイヤーの軌跡移動中に当たっているか
+
 public:
 	void Init();
 	void Uninit();
 	void Update(const std::list<Enemy*>& enemies);
 	void Draw();
-
-	void SetPosition(Vector2 position) { m_Position = position; }
-	Vector2 GetPosition() { return m_Position; }
-
-	void SetScale(Vector2 scale) { m_Scale = scale; }
-	Vector2 GetScale() { return m_Scale; }
 
 };

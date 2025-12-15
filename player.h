@@ -33,7 +33,7 @@ private:
 	std::list<Vector2> m_TrailPosList;
 	std::list<Vector2> m_TrailDiffList;
 	bool m_HaveTrail = false;		//‹OÕ‚ğ‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
-	bool m_GettingTrail = false;
+	bool m_GettingTrail = false;	//‹OÕæ“¾’†
 	bool m_MoveTrail = false;		//‹OÕˆÚ“®’†‚©‚Ç‚¤‚©
 
 	PlayerState m_PlayerState = PlayerState::Normal;	//ƒvƒŒƒCƒ„[‚Ìó‘Ô

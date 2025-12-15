@@ -111,7 +111,7 @@ void Player::Update()
 		//WASD移動
 		PlayerMove();
 
-		if (Input::GetKeyPress(VK_RBUTTON) || Input::GetKeyPress(VK_LBUTTON)) //クリックで軌跡取得開始
+		if ((Input::GetKeyPress(VK_RBUTTON) || Input::GetKeyPress(VK_LBUTTON)) && !m_HaveTrail) //クリックで軌跡取得開始
 		{
 			m_PlayerState = PlayerState::GettingTrail;
 		}
@@ -148,23 +148,22 @@ void Player::Update()
 		PlayerMove();
 
 		m_ClickPos = Manager::GetScene()->GetGameObject<Cursor>()->GetPosition();
-		if (Input::GetKeyPress(VK_RBUTTON)) //右クリックで軌跡取得
+		if (Input::GetKeyPress(VK_RBUTTON) && !m_HaveTrail) //右クリックで軌跡取得
 		{
 			m_GettingTrail = true;
-			m_HaveTrail = true;
 
 			m_TrailDiffList.push_back(m_Vector);
 
 		}
-		else if (Input::GetKeyPress(VK_LBUTTON)) //左クリックで逆走の取得
+		else if (Input::GetKeyPress(VK_LBUTTON) && !m_HaveTrail) //左クリックで逆走の取得
 		{
 			m_GettingTrail = true;
-			m_HaveTrail = true;
 
 			m_TrailDiffList.push_front(-m_Vector);
 		}
 		else
 		{
+			m_HaveTrail = true;
 			m_GettingTrail = false;
 			m_PlayerState = PlayerState::Normal;
 		}
