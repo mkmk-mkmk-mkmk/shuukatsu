@@ -224,7 +224,7 @@ void Enemy::Draw()
 
 	XMMATRIX world, scale, rot, trans;
 	scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
-	rot = XMMatrixRotationRollPitchYaw(m_Rotation.x, m_Rotation.y, 0.0f);
+	rot = XMMatrixRotationZ(m_Rotate);
 	trans = XMMatrixTranslation(m_DrawPosition.x, m_DrawPosition.y, 0.0f);
 	world = scale * rot * trans;
 

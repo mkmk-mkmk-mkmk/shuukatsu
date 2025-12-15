@@ -153,12 +153,19 @@ void SpringChain::Draw()
 {
 	for (int i = 0; i < m_ChainPieceCount; i++)
 	{
-		DrawPiece();
+		DrawPiece(i);
 	}
 }
 
-void SpringChain::DrawPiece()
+void SpringChain::DrawPiece(int count)
 {
+	ChainPoint point1 = m_ChainPointList[count];
+	ChainPoint point2 = m_ChainPointList[count + 1];
+
+	m_Position = point1.pos + ((point2.pos - point1.pos) * 0.5f);
+	m_Rotate = PI * 0.5f - atan2(point2.pos.y - point1.pos.y,
+									point2.pos.x - point1.pos.x);
+
 	//•`‰æˆÊ’uXV
 	m_DrawPosition =
 		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
@@ -173,7 +180,7 @@ void SpringChain::DrawPiece()
 
 	XMMATRIX world, scale, rot, trans;
 	scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
-	rot = XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);
+	rot = XMMatrixRotationZ(m_Rotate);
 	trans = XMMatrixTranslation(m_DrawPosition.x, m_DrawPosition.y, 0.0f);
 	world = scale * rot * trans;
 

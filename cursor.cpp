@@ -29,22 +29,22 @@ void Cursor::Init()
 
 	VERTEX_3D vertex[4];
 
-	vertex[0].Position = { GetPosition().x - m_Scale.x, GetPosition().y - m_Scale.y, 0.0f };
+	vertex[0].Position = { -0.5f, -0.5f, 0.0f };
 	vertex[0].Normal = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	vertex[0].Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[0].TexCoord = { 0.0f, 0.0f };
 
-	vertex[1].Position = { GetPosition().x + m_Scale.x, GetPosition().y - m_Scale.y, 0.0f };
+	vertex[1].Position = { 0.5f, -0.5f, 0.0f };
 	vertex[1].Normal = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	vertex[1].Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[1].TexCoord = { 1.0f, 0.0f };
 
-	vertex[2].Position = { GetPosition().x - m_Scale.x, GetPosition().y + m_Scale.y, 0.0f };
+	vertex[2].Position = { -0.5f, 0.5f, 0.0f };
 	vertex[2].Normal = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	vertex[2].Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[2].TexCoord = { 0.0f, 1.0f };
 
-	vertex[3].Position = { GetPosition().x + m_Scale.x, GetPosition().y + m_Scale.y, 0.0f };
+	vertex[3].Position = { 0.5f, 0.5f, 0.0f };
 	vertex[3].Normal = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	vertex[3].Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[3].TexCoord = { 1.0f, 1.0f };
@@ -187,8 +187,8 @@ void Cursor::Draw()
 	Renderer::SetWorldViewProjection2D();
 
 	XMMATRIX world, scale, rot, trans;
-	scale = XMMatrixScaling(1.0f, 1.0f, 1.0f);
-	rot = XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);
+	scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
+	rot = XMMatrixRotationZ(m_Rotate);
 	trans = XMMatrixTranslation(GetPosition().x, GetPosition().y, 0.0f);
 	//trans = XMMatrixTranslation(0.0f, 0.0f, 0.0f);
 

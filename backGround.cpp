@@ -104,7 +104,7 @@ void BackGround::Draw()
 
 	XMMATRIX world, scale, rot, trans;
 	scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
-	rot = XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f);
+	rot = XMMatrixRotationZ(m_Rotate);
 	trans = XMMatrixTranslation(m_Position.x, m_Position.y, 0.0f);
 	world = scale * rot * trans;
 

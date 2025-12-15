@@ -11,6 +11,8 @@ protected:
 
 	int m_Frame = 0;
 
+	const float PI = 3.1415;
+
 	bool m_Destroy = false;
 
 	int m_Life;
@@ -18,7 +20,7 @@ protected:
 	Vector2 m_Position{ 0.0f,0.0f };		//ワールド座標（判定などに使用）
 	Vector2 m_DrawPosition{ 0.0f, 0.0f };	//描画座標（描画のみに使用）
 	Vector2 m_OldPosition{ 0.0f, 0.0f };	//1フレーム前のワールド座標
-	Vector2 m_Rotation{ 0.0f,0.0f };		//回転
+	float m_Rotate = 0.0f;			//回転
 	Vector2 m_Scale{ 1.0f,1.0f };			//スケール
 	Vector2 m_Vector{ 0.0f,0.0f };			//移動ベクトル
 	
@@ -61,16 +63,16 @@ public:
 
 	Vector2 GetPosition() { return m_Position; }
 	Vector2 GetDrawPosition() { return m_DrawPosition; }
-	Vector2 GetRotation() { return m_Rotation; }
+	float GetRotate() { return m_Rotate; }
 	Vector2 GetScale(){ return m_Scale; }
 	Vector2 GetVector() { return m_Vector; }
 	int GetLife() { return m_Life; }
 
-	void SetPosition(Vector2 Position) { m_Position = Position; }
+	void SetPosition(Vector2 position) { m_Position = position; }
 	void SetDrawPosition(Vector2 drawPosition) { m_DrawPosition = drawPosition; }
-	void SetRotation(Vector2 Rotation) { m_Position = Rotation; }
-	void SetScale(Vector2 Scale) { m_Scale = Scale; }
-	void SetVector(Vector2 Vector) { m_Vector = Vector; }
+	void SetRotate(float rotate) { m_Rotate = rotate; }
+	void SetScale(Vector2 scale) { m_Scale = scale; }
+	void SetVector(Vector2 vector) { m_Vector = vector; }
 	void AddLife(int add) { m_Life += add; }
 
 

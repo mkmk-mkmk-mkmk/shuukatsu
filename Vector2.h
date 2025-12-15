@@ -127,25 +127,14 @@ public:
 	{
 		Vector2 diff;
 
-		if (a.x > b.x)
-		{
-			diff.x = a.x - b.x;
-		}
-		else
-		{
-			diff.x = b.x - a.x;
-		}
-
-		if (a.y > b.y)
-		{
-			diff.y = a.y - b.y;
-		}
-		else
-		{
-			diff.y = b.y - a.y;
-		}
+		diff.x = a.x - b.x;
+		diff.y = a.y - b.y;
 
 		return sqrt(diff.x * diff.x + diff.y * diff.y);
 	}
 
+	Vector2 vec(Vector2& a, Vector2& b)
+	{
+		return Vector2(b.x - a.x, b.y - a.y);
+	}
 };
