@@ -132,16 +132,17 @@ void SpringChain::Update()
 				continue;
 			}
 
+			float stiffness = 0.2f;
 			float diff = (pointDistance - m_ChainLength) / pointDistance;
 
 			if (!point1.lock)
 			{
-				point1.pos += delta * 0.5f * diff;
+				point1.pos += delta * 0.5f * diff * stiffness;
 			}
 
 			if (!point2.lock)
 			{
-				point2.pos -= delta * 0.5f * diff;
+				point2.pos -= delta * 0.5f * diff * stiffness;
 			}
 		}
 	}
