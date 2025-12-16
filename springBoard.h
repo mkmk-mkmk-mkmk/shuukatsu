@@ -14,14 +14,20 @@ private:
 
 	ID3D11ShaderResourceView* m_Texture;
 
-	ChainPoint leftPoint;
-	ChainPoint rightPoint;
+	ChainPoint* m_LeftPoint;
+	ChainPoint* m_RightPoint;
+
+	Vector2 m_PlayerPos;
+	Vector2 m_PlayerScale;
+	Vector2 m_PlayerVector;
+
+	float m_BoardLength;
 
 public:
 
-	void Init(Vector2 boardLeftPos, Vector2 boardRightPos, float height);
+	void Init(ChainPoint* leftPoint, ChainPoint* rightPoint, float height);
 	void Uninit();
-	void Update();
+	//void Update();
 	void Draw();
 
 };

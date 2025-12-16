@@ -13,19 +13,17 @@
 #include "camera.h"
 #include "enemy.h"
 
-void SpringBoard::Init(Vector2 boardLeftPos, Vector2 boardRightPos, float height)
+void SpringBoard::Init(ChainPoint* leftPoint, ChainPoint* rightPoint, float height)
 {
 	// 左端
-	leftPoint.pos = boardLeftPos;
-	leftPoint.oldPos = boardLeftPos;
-	leftPoint.acceleration = Vector2(0, 0);
-	leftPoint.lock = false;
+	m_LeftPoint = leftPoint;
 
 	// 右端
-	rightPoint.pos = boardRightPos;
-	rightPoint.oldPos = boardRightPos;
-	rightPoint.acceleration = Vector2(0, 0);
-	rightPoint.lock = false;
+	m_RightPoint = rightPoint;
+
+	//大きさ
+	float length = distance(rightPoint->pos, leftPoint->pos);
+	m_Scale = Vector2(length, height);
 
 	VERTEX_3D vertex[4];
 
@@ -74,62 +72,102 @@ void SpringBoard::Uninit()
 
 }
 
-void SpringBoard::Update()
-{
-	//重力適用
-	if (!leftPoint.lock)
-	{
-		leftPoint.acceleration.y += m_Gravity;
-	}
-
-	if (!rightPoint.lock)
-	{
-		rightPoint.acceleration.y += m_Gravity;
-	}
-
-	// 左端
-	if (!leftPoint.lock)
-	{
-		Vector2 temp = leftPoint.pos;
-		leftPoint.pos += (leftPoint.pos - leftPoint.oldPos) + leftPoint.acceleration;
-		leftPoint.oldPos = temp;
-		leftPoint.acceleration = Vector2(0, 0);
-	}
-
-	// 右端
-	if (!rightPoint.lock)
-	{
-		Vector2 temp = rightPoint.pos;
-		rightPoint.pos += (rightPoint.pos - rightPoint.oldPos) + rightPoint.acceleration;
-		rightPoint.oldPos = temp;
-		rightPoint.acceleration = Vector2(0, 0);
-	}
-
-	//距離制約
-	Vector2 delta = rightPoint.pos - leftPoint.pos;
-	float pointDistance = length(delta);
-	if (pointDistance == 0.0f)
-	{
-		return;
-	}
-
-	// 板の元の長さを保ちたい
-	static float boardLength = pointDistance; // 初回のみ記録
-
-	float diff = (pointDistance - boardLength) / pointDistance;
-
-	if (!leftPoint.lock)
-	{
-		leftPoint.pos += delta * 0.5f * diff;
-	}
-
-	if (!rightPoint.lock)
-	{
-		rightPoint.pos -= delta * 0.5f * diff;
-	}
-}
+//void SpringBoard::Update()
+//{
+//	//重力適用
+//	if (!leftPoint.lock)
+//	{
+//		leftPoint.acceleration.y += m_Gravity;
+//	}
+//
+//	if (!rightPoint.lock)
+//	{
+//		rightPoint.acceleration.y += m_Gravity;
+//	}
+//
+//	// 左端
+//	if (!leftPoint.lock)
+//	{
+//		Vector2 temp = leftPoint.pos;
+//		leftPoint.pos += (leftPoint.pos - leftPoint.oldPos) + leftPoint.acceleration;
+//		leftPoint.oldPos = temp;
+//		leftPoint.acceleration = Vector2(0, 0);
+//	}
+//
+//	// 右端
+//	if (!rightPoint.lock)
+//	{
+//		Vector2 temp = rightPoint.pos;
+//		rightPoint.pos += (rightPoint.pos - rightPoint.oldPos) + rightPoint.acceleration;
+//		rightPoint.oldPos = temp;
+//		rightPoint.acceleration = Vector2(0, 0);
+//	}
+//
+//	//距離制約
+//	Vector2 delta = rightPoint.pos - leftPoint.pos;
+//	float pointDistance = length(delta);
+//	if (pointDistance == 0.0f)
+//	{
+//		return;
+//	}
+//
+//	// 板の元の長さを保ちたい
+//	m_BoardLength = pointDistance; // 初回のみ記録
+//
+//	float diff = (pointDistance - m_BoardLength) / pointDistance;
+//
+//	if (!leftPoint.lock)
+//	{
+//		leftPoint.pos += delta * 0.5f * diff;
+//	}
+//
+//	if (!rightPoint.lock)
+//	{
+//		rightPoint.pos -= delta * 0.5f * diff;
+//	}
+//}
 
 void SpringBoard::Draw()
 {
+	m_Position = m_LeftPoint->pos +(m_RightPoint->pos - m_LeftPoint->pos) * 0.5f;
+
+	m_Rotate = atan2(m_RightPoint->pos.y - m_LeftPoint->pos.y,
+										m_RightPoint->pos.x - m_LeftPoint->pos.x);
+
+	//描画位置更新
+	m_DrawPosition =
+		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+
+	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
+
+	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
+	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
+
+	//マトリクス設定
+	Renderer::SetWorldViewProjection2D();
+
+	XMMATRIX world, scale, rot, trans;
+	scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
+	rot = XMMatrixRotationZ(m_Rotate);
+	trans = XMMatrixTranslation(m_DrawPosition.x, m_DrawPosition.y, 0.0f);
+	world = scale * rot * trans;
+
+	Renderer::SetWorldMatrix(world);
+
+	//マテリアル設定
+	MATERIAL material{};
+	material.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+	material.TextureEnable = true;
+	Renderer::SetMaterial(material);
+
+	UINT stride = sizeof(VERTEX_3D);
+	UINT offset = 0;
+	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
+
+	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
+
+	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	Renderer::GetDeviceContext()->Draw(4, 0);
 
 }

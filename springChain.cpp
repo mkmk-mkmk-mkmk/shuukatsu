@@ -16,7 +16,7 @@
 void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, float chainWidth)
 {
 	//分割数+1が点の数
-	m_ChainPieceCount = (int)chainSplit + 1;
+	m_ChainPointCount = (int)chainSplit + 1;
 
 	//一つ一つのチェーンの大きさ取得（絶対値で）
 	Vector2 chainPieceScale = (bottomPos - topPos) / chainSplit;
@@ -26,7 +26,7 @@ void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, floa
 	m_ChainPointList.clear();
 
 	//点のリスト初期化
-	for (int i = 0; i < m_ChainPieceCount; i++)
+	for (int i = 0; i < m_ChainPointCount; i++)
 	{
 		ChainPoint pointList;
 		pointList.pos = topPos + (chainPieceScale * (float)i);
@@ -38,8 +38,6 @@ void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, floa
 	}
 
 	m_Scale = Vector2(chainWidth, chainPieceScale.y);
-
-
 
 
 	VERTEX_3D vertex[4];
@@ -92,7 +90,7 @@ void SpringChain::Uninit()
 void SpringChain::Update()
 {
 	//重力適用
-	for (auto point : m_ChainPointList)
+	for (auto &point : m_ChainPointList)
 	{
 		if (!point.lock)
 		{
@@ -101,7 +99,7 @@ void SpringChain::Update()
 	}
 
 	//位置更新
-	for (auto point : m_ChainPointList)
+	for (auto &point : m_ChainPointList)
 	{
 		if (point.lock)
 		{
@@ -122,7 +120,7 @@ void SpringChain::Update()
 
 	for (int n = 0; n < constraintLoop; n++)
 	{
-		for (int i = 0; i < m_ChainPieceCount - 1; i++)
+		for (int i = 0; i < m_ChainPointCount - 1; i++)
 		{
 			ChainPoint& point1 = m_ChainPointList[i];
 			ChainPoint& point2 = m_ChainPointList[i + 1];
@@ -151,7 +149,7 @@ void SpringChain::Update()
 
 void SpringChain::Draw()
 {
-	for (int i = 0; i < m_ChainPieceCount; i++)
+	for (int i = 0; i < m_ChainPointCount - 1; i++)
 	{
 		DrawPiece(i);
 	}

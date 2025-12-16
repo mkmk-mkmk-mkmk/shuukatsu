@@ -18,6 +18,8 @@ void Collision::BoxCollision(Vector2 objectPos, Vector2 objectScale, Vector2 box
 {
 	if (BoxCollisionCommon(objectPos, objectScale, boxPos, boxScale))
 	{
-		BoxCollisionExtra(boxPos, boxScale);
+		BoxCollisionExtra(objectPos, objectScale, boxPos, boxScale);
 	}
 }
+
+

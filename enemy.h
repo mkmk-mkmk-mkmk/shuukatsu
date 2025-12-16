@@ -101,7 +101,7 @@ public:
 
 	void DeleteAnimation() override;
 
-	void BoxCollisionExtra(Vector2 boxPos, Vector2 boxScale) override;
+	void BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale) override;
 
 	void CheckStairs();
 

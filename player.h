@@ -22,10 +22,8 @@ private:
 
 	//int frame = 0;
 
-	Vector2 m_OldPosition;
 	float m_Speed = 10.0f;			//プレイヤーの移動速度
 	float m_JumpPower = -12.0f;		//ジャンプ力
-	bool m_OnGround = false;		//地面に接地しているかどうか
 	bool m_Dash = false;			//ダッシュ中かどうか
 
 	Vector2 m_ClickPos;
@@ -51,7 +49,7 @@ public:
 		return m_MoveTrail;
 	}
 
-	void BoxCollisionExtra(Vector2 boxPos, Vector2 boxScale) override;
+	void BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale) override;
 
 
 };

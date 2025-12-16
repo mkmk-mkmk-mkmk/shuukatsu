@@ -17,7 +17,7 @@ private:
 public:
 
 	void Init(Vector2 topLeftPos, Vector2 bottomLeftPos, Vector2 topRightPos, Vector2 bottomRightPos,
-		float chainSplit, float chainSplitRight, float chainWidth, float boardWidth, int gameObjectNumber);
+		float chainSplit, float chainSplitRight, float chainWidth, float boardHeight, int gameObjectNumber);
 	void Uninit();
 	void Update();
 	void Draw();

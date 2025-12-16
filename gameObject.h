@@ -20,9 +20,11 @@ protected:
 	Vector2 m_Position{ 0.0f,0.0f };		//ワールド座標（判定などに使用）
 	Vector2 m_DrawPosition{ 0.0f, 0.0f };	//描画座標（描画のみに使用）
 	Vector2 m_OldPosition{ 0.0f, 0.0f };	//1フレーム前のワールド座標
-	float m_Rotate = 0.0f;			//回転
+	float	m_Rotate = 0.0f;				//回転
 	Vector2 m_Scale{ 1.0f,1.0f };			//スケール
 	Vector2 m_Vector{ 0.0f,0.0f };			//移動ベクトル
+	float   m_Weight = 1.0f;				//重さ
+	int		m_Layer = 0;					//レイヤー
 	
 	bool m_OnGround = false;	//地面に接地しているかどうか
 	bool m_Direction = true;	//体の向き true：右向き、false：左向き

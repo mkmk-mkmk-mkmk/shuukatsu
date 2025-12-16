@@ -54,7 +54,7 @@ void BackGround::Init(int sceneType)
 		m_Texture = Texture::Load("asset\\texture\\title.png");
 		break;
 	case 1:
-		m_Texture = Texture::Load("asset\\texture\\background.png");
+		m_Texture = Texture::Load("asset\\texture\\bill.jpg");
 		break;
 	case 2:
 		m_Texture = Texture::Load("asset\\texture\\stageclear.png");
@@ -112,7 +112,7 @@ void BackGround::Draw()
 
 	//ƒ}ƒeƒŠƒAƒ‹İ’è
 	MATERIAL material{};
-	material.Diffuse = { 1.0f, 1.0f, 1.0f, 0.5f };
+	material.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 

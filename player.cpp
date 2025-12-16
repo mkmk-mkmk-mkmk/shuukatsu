@@ -301,7 +301,7 @@ void Player::PlayerMove()
 
 }
 
-void Player::BoxCollisionExtra(Vector2 boxPos, Vector2 boxScale)
+void Player::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale)
 {
 	if (m_Position.y < boxPos.y	//ボックスの上に乗っている場合
 		&& m_Position.x + m_Scale.x * 0.25f >= boxPos.x - boxScale.x * 0.5f 

@@ -410,7 +410,7 @@ void Enemy::DeleteAnimation()
 	m_DeleteAnimationFinished = true;
 }
 
-void Enemy::BoxCollisionExtra(Vector2 boxPos, Vector2 boxScale)
+void Enemy::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale)
 {
 
 	if (m_Position.y < boxPos.y	//ボックスの上に乗っている場合

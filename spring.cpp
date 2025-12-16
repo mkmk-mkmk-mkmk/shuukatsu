@@ -13,8 +13,8 @@
 #include "camera.h"
 #include "enemy.h"
 
-void Spring::Init(Vector2 topLeftPos, Vector2 bottomLeftPos, Vector2 topRightPos, Vector2 bottomRightPos,
-	float chainSplitLeft, float chainSplitRight, float chainWidth, float boardWidth, int gameObjectNumber)
+void Spring::Init(Vector2 topLeftPos, Vector2 topRightPos, Vector2 bottomLeftPos, Vector2 bottomRightPos,
+	float chainSplitLeft, float chainSplitRight, float chainWidth, float boardHeight, int gameObjectNumber)
 {
 	//チェーンオブジェクト作成
 	//左側
@@ -24,15 +24,13 @@ void Spring::Init(Vector2 topLeftPos, Vector2 bottomLeftPos, Vector2 topRightPos
 	rightChain.Init(topRightPos, bottomRightPos, chainSplitRight, chainWidth);
 
 	//ボードオブジェクト作成
-	board.Init(bottomLeftPos, bottomRightPos, boardWidth);
+	board.Init(&leftChain.GetEndPoint(),&rightChain.GetEndPoint(),boardHeight);
 }
 
 void Spring::Uninit()
 {
 	leftChain.Uninit();
 	rightChain.Uninit();
-
-	board.Uninit();
 }
 
 void Spring::Update()
@@ -40,7 +38,7 @@ void Spring::Update()
 	leftChain.Update();
 	rightChain.Update();
 
-	board.Update();
+	//board.Update();
 }
 
 void Spring::Draw()
