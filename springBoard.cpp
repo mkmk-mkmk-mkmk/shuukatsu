@@ -59,7 +59,7 @@ void SpringBoard::Init(ChainPoint* leftPoint, ChainPoint* rightPoint, float heig
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	m_Texture = Texture::Load("asset\\texture\\tile.png");
+	m_Texture = Texture::Load("asset\\texture\\springBoard.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 

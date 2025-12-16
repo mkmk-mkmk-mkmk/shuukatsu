@@ -74,7 +74,7 @@ void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, floa
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	//m_Texture = Texture::Load("asset\\texture\\springChain.png");
+	m_Texture = Texture::Load("asset\\texture\\springChain.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -147,7 +147,7 @@ void SpringChain::Update()
 		}
 	}
 
-	if (m_ChainPointList.front().pos.y > -100.0f)
+	if (m_ChainPointList.front().pos.y > -screenHeight / 4)
 	{
 		//ˆê”Ôã‚Ì“_‚ğŒÅ’è
 		m_ChainPointList.front().lock = true;
