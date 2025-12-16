@@ -67,65 +67,6 @@ void SpringBoard::Init(ChainPoint* leftPoint, ChainPoint* rightPoint, float heig
 
 }
 
-void SpringBoard::Uninit()
-{
-
-}
-
-//void SpringBoard::Update()
-//{
-//	//重力適用
-//	if (!leftPoint.lock)
-//	{
-//		leftPoint.acceleration.y += m_Gravity;
-//	}
-//
-//	if (!rightPoint.lock)
-//	{
-//		rightPoint.acceleration.y += m_Gravity;
-//	}
-//
-//	// 左端
-//	if (!leftPoint.lock)
-//	{
-//		Vector2 temp = leftPoint.pos;
-//		leftPoint.pos += (leftPoint.pos - leftPoint.oldPos) + leftPoint.acceleration;
-//		leftPoint.oldPos = temp;
-//		leftPoint.acceleration = Vector2(0, 0);
-//	}
-//
-//	// 右端
-//	if (!rightPoint.lock)
-//	{
-//		Vector2 temp = rightPoint.pos;
-//		rightPoint.pos += (rightPoint.pos - rightPoint.oldPos) + rightPoint.acceleration;
-//		rightPoint.oldPos = temp;
-//		rightPoint.acceleration = Vector2(0, 0);
-//	}
-//
-//	//距離制約
-//	Vector2 delta = rightPoint.pos - leftPoint.pos;
-//	float pointDistance = length(delta);
-//	if (pointDistance == 0.0f)
-//	{
-//		return;
-//	}
-//
-//	// 板の元の長さを保ちたい
-//	m_BoardLength = pointDistance; // 初回のみ記録
-//
-//	float diff = (pointDistance - m_BoardLength) / pointDistance;
-//
-//	if (!leftPoint.lock)
-//	{
-//		leftPoint.pos += delta * 0.5f * diff;
-//	}
-//
-//	if (!rightPoint.lock)
-//	{
-//		rightPoint.pos -= delta * 0.5f * diff;
-//	}
-//}
 
 void SpringBoard::Draw()
 {
@@ -134,9 +75,9 @@ void SpringBoard::Draw()
 	m_Rotate = atan2(m_RightPoint->pos.y - m_LeftPoint->pos.y,
 										m_RightPoint->pos.x - m_LeftPoint->pos.x);
 
-	//描画位置更新
-	m_DrawPosition =
-		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+	////描画位置更新
+	//m_DrawPosition =
+	//	m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
@@ -149,7 +90,7 @@ void SpringBoard::Draw()
 	XMMATRIX world, scale, rot, trans;
 	scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
 	rot = XMMatrixRotationZ(m_Rotate);
-	trans = XMMatrixTranslation(m_DrawPosition.x, m_DrawPosition.y, 0.0f);
+	trans = XMMatrixTranslation(m_Position.x, m_Position.y, 0.0f);
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(world);

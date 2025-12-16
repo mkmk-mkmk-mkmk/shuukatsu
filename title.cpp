@@ -37,12 +37,15 @@ void Title::Init()
 	}
 
 	//スプリングの追加
-	AddGameObject<Spring>(3)->
-		Init(Vector2(550.0f, 450.0f), Vector2(750.0f, 450.0f), Vector2(550.0f, 750.0f), Vector2(750.0f, 750.0f),
+	AddGameObject<Spring>(4)->
+		Init(Vector2((float)screenWidth / 6, -(float)screenHeight / 5 * 2),
+			Vector2((float)screenWidth * 5 / 6, -(float)screenHeight / 5 * 2),
+			Vector2((float)screenWidth / 6, (float)screenHeight / 5),
+			Vector2((float)screenWidth * 5 / 6, (float)screenHeight / 5),
 			5.0f, 5.0f, 50.0f, 70.0f, 3);
 
 	//カーソルの取得
-	AddGameObject<Cursor>(4)->Init();
+	AddGameObject<Cursor>(5)->Init();
 }
 
 void Title::Uninit()

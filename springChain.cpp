@@ -32,7 +32,7 @@ void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, floa
 		pointList.pos = topPos + (chainPieceScale * (float)i);
 		pointList.oldPos = pointList.pos;	//初期速度は0
 		pointList.acceleration = Vector2(0.0f, 0.0f);
-		pointList.lock = (i == 0);			//一番上だけ固定する
+		pointList.lock = false;			//後に一番上だけ固定する
 
 		m_ChainPointList.push_back(pointList);
 	}
@@ -146,6 +146,12 @@ void SpringChain::Update()
 			}
 		}
 	}
+
+	if (m_ChainPointList.front().pos.y > -100.0f)
+	{
+		//一番上の点を固定
+		m_ChainPointList.front().lock = true;
+	}
 }
 
 void SpringChain::Draw()
@@ -165,10 +171,6 @@ void SpringChain::DrawPiece(int count)
 	m_Rotate = PI * 0.5f - atan2(point2.pos.y - point1.pos.y,
 									point2.pos.x - point1.pos.x);
 
-	//描画位置更新
-	m_DrawPosition =
-		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
-
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
@@ -178,9 +180,9 @@ void SpringChain::DrawPiece(int count)
 	Renderer::SetWorldViewProjection2D();
 
 	XMMATRIX world, scale, rot, trans;
-	scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
+	scale = XMMatrixScaling(m_Scale.x, m_Scale.y + 50.0f, 1.0f);	//少し長めに描画
 	rot = XMMatrixRotationZ(m_Rotate);
-	trans = XMMatrixTranslation(m_DrawPosition.x, m_DrawPosition.y, 0.0f);
+	trans = XMMatrixTranslation(m_Position.x, m_Position.y, 0.0f);
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(world);
@@ -200,6 +202,5 @@ void SpringChain::DrawPiece(int count)
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	Renderer::GetDeviceContext()->Draw(4, 0);
-
 
 }
