@@ -30,7 +30,7 @@ void GameOver::Uninit()
 
 void GameOver::Update()
 {
-	if (Input::GetKeyPress(VK_RETURN))
+	if (Input::GetKeyPress(VK_SHIFT))
 	{
 		Manager::SetScene<Title>();
 	}
