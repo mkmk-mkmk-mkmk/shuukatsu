@@ -20,6 +20,8 @@ private:
 
 	ID3D11ShaderResourceView* m_Texture;
 
+	std::vector<ChainPoint> m_ChainPointList;
+
 	int m_ChainPointCount;
 
 	float m_ChainLength;
@@ -32,7 +34,6 @@ public:
 	void Draw();
 	void DrawPiece(int count);
 
-	std::vector<ChainPoint> m_ChainPointList;
 
 	//チェーンの終端の点を取得
 	ChainPoint& GetEndPoint()

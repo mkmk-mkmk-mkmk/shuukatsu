@@ -7,7 +7,6 @@
 #include "manager.h"
 #include "camera.h"
 #include "map.h"
-#include "random.h"
 
 #include "enemy.h"
 
@@ -16,7 +15,6 @@
 #include "BehaviorTree/sequenceNode.h"
 #include "BehaviorTree/selectorNode.h"
 
-Random random;
 
 void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
 {

@@ -4,6 +4,7 @@
 #include "BehaviorTree/compositeNode.h"
 
 #include <list>
+#include "random.h"
 
 struct EnemyData
 {
@@ -79,6 +80,7 @@ private:
 	bool m_HitPlayerAttackOnce = false;	//プレイヤーの攻撃が多段ヒットしないように
 	bool m_HitPlayerAttack = false;		//プレイヤーの攻撃が当たったか
 
+	Random random;
 	int m_Random;	//乱数用
 
 public:

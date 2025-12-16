@@ -5,7 +5,6 @@
 #include "scene.h"
 #include "player.h"
 
-POINT pt;
 
 void Cursor::Init()  
 {  
@@ -76,8 +75,8 @@ void Cursor::Init()
 	m_CursorLockPos = { screenWidth * 0.5f, screenHeight * 0.5f };
 	SetCursorPos(m_CursorLockPos.x, m_CursorLockPos.y);
 
-	//マウスカーソル非表示
-	ShowCursor(FALSE);
+	////マウスカーソル非表示
+	//ShowCursor(FALSE);
 
 
 	////カーソル用テクスチャの分割数を設定
@@ -105,34 +104,21 @@ void Cursor::Uninit()
 
 void Cursor::Update()  
 {  
-	
-	//クリックを取得
-    
-    //左クリックの処理
-    if ((GetAsyncKeyState(VK_LBUTTON) & 0x8000) && !m_RightButtonUse)
-    {  
-		m_LeftButtonUse = true;
-
-	}
-    //右クリックの処理
-    else if ((GetAsyncKeyState(VK_RBUTTON) & 0x8000) && !m_LeftButtonUse)
-    {
-        m_RightButtonUse = true;
-
-	}
-	else
+	if (GetCursorPos(&pt))
 	{
-		m_LeftButtonUse = false;
-		m_RightButtonUse = false;
-
-
+		SetPosition(Vector2{ static_cast<float>(pt.x), static_cast<float>(pt.y) });
 	}
 
-	if ((!m_RightButtonUse || !m_LeftButtonUse))
+	bool left = (GetAsyncKeyState(VK_LBUTTON) & 0x8000);
+
+	if (left && !m_ButtonUse)
 	{
-		m_CursorLockPos = m_Position;
+		auto particle = std::make_unique<ParticleTouch>();
+		particle->Init(m_Position);
+		m_ParticleTouchList.push_back(std::move(particle));
 	}
 
+	m_ButtonUse = left;
 
 	//カーソル情報更新
 	if (GetCursorPos(&pt))
@@ -140,43 +126,23 @@ void Cursor::Update()
 		SetPosition(Vector2{ static_cast<float>(pt.x), static_cast<float>(pt.y) });
 	}
 
-	////マウス位置固定
-	//if (cursorInstance.m_MouseLock)
-	//{
-	//	SetCursorPos(cursorInstance.m_MouseLockPos.x, cursorInstance.m_MouseLockPos.y);
-	//}
+	for (auto it = m_ParticleTouchList.begin(); it != m_ParticleTouchList.end(); )
+	{
+		(*it)->Update();
 
-	////マウス固定切り替え
-	//if (Input::GetKeyTrigger(VK_MENU))
-	//{
-	//	if (cursorInstance.m_MouseLock)
-	//	{
-	//		cursorInstance.m_MouseLock = false;
-	//		
-	//	}
-	//	else
-	//	{
-	//		cursorInstance.m_MouseLock = true;
-	//	}
-	//}
-	
-	//カーソルの位置を更新
-}  
+		if ((*it)->GetDestroy())
+		{
+			it = m_ParticleTouchList.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
 
 void Cursor::Draw()
 {  
-	SetPosition(Vector2(0.0f, 0.0f)); //カーソルの位置をリセット
-
-	//カーソル情報更新
-	if (GetCursorPos(&pt))
-	{
-		SetPosition(Vector2{ static_cast<float>(pt.x), static_cast<float>(pt.y) });
-	}
-
-    //マウスの位置に代わりとなるものを描画
-
-	//D3D11_MAPPED_SUBRESOURCE msr;
-	//Renderer::GetDeviceContext()->Map(cursorInstance.m_VertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
@@ -207,27 +173,14 @@ void Cursor::Draw()
 	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
 
-
-	if (m_LeftButtonUse)
-	{
-		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
-	}
-	else if (m_RightButtonUse)
-	{
-		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
-	}
-	else
-	{
-
-	}
-
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-	//Renderer::SetDepthEnable(false);
-
 	//カーソル描画
-	Renderer::GetDeviceContext()->Draw(4, 0);
+	//Renderer::GetDeviceContext()->Draw(4, 0);
 
-	//Renderer::SetDepthEnable(true);
 
+	for (auto& p : m_ParticleTouchList)
+	{
+		p->Draw();
+	}
 }

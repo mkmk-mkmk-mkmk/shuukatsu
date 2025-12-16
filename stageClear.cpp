@@ -33,7 +33,7 @@ void StageClear::Update()
 {
 	Scene::Update();
 
-	if (Input::GetKeyPress(VK_SHIFT))
+	if (Input::GetKeyTrigger(VK_RETURN))
 	{
 		Manager::SetScene<Title>();
 	}
