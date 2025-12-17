@@ -1,19 +1,10 @@
-#include "main.h"
-#include "renderer.h"
-#include "Vector2.h"
+
+#include "fade.h"
 #include "texture.h"
-#include "cursor.h"
-#include "input.h"
-#include "scene.h"
-#include "manager.h"
+#include "renderer.h"
+#include "main.h"
 
-#include "box.h"
-#include "map.h"
-#include "player.h"
-#include "camera.h"
-#include "enemy.h"
-
-void Box::Init()
+void Fade::Init()
 {
 	VERTEX_3D vertex[4];
 
@@ -37,11 +28,6 @@ void Box::Init()
 	vertex[3].Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[3].TexCoord = XMFLOAT2(1.0f, 1.0f);
 
-	//初期位置設定
-	m_Position = Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.front();
-
-	//大きさ設定
-	m_Scale = Vector2(MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 	D3D11_BUFFER_DESC bd{};
 	bd.Usage = D3D11_USAGE_DEFAULT;
@@ -54,7 +40,7 @@ void Box::Init()
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	m_Texture = Texture::Load("asset\\texture\\tile.png");
+	m_Texture = Texture::Load("asset\\texture\\fade.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -62,42 +48,36 @@ void Box::Init()
 
 }
 
-void Box::Uninit()
+void Fade::FadeIn()
 {
-	m_Texture->Release();
-
-	m_VertexBuffer->Release();
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
-}
-
-void Box::Update(const std::list<Enemy*>& enemies)
-{
-	//描画位置更新
-	m_DrawPosition =
-		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
-
-	//敵のボックス当たり判定
-	for (auto enemy : enemies)
+	if (!m_FadeInFinished)
 	{
-		Vector2 enemyPos = enemy->GetPosition();
-		Vector2 enemyScale = enemy->GetScale();
-		enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
+		m_Alpha -= m_FadeSpeed;
+
+		if (m_Alpha <= 0.0f)
+		{
+			m_Alpha = 0.0f;
+			m_FadeInFinished = true;
+		}
 	}
-
-	//プレイヤーの位置と大きさ更新
-	Vector2 playerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
-	Vector2 playerScale = Manager::GetScene()->GetGameObject<Player>()->GetScale();
-
-	//プレイヤーのボックス当たり判定
-	Manager::GetScene()->GetGameObject<Player>()->BoxCollision(playerPos, playerScale, m_Position, m_Scale);
-
 }
 
-void Box::Draw()
+void Fade::FadeOut()
 {
+	if (!m_FadeOutFinished)
+	{
+		m_Alpha += m_FadeSpeed;
 
+		if (m_Alpha >= 1.0f)
+		{
+			m_Alpha = 1.0f;
+			m_FadeOutFinished = true;
+		}
+	}
+}
+
+void Fade::Draw()
+{
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
@@ -107,16 +87,16 @@ void Box::Draw()
 	Renderer::SetWorldViewProjection2D();
 
 	XMMATRIX world, scale, rot, trans;
-	scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
-	rot = XMMatrixRotationZ(m_Rotate);
-	trans = XMMatrixTranslation(m_DrawPosition.x, m_DrawPosition.y, 0.0f);
+	scale = XMMatrixScaling(screenWidth, screenHeight, 1.0f);
+	rot = XMMatrixRotationZ(0.0f);
+	trans = XMMatrixTranslation(screenWidth * 0.5f, screenHeight * 0.5f, 0.0f);
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(world);
 
 	//マテリアル設定
 	MATERIAL material{};
-	material.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+	material.Diffuse = { 1.0f, 1.0f, 1.0f, m_Alpha };
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 
@@ -129,5 +109,4 @@ void Box::Draw()
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	Renderer::GetDeviceContext()->Draw(4, 0);
-
 }

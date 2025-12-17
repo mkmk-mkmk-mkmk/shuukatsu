@@ -1,11 +1,13 @@
 #pragma once
 #include"gameObject.h"
+#include "renderer.h"
 #include <list>
 
 enum PlayerState
 {
 	Normal,
 	GettingTrail,
+	HaveTrail,
 	MoveTrail,
 };
 
@@ -36,6 +38,8 @@ private:
 
 	PlayerState m_PlayerState = PlayerState::Normal;	//ÉvÉåÉCÉÑÅ[ÇÃèÛë‘
 
+	VERTEX_3D vertex[4];
+
 public:
 	void Init();
 	void Uninit();
@@ -51,5 +55,9 @@ public:
 
 	void BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale) override;
 
+	PlayerState GetPlayerState()
+	{
+		return m_PlayerState;
+	}
 
 };

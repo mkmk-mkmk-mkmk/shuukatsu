@@ -57,7 +57,7 @@ void ParticleTouch::Init(Vector2 firstPos)
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	m_Texture = Texture::Load("asset\\texture\\clickParticle.png");
+	m_Texture = Texture::Load("asset\\texture\\UI\\clickParticle.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 

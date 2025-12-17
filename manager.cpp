@@ -13,7 +13,6 @@
 
 Cursor cursor;
 Polygon2D polygon;
-Player player;
 //MapManager mapmanager;
 
 Scene* Manager::m_Scene = nullptr;

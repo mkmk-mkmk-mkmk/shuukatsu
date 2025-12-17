@@ -11,8 +11,6 @@ protected:
 
 	int m_Frame = 0;
 
-	const float PI = 3.1415;
-
 	bool m_Destroy = false;
 
 	int m_Life;
@@ -33,6 +31,8 @@ protected:
 	bool m_DeleteAnimationFinished = false;
 
 public:
+	float PI = 3.1415;
+
 	float m_Gravity = 0.3f;
 
 	virtual void Init() {}

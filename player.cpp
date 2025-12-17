@@ -1,15 +1,15 @@
 #include "main.h"
 #include "renderer.h"
-#include "Vector2.h"
-#include "player.h"
 #include "texture.h"
-#include "cursor.h"
 #include "input.h"
+
+#include "cursor.h"
 #include "scene.h"
 #include "manager.h"
 #include "camera.h"
 #include "map.h"
 #include "sprite.h"
+#include "player.h"
 
 #include "gameOver.h"
 
@@ -27,8 +27,6 @@ void Player::Init()
 
 	//スケール設定
 	m_Scale = { 100.0f,100.0f };
-
-	VERTEX_3D vertex[4];
 
 	vertex[0].Position = XMFLOAT3(-0.5f, -0.5f, 0.0f);
 	vertex[0].Normal = XMFLOAT3(0.0f, 0.0f, 0.0f);
@@ -116,6 +114,21 @@ void Player::Update()
 			m_PlayerState = PlayerState::GettingTrail;
 		}
 
+
+		// 重力を適用
+		if (!m_OnGround)
+		{
+			m_Vector.y += m_Gravity;
+		}
+
+		break;
+	}
+	case PlayerState::HaveTrail:	//軌跡取得済み
+	{
+		//WASD移動
+		PlayerMove();
+
+
 		if (m_HaveTrail)
 		{
 			if (Input::GetKeyPress(VK_SPACE)) //スペースキーで移動開始
@@ -165,7 +178,7 @@ void Player::Update()
 		{
 			m_HaveTrail = true;
 			m_GettingTrail = false;
-			m_PlayerState = PlayerState::Normal;
+			m_PlayerState = PlayerState::HaveTrail;
 		}
 
 		// 重力を適用
@@ -250,6 +263,7 @@ void Player::Draw()
 
 	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;
+
 	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
@@ -297,6 +311,15 @@ void Player::PlayerMove()
 	else
 	{
 		m_Dash = false;
+	}
+
+	if (m_Vector.x > 0)
+	{
+		m_Direction = true; //右向き
+	}
+	else if (m_Vector.x < 0)
+	{
+		m_Direction = false; //左向き
 	}
 
 }

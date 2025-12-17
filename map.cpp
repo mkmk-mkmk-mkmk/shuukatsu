@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "map.h"
-#include "box.h"
 #include "main.h"
 #include "renderer.h"
 #include "texture.h"
@@ -88,45 +87,57 @@ void Map::Init(int maptype)
 		int chip_id = g_MapChipList.at(idx);
 
 		//値をチェック
-		if (chip_id == 0) //空白の場合はスキップ
+		switch (chip_id)
 		{
+			case 0:	//空白
+				break;
 
-		}
-		else if (chip_id == 1)	//ブロック
-		{
-			//描画座標を割り出す
-			float position_x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
-			float position_y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
+			case 1:	//ブロック
+				//描画座標を割り出す
+				m_Position.x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
+				m_Position.y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
 
-			//リストに保存
-			m_BoxPosList.push_back(Vector2(position_x, position_y));
-		}
-		else if (chip_id == 2)	//破壊可能ブロック
-		{
-			//描画座標を割り出す
-			float position_x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
-			float position_y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
+				//リストに保存
+				m_BoxPosList.push_back(m_Position);
+				break;
 
-			//リストに保存
-			m_BreakableBoxPosList.push_back(Vector2(position_x, position_y));
-		}
-		else if (chip_id == 3)	//ゴール
-		{
-			//描画座標を割り出す
-			float position_x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
-			float position_y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
+			case 2:	//破壊可能ブロック
+				//描画座標を割り出す
+				m_Position.x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
+				m_Position.y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
 
-			//リストに保存
-			m_GoalPosList.push_back(Vector2(position_x, position_y));
-		}
-		else if (chip_id == 4)	//エネミー①
-		{
-			//描画座標を割り出す
-			float position_x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
-			float position_y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
+				//リストに保存
+				m_BreakableBoxPosList.push_back(m_Position);
+				break;
 
-			//リストに保存
-			m_EnemyPosList.push_back(Vector2(position_x, position_y));
+			case 3: //当たり判定のないブロック
+				//描画座標を割り出す
+				m_Position.x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
+				m_Position.y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
+
+				//リストに保存
+				m_UntouchableBoxPosList.push_back(m_Position);
+				break;
+
+			case 4: //ゴール
+				//描画座標を割り出す
+				m_Position.x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
+				m_Position.y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
+
+				//リストに保存
+				m_GoalPosList.push_back(m_Position);
+				break;
+
+			case 5: //エネミー①
+				//描画座標を割り出す
+				m_Position.x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
+				m_Position.y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
+
+				//リストに保存
+				m_EnemyPosList.push_back(m_Position);
+				break;
+			default:
+				break;
 		}
 
 	}

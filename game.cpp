@@ -10,12 +10,15 @@
 #include "backGround.h"
 #include "box.h"
 #include "breakableBox.h"
+#include "untouchableBox.h"
 #include "goal.h"
 #include "map.h"
 #include "camera.h"
 #include "enemy.h"
 
 #include "spring.h"
+
+#include "UI_PlayerState.h"
 
 //エネミー用リスト
 //初期データのみのリスト(Init用)
@@ -90,6 +93,14 @@ void Game::Init()
 		GetGameObject<Map>()->m_BreakableBoxPosList.pop_front();
 	}
 
+	//当たり判定のない箱の追加
+	int m_UntouchableBoxCount = GetGameObject<Map>()->m_UntouchableBoxPosList.size(); //当たり判定のない箱の数を保存しておく
+	for (int i = 0; i < m_UntouchableBoxCount; i++)
+	{
+		AddGameObject<UntouchableBox>(4)->Init();
+		GetGameObject<Map>()->m_UntouchableBoxPosList.pop_front();
+	}
+
 	//ゴールの追加
 	int m_GoalCount = GetGameObject<Map>()->m_GoalPosList.size(); //箱の数を保存しておく
 
@@ -102,7 +113,10 @@ void Game::Init()
 
 	//カーソルの取得
 	AddGameObject<Cursor>(5)->Init();
+	GetGameObject<Cursor>()->SetMakeParticle(false); //パーティクル生成しない
 
+	//UIの追加
+	AddUIObject<UI_PlayerState>(0)->Init();
 }
 
 void Game::Uninit()

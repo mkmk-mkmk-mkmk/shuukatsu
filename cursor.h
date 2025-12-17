@@ -26,6 +26,7 @@ private:
 
 	POINT pt;
 
+	bool m_MakeParticle = true; //パーティクルを生成するかどうか
 	std::vector<std::unique_ptr<ParticleTouch>> m_ParticleTouchList;
 
 public:
@@ -34,8 +35,10 @@ public:
 	void Uninit();
 	void Draw();
 
-	void SetPosition(Vector2 pos) { m_Position = pos; }
-	Vector2 GetPosition() { return m_Position; }
-
+	bool GetMakeParticle() { return m_MakeParticle; }
+	void SetMakeParticle(bool make)
+	{
+		m_MakeParticle = make;
+	}
 };
 

@@ -79,11 +79,14 @@ void BreakableBox::Update(const std::list<Enemy*>& enemies)
 	Vector2 playerScale = Manager::GetScene()->GetGameObject<Player>()->GetScale();
 
 	//プレイヤーの軌跡行動中に当たったら自身を消す
-	m_HitPlayerMoveTrail = Collision::BoxCollisionCommon(m_Position, m_Scale, playerPos, playerScale);
-
-	if (m_HitPlayerMoveTrail && Manager::GetScene()->GetGameObject<Player>()->GetMoveTrail())
+	if (Manager::GetScene()->GetGameObject<Player>()->GetMoveTrail())
 	{
-		m_Destroy = true;
+		m_HitPlayerMoveTrail = Collision::BoxCollisionCommon(m_Position, m_Scale, playerPos, playerScale);
+
+		if (m_HitPlayerMoveTrail)
+		{
+			m_Destroy = true;
+		}
 	}
 
 	//それ以外なら普通のboxと同じ

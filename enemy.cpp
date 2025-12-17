@@ -83,6 +83,7 @@ void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
 	m_Texture = Texture::Load("asset\\texture\\patrol.png");
+	m_Texture_AttackHitBox = Texture::Load("asset\\texture\\UI\\clickParticle.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -245,8 +246,55 @@ void Enemy::Draw()
 
 	Renderer::GetDeviceContext()->Draw(4, 0);
 
+	if (m_DrawHitBox)
+	{
+		DrawAttackHitBox();
+	}
 }
 
+void Enemy::DrawAttackHitBox()
+{
+	m_AttackHitBoxPos = m_Direction ?
+		Vector2(m_Position.x + m_AttackRange.x / 2, m_Position.y) :
+		Vector2(m_Position.x - m_AttackRange.x / 2, m_Position.y);
+
+	//描画位置更新
+	m_AttackHitBoxDrawPos =
+		m_AttackHitBoxPos - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+
+	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
+
+	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
+	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
+
+	//マトリクス設定
+	Renderer::SetWorldViewProjection2D();
+
+	XMMATRIX world, scale, rot, trans;
+	scale = XMMatrixScaling(m_AttackRange.x, m_AttackRange.y, 1.0f);
+	rot = XMMatrixRotationZ(m_Rotate);
+	trans = XMMatrixTranslation(m_AttackHitBoxDrawPos.x, m_AttackHitBoxDrawPos.y, 0.0f);
+	world = scale * rot * trans;
+
+	Renderer::SetWorldMatrix(world);
+
+	//マテリアル設定
+	MATERIAL material{};
+	material.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+	material.TextureEnable = true;
+	Renderer::SetMaterial(material);
+
+	UINT stride = sizeof(VERTEX_3D);
+	UINT offset = 0;
+	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
+
+	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture_AttackHitBox);
+
+	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	Renderer::GetDeviceContext()->Draw(4, 0);
+
+}
 
 NodeStatus Enemy::Patrol() //徘徊中
 {
@@ -349,12 +397,15 @@ void Enemy::UpdateAttack()
 	{
 		m_StopTick = false;
 		m_HitAttack = false;
+		m_DrawHitBox = false;
 
 		m_Frame = 0;
 	}
 	else if (m_Frame > 100)	//攻撃判定が発生するタイミング
 	{
 		m_HitAttack = InRangeObject(m_Position, m_Scale, m_PlayerPos, m_PlayerScale, m_AttackRange, m_Direction);
+
+		m_DrawHitBox = true;
 
 		if (!m_HitOnce && m_HitAttack)
 		{

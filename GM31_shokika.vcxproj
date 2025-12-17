@@ -149,6 +149,7 @@
     <ClInclude Include="component.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="fade.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
@@ -177,7 +178,10 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="breakableBox.h" />
-    <ClInclude Include="UIManager.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="UI_PlayerState.h" />
+    <ClInclude Include="UI_StartButton.h" />
+    <ClInclude Include="untouchableBox.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
@@ -195,6 +199,7 @@
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="fade.cpp" />
     <ClCompile Include="gameOver.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="goal.cpp" />
@@ -221,7 +226,9 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="breakableBox.cpp" />
-    <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="UI_PlayerState.cpp" />
+    <ClCompile Include="UI_StartButton.cpp" />
+    <ClCompile Include="untouchableBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">

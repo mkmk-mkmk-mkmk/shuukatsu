@@ -19,6 +19,12 @@
     <Filter Include="BehaviorTree">
       <UniqueIdentifier>{7b0e87b2-5c8a-4a46-9602-0a55c83f54ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\UI">
+      <UniqueIdentifier>{a905b10e-a330-47a6-8c5b-40bb9b920b73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\UIHedder">
+      <UniqueIdentifier>{2a9ccefd-ded0-4a49-a48f-568f4f529fed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -67,9 +73,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="cursor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="UIManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
@@ -151,6 +154,21 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="particle_touch.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_PlayerState.h">
+      <Filter>ヘッダー ファイル\UIHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_StartButton.h">
+      <Filter>ヘッダー ファイル\UIHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>ヘッダー ファイル\UIHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="untouchableBox.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="fade.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -252,10 +270,19 @@
     <ClCompile Include="springBoard.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
+    <ClCompile Include="particle_touch.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="particle_touch.cpp">
+    <ClCompile Include="UI_PlayerState.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_StartButton.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="untouchableBox.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="fade.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

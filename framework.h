@@ -16,5 +16,8 @@
 
 #include <d3d11.h>
 
+#include "Vector2.h"
+
 static int screenWidth = GetSystemMetrics(SM_CXSCREEN);
 static int screenHeight = GetSystemMetrics(SM_CYSCREEN);
+

@@ -19,22 +19,22 @@ void Title::Init()
 {
 	AddGameObject<BackGround>(0)->Init(0);
 	
-	AddGameObject<Map>(0)->Init(0);
+	//AddGameObject<Map>(0)->Init(0);
 
-	//プレイヤーの追加
-	AddGameObject<Player>(1)->Init();
+	////プレイヤーの追加
+	//AddGameObject<Player>(1)->Init();
 
-	//カメラの追加
-	AddGameObject<Camera>(2)->Init();
+	////カメラの追加
+	//AddGameObject<Camera>(2)->Init();
 
-	//箱の追加
-	int m_BoxCount = Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.size(); //箱の数を保存しておく
+	////箱の追加
+	//int m_BoxCount = Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.size(); //箱の数を保存しておく
 
-	for (int i = 0; i < m_BoxCount; i++)
-	{
-		AddGameObject<Box>(3)->Init();
-		Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.pop_front();
-	}
+	//for (int i = 0; i < m_BoxCount; i++)
+	//{
+	//	AddGameObject<Box>(3)->Init();
+	//	Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.pop_front();
+	//}
 
 	//スプリングの追加
 	AddGameObject<Spring>(4)->

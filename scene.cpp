@@ -28,6 +28,16 @@ void Scene::Uninit()
 		}
 		m_GameObject[i].clear();
 	}
+
+	for (int i = 0; i < 30; i++)
+	{
+		for (auto ui : m_UIObject[i])
+		{
+			ui->Uninit();
+			delete ui;
+		}
+		m_UIObject[i].clear();
+	}
 }
 
 void Scene::Update()
@@ -89,6 +99,23 @@ void Scene::Update()
 		}
 	}
 
+	for (int i = 0; i < 30; i++)
+	{
+		auto& uiList = m_UIObject[i];
+		for (auto it = uiList.begin(); it != uiList.end(); )
+		{
+			UI* ui = *it;
+			ui->Update();
+			if (ui->Destroy())
+			{
+				it = uiList.erase(it);
+			}
+			else
+			{
+				it++;
+			}
+		}
+	}
 }
 
 void Scene::Draw()
@@ -99,6 +126,14 @@ void Scene::Draw()
 		{
 			gameObject->Draw();
 
+		}
+	}
+
+	for (int i = 0; i < 30; i++)
+	{
+		for (auto ui : m_UIObject[i])
+		{
+			ui->Draw();
 		}
 	}
 }

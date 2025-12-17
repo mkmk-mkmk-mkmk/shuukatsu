@@ -7,13 +7,11 @@
 #include "scene.h"
 #include "manager.h"
 
-#include "box.h"
+#include "untouchableBox.h"
 #include "map.h"
-#include "player.h"
 #include "camera.h"
-#include "enemy.h"
 
-void Box::Init()
+void UntouchableBox::Init()
 {
 	VERTEX_3D vertex[4];
 
@@ -38,7 +36,7 @@ void Box::Init()
 	vertex[3].TexCoord = XMFLOAT2(1.0f, 1.0f);
 
 	//初期位置設定
-	m_Position = Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.front();
+	m_Position = Manager::GetScene()->GetGameObject<Map>()->m_UntouchableBoxPosList.front();
 
 	//大きさ設定
 	m_Scale = Vector2(MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
@@ -62,7 +60,7 @@ void Box::Init()
 
 }
 
-void Box::Uninit()
+void UntouchableBox::Uninit()
 {
 	m_Texture->Release();
 
@@ -72,31 +70,16 @@ void Box::Uninit()
 	m_PixelShader->Release();
 }
 
-void Box::Update(const std::list<Enemy*>& enemies)
+void UntouchableBox::Update()
+{
+
+}
+
+void UntouchableBox::Draw()
 {
 	//描画位置更新
 	m_DrawPosition =
 		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
-
-	//敵のボックス当たり判定
-	for (auto enemy : enemies)
-	{
-		Vector2 enemyPos = enemy->GetPosition();
-		Vector2 enemyScale = enemy->GetScale();
-		enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
-	}
-
-	//プレイヤーの位置と大きさ更新
-	Vector2 playerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
-	Vector2 playerScale = Manager::GetScene()->GetGameObject<Player>()->GetScale();
-
-	//プレイヤーのボックス当たり判定
-	Manager::GetScene()->GetGameObject<Player>()->BoxCollision(playerPos, playerScale, m_Position, m_Scale);
-
-}
-
-void Box::Draw()
-{
 
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 

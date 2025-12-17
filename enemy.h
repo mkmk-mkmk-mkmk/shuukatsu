@@ -42,6 +42,7 @@ private:
 	ID3D11PixelShader* m_PixelShader;
 
 	ID3D11ShaderResourceView* m_Texture;
+	ID3D11ShaderResourceView* m_Texture_AttackHitBox;
 
 	CompositeNode* m_RootNode = nullptr;
 
@@ -49,7 +50,6 @@ private:
 	AnimationState m_OldAnimationState;
 
 	Vector2 m_FirstPosition;		//初期座標
-	Vector2 m_DrawPosition;			//描画位置、m_Positionは実際の位置を保存してこっちはカメラとの相対位置
 
 	Vector2 m_PlayerPos;			//プレイヤー座標(追跡用)
 	Vector2 m_PlayerScale;			//プレイヤースケール
@@ -60,6 +60,10 @@ private:
 	bool m_JumpStairs;				//段差をジャンプするか
 	Vector2 m_VisibleRange = { 300.0f, 100.0f };//発見範囲
 	Vector2 m_AttackRange = { 120.0f, 80.0f };	//攻撃範囲
+
+	bool m_DrawHitBox = false;
+	Vector2 m_AttackHitBoxPos = { 0.0f, 0.0f };	//攻撃判定の位置（デバッグ用）
+	Vector2 m_AttackHitBoxDrawPos = { 0.0f, 0.0f };	//攻撃判定の描画位置（デバッグ用）
 
 	bool m_VisiblePlayer = false;	//プレイヤーが見えているかどうか
 	bool m_InAttackRange = false;	//攻撃範囲内かどうか
@@ -89,6 +93,8 @@ public:
 	void Uninit();
 	void Update();
 	void Draw();
+
+	void DrawAttackHitBox(); //敵の当たり判定（デバッグ用）
 
 	NodeStatus Patrol();
 	NodeStatus Chase();

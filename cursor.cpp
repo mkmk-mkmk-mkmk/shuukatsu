@@ -109,16 +109,19 @@ void Cursor::Update()
 		SetPosition(Vector2{ static_cast<float>(pt.x), static_cast<float>(pt.y) });
 	}
 
-	bool left = (GetAsyncKeyState(VK_LBUTTON) & 0x8000);
-
-	if (left && !m_ButtonUse)
+	if (m_MakeParticle)
 	{
-		auto particle = std::make_unique<ParticleTouch>();
-		particle->Init(m_Position);
-		m_ParticleTouchList.push_back(std::move(particle));
-	}
+		bool left = (GetAsyncKeyState(VK_LBUTTON) & 0x8000);
 
-	m_ButtonUse = left;
+		if (left && !m_ButtonUse)
+		{
+			auto particle = std::make_unique<ParticleTouch>();
+			particle->Init(m_Position);
+			m_ParticleTouchList.push_back(std::move(particle));
+		}
+
+		m_ButtonUse = left;
+	}
 
 	//カーソル情報更新
 	if (GetCursorPos(&pt))
