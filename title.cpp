@@ -14,6 +14,7 @@
 #include "camera.h"
 #include "player.h"
 #include "spring.h"
+#include "UI_StartButton.h"
 
 void Title::Init()
 {
@@ -46,6 +47,8 @@ void Title::Init()
 
 	//ƒJ[ƒ\ƒ‹‚Ìæ“¾
 	AddGameObject<Cursor>(5)->Init();
+
+	AddUIObject<UI_StartButton>(0)->Init();
 }
 
 void Title::Uninit()

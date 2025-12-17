@@ -1,8 +1,12 @@
+#include "main.h"
+#include "renderer.h"
+#include "Vector2.h"
+#include "texture.h"
+#include "cursor.h"
+#include "scene.h"
+#include "manager.h"
 
 #include "fade.h"
-#include "texture.h"
-#include "renderer.h"
-#include "main.h"
 
 void Fade::Init()
 {

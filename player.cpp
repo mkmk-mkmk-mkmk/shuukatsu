@@ -161,14 +161,14 @@ void Player::Update()
 		PlayerMove();
 
 		m_ClickPos = Manager::GetScene()->GetGameObject<Cursor>()->GetPosition();
-		if (Input::GetKeyPress(VK_RBUTTON) && !m_HaveTrail) //右クリックで軌跡取得
+		if (GetAsyncKeyState(VK_RBUTTON) & 0x8000 && !m_HaveTrail) //右クリックで軌跡取得
 		{
 			m_GettingTrail = true;
 
 			m_TrailDiffList.push_back(m_Vector);
 
 		}
-		else if (Input::GetKeyPress(VK_LBUTTON) && !m_HaveTrail) //左クリックで逆走の取得
+		else if (GetAsyncKeyState(VK_LBUTTON) & 0x8000 && !m_HaveTrail) //左クリックで逆走の取得
 		{
 			m_GettingTrail = true;
 

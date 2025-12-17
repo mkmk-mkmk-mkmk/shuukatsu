@@ -51,10 +51,10 @@ void BackGround::Init(int sceneType)
 	switch (sceneType)
 	{
 	case 0:
-		m_Texture = Texture::Load("asset\\texture\\bill.jpg");
+		m_Texture = Texture::Load("asset\\texture\\AI_BackGround.jpg");
 		break;
 	case 1:
-		m_Texture = Texture::Load("asset\\texture\\bill.jpg");
+		m_Texture = Texture::Load("asset\\texture\\AI_BackGround.jpg");
 		break;
 	case 2:
 		m_Texture = Texture::Load("asset\\texture\\stageclear.png");

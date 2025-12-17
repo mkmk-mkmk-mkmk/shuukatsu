@@ -2,7 +2,7 @@
 
 #include "framework.h"
 
-class UI
+class UI : public Collision
 {
 protected:
 

@@ -2,7 +2,6 @@
 
 #include "Vector2.h"
 #include "framework.h"
-#include "scene.h"
 
 class Fade
 {

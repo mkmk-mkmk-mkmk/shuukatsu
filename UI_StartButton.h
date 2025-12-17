@@ -11,7 +11,12 @@ private:
 	ID3D11VertexShader* m_VertexShader;
 	ID3D11PixelShader* m_PixelShader;
 
-	ID3D11ShaderResourceView* m_Texture[4];
+	ID3D11ShaderResourceView* m_Texture[2];
+
+	bool m_CursorOnButton = false;
+	bool m_ClickButton = false;
+	Vector2 m_ButtonPos;
+	Vector2 m_ButtonScale;
 
 public:
 	void Init();

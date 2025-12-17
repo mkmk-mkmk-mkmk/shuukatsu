@@ -1,6 +1,5 @@
 #pragma once
 #include "scene.h"
-#include "fade.h"
 
 class Manager
 {

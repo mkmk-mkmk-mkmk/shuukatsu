@@ -55,8 +55,8 @@ void UI_PlayerState::Init()
 
 	Renderer::CreatePixelShader(&m_PixelShader, "shader\\unlitTexturePS.cso");
 
-	m_Position = Vector2((float)screenWidth / 10.0f, (float)screenHeight / 8.0f);
-	m_Scale = Vector2((float)screenWidth / 5.0f, (float)screenHeight / 4.0f);
+	m_Position = Vector2((float)screenWidth * 0.1f, (float)screenHeight * 0.125f);
+	m_Scale = Vector2((float)screenWidth * 0.2f, (float)screenHeight * 0.25f);
 
 }
 
