@@ -5,6 +5,7 @@
 
 class Fade
 {
+private:
 	ID3D11Buffer* m_VertexBuffer;
 
 	ID3D11InputLayout* m_VertexLayout;

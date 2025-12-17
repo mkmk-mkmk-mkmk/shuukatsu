@@ -1,5 +1,6 @@
 #pragma once
 #include "scene.h"
+#include "fade.h"
 
 class Manager
 {
@@ -7,6 +8,8 @@ private:
 	static class Scene* m_Scene;
 	static class Scene* m_NextScene;
 	static class Scene* m_FadeScene;
+
+	static class Fade* m_Fade;
 
 public:
 	static void Init();

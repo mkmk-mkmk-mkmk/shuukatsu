@@ -63,6 +63,8 @@ void Fade::FadeIn()
 			m_Alpha = 0.0f;
 			m_FadeInFinished = true;
 		}
+
+		Draw();
 	}
 }
 
@@ -77,6 +79,8 @@ void Fade::FadeOut()
 			m_Alpha = 1.0f;
 			m_FadeOutFinished = true;
 		}
+
+		Draw();
 	}
 }
 
