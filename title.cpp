@@ -2,10 +2,11 @@
 #include "renderer.h"
 #include "Vector2.h"
 #include "texture.h"
+#include "manager.h"
+
 #include "cursor.h"
 #include "input.h"
 #include "scene.h"
-#include "manager.h"
 #include "title.h"
 #include "game.h"
 #include "backGround.h"

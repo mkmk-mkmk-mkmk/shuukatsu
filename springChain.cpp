@@ -84,6 +84,12 @@ void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, floa
 
 void SpringChain::Uninit()
 {
+	m_Texture->Release();
+
+	m_VertexBuffer->Release();
+	m_VertexLayout->Release();
+	m_VertexShader->Release();
+	m_PixelShader->Release();
 
 }
 

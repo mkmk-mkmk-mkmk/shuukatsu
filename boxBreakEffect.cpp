@@ -1,14 +1,13 @@
+
 #include "main.h"
 #include "renderer.h"
-#include "Vector2.h"
 #include "texture.h"
-#include "cursor.h"
-#include "scene.h"
 #include "manager.h"
 
-#include "fade.h"
+#include "random.h"
+#include "boxBreakEffect.h"
 
-void Fade::Init()
+void BoxBreakEffect::Init(Vector2 position)
 {
 	VERTEX_3D vertex[4];
 
@@ -44,59 +43,60 @@ void Fade::Init()
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	m_Texture = Texture::Load("asset\\texture\\fade.png");
+	m_Texture = Texture::Load("asset\\texture\\breakableBox_piece.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
 	Renderer::CreatePixelShader(&m_PixelShader, "shader\\unlitTexturePS.cso");
 
+	for (int i = 0; i < m_PieceCount; i++)
+	{
+		m_PieceData.pos = position;
+		m_PieceData.drawPos = position;
+		m_PieceData.scale = float(random.RandomInt(15, 25));
+		m_PieceData.rotate = float(random.RandomInt(0, 6));
+		m_PieceData.vec = Vector2(float(random.RandomInt(-2, 2)), float(random.RandomInt(-2, 2)));
+
+		m_EffectDataList.push_back(m_PieceData);
+	}
+
 }
 
-void Fade::FadeIn()
+void BoxBreakEffect::Update()
 {
-	if (!m_FadeInFinished)
+	for (int i = 0; i < m_EffectDataList.size(); i++)
 	{
-		m_Alpha -= m_FadeSpeed;
+		//重力も適用する
+		m_EffectDataList[i].vec.y += m_Gravity;
 
-		if (m_Alpha <= 0.0f)
+		m_EffectDataList[i].pos += m_EffectDataList[i].vec;
+		m_EffectDataList[i].scale -= 0.2f;
+		if (m_EffectDataList[i].scale < 0.0f)
 		{
-			m_Alpha = 0.0f;
-			m_FadeInFinished = true;
+			m_EffectDataList.erase(m_EffectDataList.begin() + i);
+			i--;
 		}
+	}
 
-		Draw();
+	if (m_EffectDataList.empty())
+	{
+		m_Destroy = true;
 	}
 }
 
-void Fade::FadeOut()
+void BoxBreakEffect::Draw(Vector2 drawDiff)
 {
-	if (!m_FadeOutFinished)
+	for (int i = 0; i < m_EffectDataList.size(); i++)
 	{
-		m_Alpha += m_FadeSpeed;
-
-		if (m_Alpha >= 1.0f)
-		{
-			m_Alpha = 1.0f;
-			m_FadeOutFinished = true;
-		}
-
-		Draw();
+		DrawPiece(i, drawDiff);
 	}
 }
 
-void Fade::Uninit()
+void BoxBreakEffect::DrawPiece(int count, Vector2 drawDiff)
 {
-	m_Texture->Release();
+	//ワールド座標と描画座標がずれることがあるので補正
+	m_EffectDataList[count].drawPos = m_EffectDataList[count].pos - drawDiff;
 
-	m_VertexBuffer->Release();
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
-
-}
-
-void Fade::Draw()
-{
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
@@ -106,16 +106,16 @@ void Fade::Draw()
 	Renderer::SetWorldViewProjection2D();
 
 	XMMATRIX world, scale, rot, trans;
-	scale = XMMatrixScaling(screenWidth, screenHeight, 1.0f);
-	rot = XMMatrixRotationZ(0.0f);
-	trans = XMMatrixTranslation(screenWidth * 0.5f, screenHeight * 0.5f, 0.0f);
+	scale = XMMatrixScaling(m_EffectDataList[count].scale, m_EffectDataList[count].scale, 1.0f);
+	rot = XMMatrixRotationZ(m_EffectDataList[count].rotate);
+	trans = XMMatrixTranslation(m_EffectDataList[count].drawPos.x, m_EffectDataList[count].drawPos.y, 0.0f);
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(world);
 
 	//マテリアル設定
 	MATERIAL material{};
-	material.Diffuse = { 1.0f, 1.0f, 1.0f, m_Alpha };
+	material.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 
@@ -128,4 +128,5 @@ void Fade::Draw()
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	Renderer::GetDeviceContext()->Draw(4, 0);
+
 }

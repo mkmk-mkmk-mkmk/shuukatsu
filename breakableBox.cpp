@@ -12,6 +12,8 @@
 #include "player.h"
 #include "camera.h"
 #include "enemy.h"
+#include "boxBreakEffect.h"
+
 
 void BreakableBox::Init()
 {
@@ -85,57 +87,100 @@ void BreakableBox::Update(const std::list<Enemy*>& enemies)
 
 		if (m_HitPlayerMoveTrail)
 		{
-			m_Destroy = true;
+			m_Breaking = true;
+			//エフェクト生成
+			auto effect = std::make_unique<BoxBreakEffect>();
+			effect->Init(m_Position);
+			m_BoxBreakEffectList.push_back(std::move(effect));
+
 		}
 	}
 
-	//それ以外なら普通のboxと同じ
-	Manager::GetScene()->GetGameObject<Player>()->BoxCollision(playerPos, playerScale, m_Position, m_Scale);
-
-	//敵のボックス当たり判定
-	for (auto enemy : enemies)
+	if (!m_Breaking)
 	{
-		Vector2 enemyPos = enemy->GetPosition();
-		Vector2 enemyScale = enemy->GetScale();
-		enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
+		//それ以外なら普通のboxと同じ
+		Manager::GetScene()->GetGameObject<Player>()->BoxCollision(playerPos, playerScale, m_Position, m_Scale);
+
+		//敵のボックス当たり判定
+		for (auto enemy : enemies)
+		{
+			Vector2 enemyPos = enemy->GetPosition();
+			Vector2 enemyScale = enemy->GetScale();
+			enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
+		}
+	}
+	else
+	{
+		for (auto it = m_BoxBreakEffectList.begin(); it != m_BoxBreakEffectList.end(); )
+		{
+			(*it)->Update();
+
+			if ((*it)->GetDestroy())
+			{
+				it = m_BoxBreakEffectList.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+
+			if (m_BoxBreakEffectList.empty())
+			{
+				this->SetDestroy();
+			}
+		}
+
 	}
 }
 
 void BreakableBox::Draw()
 {
 	//描画位置更新
-	m_DrawPosition =
-		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+	m_DrawDiff = Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
-	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
+	m_DrawPosition = m_Position - m_DrawDiff;
 
-	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
-	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
+	if (!m_Breaking)
+	{
+		Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	//マトリクス設定
-	Renderer::SetWorldViewProjection2D();
+		Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
+		Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-	XMMATRIX world, scale, rot, trans;
-	scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
-	rot = XMMatrixRotationZ(m_Rotate);
-	trans = XMMatrixTranslation(m_DrawPosition.x, m_DrawPosition.y, 0.0f);
-	world = scale * rot * trans;
+		//マトリクス設定
+		Renderer::SetWorldViewProjection2D();
 
-	Renderer::SetWorldMatrix(world);
+		XMMATRIX world, scale, rot, trans;
+		scale = XMMatrixScaling(m_Scale.x, m_Scale.y, 1.0f);
+		rot = XMMatrixRotationZ(m_Rotate);
+		trans = XMMatrixTranslation(m_DrawPosition.x, m_DrawPosition.y, 0.0f);
+		world = scale * rot * trans;
 
-	//マテリアル設定
-	MATERIAL material{};
-	material.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
-	material.TextureEnable = true;
-	Renderer::SetMaterial(material);
+		Renderer::SetWorldMatrix(world);
 
-	UINT stride = sizeof(VERTEX_3D);
-	UINT offset = 0;
-	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
+		//マテリアル設定
+		MATERIAL material{};
+		material.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+		material.TextureEnable = true;
+		Renderer::SetMaterial(material);
 
-	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
+		UINT stride = sizeof(VERTEX_3D);
+		UINT offset = 0;
+		Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
-	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
 
-	Renderer::GetDeviceContext()->Draw(4, 0);
+		Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+		Renderer::GetDeviceContext()->Draw(4, 0);
+
+	}
+	else
+	{
+		for (auto& p : m_BoxBreakEffectList)
+		{
+			p->Draw(m_DrawDiff);
+		}
+	}
+
 }

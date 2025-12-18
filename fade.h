@@ -24,6 +24,7 @@ public:
 	void Init();
 	void FadeIn();
 	void FadeOut();
+	void Uninit();
 	void Draw();
 
 	bool GetFade() { return m_Fade; }

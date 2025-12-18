@@ -144,10 +144,12 @@
     <ClInclude Include="BehaviorTree\selectorNode.h" />
     <ClInclude Include="BehaviorTree\sequenceNode.h" />
     <ClInclude Include="box.h" />
+    <ClInclude Include="boxBreakEffect.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="component.h" />
     <ClInclude Include="cursor.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="framework.h" />
@@ -178,6 +180,7 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="breakableBox.h" />
+    <ClInclude Include="title_BreakableBox.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_PlayerState.h" />
     <ClInclude Include="UI_StartButton.h" />
@@ -195,6 +198,7 @@
   <ItemGroup>
     <ClCompile Include="backGround.cpp" />
     <ClCompile Include="box.cpp" />
+    <ClCompile Include="boxBreakEffect.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cursor.cpp" />
@@ -226,9 +230,11 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="breakableBox.cpp" />
+    <ClCompile Include="title_BreakableBox.cpp" />
     <ClCompile Include="UI_PlayerState.cpp" />
     <ClCompile Include="UI_StartButton.cpp" />
     <ClCompile Include="untouchableBox.cpp" />
+    <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">
