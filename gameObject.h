@@ -3,6 +3,7 @@
 #include "Vector2.h"
 #include "collision.h"
 #include "framework.h"
+#include "random.h"
 #include <list>
 
 class GameObject : public Vector2, public Collision
@@ -30,6 +31,8 @@ protected:
 
 	Vector2 m_AnimationSplit = { 1.0f, 1.0f };
 	bool m_DeleteAnimationFinished = false;
+
+	Random random;
 
 public:
 	float PI = 3.1415;

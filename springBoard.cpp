@@ -21,6 +21,8 @@ void SpringBoard::Init(ChainPoint* leftPoint, ChainPoint* rightPoint, float heig
 	// 右端
 	m_RightPoint = rightPoint;
 
+	m_Position = m_LeftPoint->pos + (m_RightPoint->pos - m_LeftPoint->pos) * 0.5f;
+
 	//大きさ
 	float length = distance(rightPoint->pos, leftPoint->pos);
 	m_Scale = Vector2(length, height);
@@ -67,17 +69,18 @@ void SpringBoard::Init(ChainPoint* leftPoint, ChainPoint* rightPoint, float heig
 
 }
 
+void SpringBoard::Update()
+{
+
+}
 
 void SpringBoard::Draw()
 {
-	m_Position = m_LeftPoint->pos +(m_RightPoint->pos - m_LeftPoint->pos) * 0.5f;
+	//位置、大きさ更新
+	m_Position = m_LeftPoint->pos + (m_RightPoint->pos - m_LeftPoint->pos) * 0.5f;
 
 	m_Rotate = atan2(m_RightPoint->pos.y - m_LeftPoint->pos.y,
-										m_RightPoint->pos.x - m_LeftPoint->pos.x);
-
-	////描画位置更新
-	//m_DrawPosition =
-	//	m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+		m_RightPoint->pos.x - m_LeftPoint->pos.x);
 
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 

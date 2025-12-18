@@ -8,6 +8,9 @@
 
 class Scene
 {
+protected:
+	int m_Frame = 0;
+
 private:
 	std::list<GameObject*>m_GameObject[10];
 	std::list<UI*> m_UIObject[30];

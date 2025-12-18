@@ -1,5 +1,6 @@
 #include "cursor.h"  
 #include "texture.h"
+#include "renderer.h"
 #include "input.h"
 #include "manager.h"
 #include "scene.h"
@@ -60,12 +61,8 @@ void Cursor::Init()
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	TexMetadata metadata;
-	ScratchImage image;
-	LoadFromWICFile(L"asset\\texture\\youkai_backbeard.png", WIC_FLAGS_NONE, &metadata, image);
-	CreateShaderResourceView(Renderer::GetDevice(), image.GetImages(),
-		image.GetImageCount(), metadata, &m_Texture);
-	assert(&m_Texture);
+	m_Texture[0] = Texture::Load("asset\\texture\\cursor.png");
+	m_Texture[1] = Texture::Load("asset\\texture\\cursor_2.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -75,8 +72,8 @@ void Cursor::Init()
 	m_CursorLockPos = { screenWidth * 0.5f, screenHeight * 0.5f };
 	SetCursorPos(m_CursorLockPos.x, m_CursorLockPos.y);
 
-	////マウスカーソル非表示
-	//ShowCursor(FALSE);
+	//マウスカーソル非表示
+	ShowCursor(FALSE);
 
 
 	////カーソル用テクスチャの分割数を設定
@@ -92,7 +89,8 @@ void Cursor::Uninit()
 	//	cursorInstance.m_VertexBuffer = nullptr;
 	//}
 
-	m_Texture->Release();
+	m_Texture[0]->Release();
+	m_Texture[1]->Release();
 
 	m_VertexBuffer->Release();
 	m_VertexLayout->Release();
@@ -146,6 +144,14 @@ void Cursor::Update()
 
 void Cursor::Draw()
 {  
+	if (m_ButtonUse)
+	{
+		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[0]);
+	}
+	else
+	{
+		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[1]);
+	}
 
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
@@ -174,12 +180,10 @@ void Cursor::Draw()
 	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;
 	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
-	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
-
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	//カーソル描画
-	//Renderer::GetDeviceContext()->Draw(4, 0);
+	Renderer::GetDeviceContext()->Draw(4, 0);
 
 
 	for (auto& p : m_ParticleTouchList)

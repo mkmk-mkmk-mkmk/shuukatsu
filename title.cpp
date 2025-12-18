@@ -10,36 +10,18 @@
 #include "title.h"
 #include "game.h"
 #include "backGround.h"
-#include "map.h"
-#include "box.h"
-#include "camera.h"
-#include "player.h"
 #include "spring.h"
+#include "title_BreakableBox.h"
 #include "UI_StartButton.h"
 
 void Title::Init()
 {
+	//背景の追加
 	AddGameObject<BackGround>(0)->Init(0);
 	
-	//AddGameObject<Map>(0)->Init(0);
-
-	////プレイヤーの追加
-	//AddGameObject<Player>(1)->Init();
-
-	////カメラの追加
-	//AddGameObject<Camera>(2)->Init();
-
-	////箱の追加
-	//int m_BoxCount = Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.size(); //箱の数を保存しておく
-
-	//for (int i = 0; i < m_BoxCount; i++)
-	//{
-	//	AddGameObject<Box>(3)->Init();
-	//	Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.pop_front();
-	//}
 
 	//スプリングの追加
-	AddGameObject<Spring>(4)->
+	AddGameObject<Spring>(1)->
 		Init(Vector2((float)screenWidth * 2 / 7, -(float)screenHeight / 5 * 3),
 			Vector2((float)screenWidth * 5 / 7, -(float)screenHeight / 5 * 3),
 			Vector2((float)screenWidth * 2 / 7, 0.0f),
@@ -47,7 +29,7 @@ void Title::Init()
 			10.0f, 10.0f, screenHeight / 35, screenHeight * 2 / 5, 3);
 
 	//カーソルの取得
-	AddGameObject<Cursor>(5)->Init();
+	AddGameObject<Cursor>(2)->Init();
 
 	AddUIObject<UI_StartButton>(0)->Init();
 }
@@ -59,10 +41,14 @@ void Title::Uninit()
 
 void Title::Update()
 {
-	if (Input::GetKeyTrigger(VK_RETURN))
+	m_Frame++;
+	if (m_Frame > 20)
 	{
-		Manager::SetScene<Game>();
+		//落ちてくる箱の追加
+		AddGameObject<Title_BreakableBox>(3)->Init();
+		m_Frame = 0;
 	}
+
 	Scene::Update();
 }
 

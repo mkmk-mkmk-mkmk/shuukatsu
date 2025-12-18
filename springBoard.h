@@ -27,7 +27,7 @@ public:
 
 	void Init(ChainPoint* leftPoint, ChainPoint* rightPoint, float height);
 	//void Uninit();
-	//void Update();
+	void Update();
 	void Draw();
 
 };

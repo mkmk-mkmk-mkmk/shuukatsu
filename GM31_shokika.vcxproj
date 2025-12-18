@@ -234,7 +234,7 @@
     <ClCompile Include="UI_PlayerState.cpp" />
     <ClCompile Include="UI_StartButton.cpp" />
     <ClCompile Include="untouchableBox.cpp" />
-    <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">

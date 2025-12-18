@@ -4,7 +4,7 @@
 //#include "main.h"
 //#include "Vector2.h"
 //
-//class Vertex
+//class Vertex : public Renderer
 //{
 //protected:
 //	ID3D11Buffer* m_VertexBuffer;
