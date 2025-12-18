@@ -38,6 +38,11 @@ struct TextureCoord
 };
 
 static VERTEX_T g_Vertex[NUM_VERTEX];
+
+class Sprite
+{
+
+};
 static int g_AnimPattern = 0;
 static int g_AnimFrame = 0;
 
