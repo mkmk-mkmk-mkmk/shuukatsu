@@ -112,8 +112,8 @@ void Game::Init()
 
 
 	//カーソルの取得
-	AddGameObject<Cursor>(5)->Init();
-	GetGameObject<Cursor>()->SetMakeParticle(false); //パーティクル生成しない
+	AddUIObject<Cursor>(5)->Init();
+	GetUIObject<Cursor>()->SetMakeParticle(false); //パーティクル生成しない
 
 	//UIの追加
 	AddUIObject<UI_PlayerState>(0)->Init();

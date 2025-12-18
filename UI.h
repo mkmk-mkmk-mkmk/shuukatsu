@@ -1,6 +1,7 @@
 #pragma once
 
 #include "framework.h"
+#include "collision.h"
 
 class UI : public Collision
 {
@@ -12,7 +13,7 @@ protected:
 	Vector2 m_DrawPosition{ 0.0f, 0.0f };	//描画座標
 	float	m_Rotate = 0.0f;				//回転
 	Vector2 m_Scale{ 1.0f,1.0f };			//スケール
-	int		m_Layer = 5;					//レイヤー
+	int		m_Layer = 0;					//レイヤー
 
 	bool m_Visible = true;			//表示・非表示
 	bool m_Button = false;			//ボタンかどうか

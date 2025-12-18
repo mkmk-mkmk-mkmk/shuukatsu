@@ -25,7 +25,7 @@ void Cursor::Init()
 		MessageBox(nullptr, "Cursor position could not be retrieved.", "Error", MB_OK | MB_ICONERROR);
 	}
 
-	m_Scale = { 50.0f, 50.0f }; //カーソルのスケールを初期化
+	m_Scale = { 80.0f, 80.0f }; //カーソルのスケールを初期化
 
 	VERTEX_3D vertex[4];
 
@@ -73,7 +73,7 @@ void Cursor::Init()
 	SetCursorPos(m_CursorLockPos.x, m_CursorLockPos.y);
 
 	//マウスカーソル非表示
-	ShowCursor(FALSE);
+	//ShowCursor(FALSE);
 
 
 	////カーソル用テクスチャの分割数を設定
@@ -144,7 +144,7 @@ void Cursor::Update()
 
 void Cursor::Draw()
 {  
-	if (m_ButtonUse)
+	if (!m_ButtonUse)
 	{
 		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[0]);
 	}

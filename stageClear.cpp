@@ -21,7 +21,7 @@ void StageClear::Init()
 	AddGameObject<BackGround>(0)->Init(2);
 
 	//ƒJ[ƒ\ƒ‹‚Ìæ“¾
-	AddGameObject<Cursor>(1)->Init();
+	AddUIObject<Cursor>(0)->Init();
 }
 
 void StageClear::Uninit()

@@ -5,11 +5,11 @@
 
 #include "framework.h"
 #include "renderer.h"
-#include "gameObject.h"
+#include "UI.h"
 
 #include "particle_touch.h"
 
-class Cursor : public GameObject
+class Cursor : public UI
 {
 private:
 	ID3D11Buffer* m_VertexBuffer;

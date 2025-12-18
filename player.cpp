@@ -160,7 +160,7 @@ void Player::Update()
 		//WASD移動
 		PlayerMove();
 
-		m_ClickPos = Manager::GetScene()->GetGameObject<Cursor>()->GetPosition();
+		m_ClickPos = Manager::GetScene()->GetUIObject<Cursor>()->GetPosition();
 		if (GetAsyncKeyState(VK_RBUTTON) & 0x8000 && !m_HaveTrail) //右クリックで軌跡取得
 		{
 			m_GettingTrail = true;

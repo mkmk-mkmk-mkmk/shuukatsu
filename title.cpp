@@ -28,10 +28,11 @@ void Title::Init()
 			Vector2((float)screenWidth * 5 / 7, 0.0f),
 			10.0f, 10.0f, screenHeight / 35, screenHeight * 2 / 5, 3);
 
-	//カーソルの取得
-	AddGameObject<Cursor>(2)->Init();
 
 	AddUIObject<UI_StartButton>(0)->Init();
+
+	//カーソルの取得
+	AddUIObject<Cursor>(1)->Init();
 }
 
 void Title::Uninit()

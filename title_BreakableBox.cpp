@@ -108,8 +108,8 @@ void Title_BreakableBox::Update()
 		//	m_BoxBreakEffectList.push_back(std::move(effect));
 		//}
 
-		m_CursorPos = Manager::GetScene()->GetGameObject<Cursor>()->GetPosition();
-		m_CursorScale = Manager::GetScene()->GetGameObject<Cursor>()->GetScale();
+		m_CursorPos = Manager::GetScene()->GetUIObject<Cursor>()->GetPosition();
+		m_CursorScale = Manager::GetScene()->GetUIObject<Cursor>()->GetScale();
 
 		if (BoxCollisionCommon(m_Position, m_Scale, m_CursorPos, m_CursorScale))
 		{
