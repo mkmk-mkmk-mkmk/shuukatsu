@@ -8,6 +8,7 @@
 #include "UI.h"
 
 #include "particle_touch.h"
+#include "title_BreakableBox.h"
 
 class Cursor : public UI
 {
@@ -18,9 +19,11 @@ private:
 	ID3D11VertexShader* m_VertexShader;
 	ID3D11PixelShader* m_PixelShader;
 
-	ID3D11ShaderResourceView* m_Texture[2];
+	ID3D11ShaderResourceView* m_Texture[4];
 
 	bool	m_ButtonUse = false;	//ボタン使用中
+
+	bool	m_HitBox = false;		//ボックスに当たったかどうか
 
 	Vector2  m_CursorLockPos;		//カーソル位置固定座標
 
@@ -28,6 +31,8 @@ private:
 
 	bool m_MakeParticle = true; //パーティクルを生成するかどうか
 	std::vector<std::unique_ptr<ParticleTouch>> m_ParticleTouchList;
+
+	std::vector<std::unique_ptr<Title_BreakableBox>> m_BreakableBoxList;
 
 public:
 	void Init();

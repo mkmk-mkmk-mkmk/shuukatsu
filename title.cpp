@@ -21,7 +21,7 @@ void Title::Init()
 	
 
 	//ƒXƒvƒŠƒ“ƒO‚Ì’Ç‰Á
-	AddGameObject<Spring>(1)->
+	AddGameObject<Spring>(2)->
 		Init(Vector2((float)screenWidth * 2 / 7, -(float)screenHeight / 5 * 3),
 			Vector2((float)screenWidth * 5 / 7, -(float)screenHeight / 5 * 3),
 			Vector2((float)screenWidth * 2 / 7, 0.0f),
@@ -46,7 +46,8 @@ void Title::Update()
 	if (m_Frame > 20)
 	{
 		//—Ž‚¿‚Ä‚­‚é” ‚Ì’Ç‰Á
-		AddGameObject<Title_BreakableBox>(3)->Init();
+		AddGameObject<Title_BreakableBox>(1)->Init();
+
 		m_Frame = 0;
 	}
 

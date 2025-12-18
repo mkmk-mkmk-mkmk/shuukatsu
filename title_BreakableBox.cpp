@@ -111,7 +111,9 @@ void Title_BreakableBox::Update()
 		m_CursorPos = Manager::GetScene()->GetUIObject<Cursor>()->GetPosition();
 		m_CursorScale = Manager::GetScene()->GetUIObject<Cursor>()->GetScale();
 
-		if (BoxCollisionCommon(m_Position, m_Scale, m_CursorPos, m_CursorScale))
+		m_HitCursor = BoxCollisionCommon(m_Position, m_Scale, m_CursorPos, m_CursorScale);
+
+		if (m_HitCursor)
 		{
 			m_Breaking = true;
 			//エフェクト生成

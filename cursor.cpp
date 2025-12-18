@@ -4,7 +4,8 @@
 #include "input.h"
 #include "manager.h"
 #include "scene.h"
-#include "player.h"
+//#include "player.h"
+#include "title_BreakableBox.h"
 
 
 void Cursor::Init()  
@@ -61,8 +62,11 @@ void Cursor::Init()
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	m_Texture[0] = Texture::Load("asset\\texture\\cursor.png");
-	m_Texture[1] = Texture::Load("asset\\texture\\cursor_2.png");
+	m_Texture[0] = Texture::Load("asset\\texture\\UI\\cursor.png");
+	m_Texture[1] = Texture::Load("asset\\texture\\UI\\cursor_2.png");
+
+	m_Texture[2] = Texture::Load("asset\\texture\\UI\\cursor_GettingTrail.png");
+	m_Texture[3] = Texture::Load("asset\\texture\\UI\\cursor_GettingReverse.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -73,7 +77,7 @@ void Cursor::Init()
 	SetCursorPos(m_CursorLockPos.x, m_CursorLockPos.y);
 
 	//マウスカーソル非表示
-	//ShowCursor(FALSE);
+	ShowCursor(FALSE);
 
 
 	////カーソル用テクスチャの分割数を設定
@@ -140,17 +144,20 @@ void Cursor::Update()
 			++it;
 		}
 	}
+
 }
 
 void Cursor::Draw()
 {  
-	if (!m_ButtonUse)
+	//m_HitBox = Manager::GetScene()->GetGameObject<Title_BreakableBox>()->GetHitCursor();
+
+	if (m_ButtonUse || m_HitBox)
 	{
-		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[0]);
+		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[1]);
 	}
 	else
 	{
-		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[1]);
+		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[0]);
 	}
 
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);

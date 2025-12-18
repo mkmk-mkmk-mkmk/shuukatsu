@@ -25,12 +25,18 @@ void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, floa
 	//リストをクリアしておく
 	m_ChainPointList.clear();
 
+	float swingPower = 3.0f;
+
 	//点のリスト初期化
 	for (int i = 0; i < m_ChainPointCount; i++)
 	{
 		ChainPoint pointList;
 		pointList.pos = topPos + (chainPieceScale * (float)i);
-		pointList.oldPos = pointList.pos;	//初期速度は0
+
+		float t = (float)i / (m_ChainPointCount - 1);
+		float vx = sinf(t * PI) * swingPower; // 中央ほど強く
+
+		pointList.oldPos = pointList.pos - Vector2(vx, 0.0f);
 		pointList.acceleration = Vector2(0.0f, 0.0f);
 		pointList.lock = false;			//後に一番上だけ固定する
 
@@ -96,7 +102,7 @@ void SpringChain::Uninit()
 void SpringChain::Update()
 {
 	//重力適用
-	for (auto &point : m_ChainPointList)
+	for (auto& point : m_ChainPointList)
 	{
 		if (!point.lock)
 		{
@@ -105,7 +111,7 @@ void SpringChain::Update()
 	}
 
 	//位置更新
-	for (auto &point : m_ChainPointList)
+	for (auto& point : m_ChainPointList)
 	{
 		if (point.lock)
 		{
@@ -121,8 +127,7 @@ void SpringChain::Update()
 	}
 
 	//距離制約
-	const int constraintLoop = 5;	//距離制約をフレームごとに何回解くか
-	//なんかブランコとかだとこのくらいの数値がいいらしい
+	const int constraintLoop = 10;	//距離制約をフレームごとに何回解くか
 
 	for (int n = 0; n < constraintLoop; n++)
 	{
@@ -138,7 +143,7 @@ void SpringChain::Update()
 				continue;
 			}
 
-			float stiffness = 0.5f;
+			float stiffness = 0.9f;
 			float diff = (pointDistance - m_ChainLength) / pointDistance;
 
 			if (!point1.lock)
@@ -175,7 +180,7 @@ void SpringChain::DrawPiece(int count)
 
 	m_Position = point1.pos + ((point2.pos - point1.pos) * 0.5f);
 	m_Rotate = PI * 0.5f - atan2(point2.pos.y - point1.pos.y,
-									point2.pos.x - point1.pos.x);
+		point2.pos.x - point1.pos.x);
 
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
@@ -187,7 +192,7 @@ void SpringChain::DrawPiece(int count)
 
 	XMMATRIX world, scale, rot, trans;
 	scale = XMMatrixScaling(m_Scale.x, m_Scale.y + 50.0f, 1.0f);	//少し長めに描画
-	rot = XMMatrixRotationZ(m_Rotate);
+	rot = XMMatrixRotationZ(-m_Rotate);
 	trans = XMMatrixTranslation(m_Position.x, m_Position.y, 0.0f);
 	world = scale * rot * trans;
 

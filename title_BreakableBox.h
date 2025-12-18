@@ -22,6 +22,8 @@ private:
 
 	//float m_BreakHeight; //自動的に壊れる高さ
 
+	bool m_HitCursor = false;	//カーソルに当たったかどうか
+
 	bool m_Breaking = false;	//破壊時のエフェクト発生中
 
 	std::vector<std::unique_ptr<BoxBreakEffect>> m_BoxBreakEffectList;
@@ -32,4 +34,5 @@ public:
 	void Update();
 	void Draw();
 
+	bool GetHitCursor() { return m_HitCursor; }
 };
