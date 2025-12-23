@@ -98,6 +98,15 @@ void Box::Update(const std::list<Enemy*>& enemies)
 void Box::Draw()
 {
 
+	if (m_DrawPosition.x < -m_Scale.x / 2 ||
+		m_DrawPosition.x > screenWidth + m_Scale.x / 2 ||
+		m_DrawPosition.y < -m_Scale.y / 2 ||
+		m_DrawPosition.y > screenHeight + m_Scale.y / 2)
+	{
+		//‰æ–ÊŠO‚È‚ç•`‰æ‚µ‚È‚¢
+		return;
+	}
+
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);

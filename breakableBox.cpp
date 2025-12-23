@@ -136,9 +136,18 @@ void BreakableBox::Update(const std::list<Enemy*>& enemies)
 void BreakableBox::Draw()
 {
 	//•`‰æˆÊ’uXV
-	m_DrawDiff = Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+	Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
 	m_DrawPosition = m_Position - m_DrawDiff;
+
+	if (m_DrawPosition.x < -m_Scale.x / 2 ||
+		m_DrawPosition.x > screenWidth + m_Scale.x / 2 ||
+		m_DrawPosition.y < -m_Scale.y / 2 ||
+		m_DrawPosition.y > screenHeight + m_Scale.y / 2)
+	{
+		//‰æ–ÊŠO‚È‚ç•`‰æ‚µ‚È‚¢
+		return;
+	}
 
 	if (!m_Breaking)
 	{
