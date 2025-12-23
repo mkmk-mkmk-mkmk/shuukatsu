@@ -146,6 +146,7 @@
     <ClInclude Include="box.h" />
     <ClInclude Include="boxBreakEffect.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="click_ColorCircle.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="component.h" />
     <ClInclude Include="cursor.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="box.cpp" />
     <ClCompile Include="boxBreakEffect.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="click_ColorCircle.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="enemy.cpp" />

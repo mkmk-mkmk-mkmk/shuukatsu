@@ -43,7 +43,7 @@ void BoxBreakEffect::Init(Vector2 position)
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	m_Texture = Texture::Load("asset\\texture\\breakableBox_piece.png");
+	m_Texture[0] = Texture::Load("asset\\texture\\breakableBox_piece.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -123,7 +123,7 @@ void BoxBreakEffect::DrawPiece(int count, Vector2 drawDiff)
 	UINT offset = 0;
 	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
-	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
+	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[0]);
 
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 

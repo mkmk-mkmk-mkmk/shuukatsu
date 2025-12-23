@@ -24,12 +24,12 @@ protected:
 
 	Vector2 m_DrawDiff;		//描画する際の補正用
 
-	//Vector2 m_Position{ 0.0f,0.0f };		//ワールド座標
-	//Vector2 m_DrawPosition{ 0.0f, 0.0f };	//描画座標
-	//Vector2 m_Vector{ 0.0f,0.0f };			//移動ベクトル
-	//float	m_Rotate = 0.0f;				//回転
-	//Vector2 m_Scale{ 1.0f,1.0f };			//スケール
-	//int		m_Layer = 5;					//レイヤー
+	Vector2 m_Position{ 0.0f,0.0f };		//ワールド座標
+	Vector2 m_DrawPosition{ 0.0f, 0.0f };	//描画座標
+	Vector2 m_Vector{ 0.0f,0.0f };			//移動ベクトル
+	float	m_Rotate = 0.0f;				//回転
+	Vector2 m_Scale{ 1.0f,1.0f };			//スケール
+	int		m_Layer = 5;					//レイヤー
 
 	Random random;
 
@@ -41,7 +41,7 @@ protected:
 	ID3D11VertexShader* m_VertexShader;
 	ID3D11PixelShader* m_PixelShader;
 
-	ID3D11ShaderResourceView* m_Texture;
+	ID3D11ShaderResourceView* m_Texture[5];
 
 private :
 

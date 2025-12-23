@@ -186,6 +186,9 @@
     <ClInclude Include="Effect.h">
       <Filter>ヘッダー ファイル\EffectHedder</Filter>
     </ClInclude>
+    <ClInclude Include="click_ColorCircle.h">
+      <Filter>ヘッダー ファイル\EffectHedder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GM31_shokika.rc">
@@ -308,6 +311,9 @@
     </ClCompile>
     <ClCompile Include="Vertex.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="click_ColorCircle.cpp">
+      <Filter>ソース ファイル\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
