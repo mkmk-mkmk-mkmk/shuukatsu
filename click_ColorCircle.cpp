@@ -75,9 +75,9 @@ void Click_ColorCircle::Update(bool click)
 	if (!click)
 	{
 		m_ColorCircle.scale *= 1.2f;
-		if (m_ColorCircle.scale > screenWidth * 1.2)
+		if (m_ColorCircle.scale > screenWidth * 2.0f)
 		{
-			m_ColorCircle.scale = screenWidth * 1.2;
+			m_ColorCircle.scale = screenWidth * 2.0f;
 		}
 	}
 	else
