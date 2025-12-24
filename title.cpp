@@ -4,7 +4,7 @@
 #include "texture.h"
 #include "manager.h"
 
-#include "cursor.h"
+#include "title_Cursor.h"
 #include "input.h"
 #include "scene.h"
 #include "title.h"
@@ -32,7 +32,7 @@ void Title::Init()
 	AddUIObject<UI_StartButton>(0)->Init();
 
 	//ƒJ[ƒ\ƒ‹‚Ìæ“¾
-	AddUIObject<Cursor>(1)->Init();
+	AddUIObject<Title_Cursor>(1)->Init();
 }
 
 void Title::Uninit()

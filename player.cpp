@@ -104,7 +104,7 @@ void Player::Update()
 	//‹OÕˆÚ“®’†
 	switch (m_PlayerState)
 	{
-	case PlayerState::Normal:		//’Êíó‘Ô
+	case PlayerState::Player_Normal:		//’Êíó‘Ô
 	{
 		//WASDˆÚ“®
 		PlayerMove();
@@ -204,7 +204,7 @@ void Player::Update()
 			m_OnGround = false;
 			m_HaveTrail = false;
 			m_MoveTrail = false;
-			m_PlayerState = PlayerState::Normal;
+			m_PlayerState = PlayerState::Player_Normal;
 		}
 		break;
 	}}

@@ -80,8 +80,8 @@ void BreakableBox::Update(const std::list<Enemy*>& enemies)
 	Vector2 playerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
 	Vector2 playerScale = Manager::GetScene()->GetGameObject<Player>()->GetScale();
 
-	//プレイヤーの軌跡行動中に当たったら自身を消す
-	if (Manager::GetScene()->GetGameObject<Player>()->GetMoveTrail())
+	//プレイヤーの軌跡行動中に当たったらエフェクト生成
+	if (Manager::GetScene()->GetGameObject<Player>()->GetMoveTrail() && !m_Breaking)
 	{
 		m_HitPlayerMoveTrail = Collision::BoxCollisionCommon(m_Position, m_Scale, playerPos, playerScale);
 
@@ -136,7 +136,7 @@ void BreakableBox::Update(const std::list<Enemy*>& enemies)
 void BreakableBox::Draw()
 {
 	//描画位置更新
-	Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+	m_DrawDiff = Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
 	m_DrawPosition = m_Position - m_DrawDiff;
 

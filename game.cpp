@@ -112,11 +112,10 @@ void Game::Init()
 
 
 	//カーソルの取得
-	AddUIObject<Cursor>(5)->Init();
-	GetUIObject<Cursor>()->SetMakeParticle(false); //パーティクル生成しない
+	AddUIObject<Cursor>(0)->Init();
 
 	//UIの追加
-	AddUIObject<UI_PlayerState>(0)->Init();
+	AddUIObject<UI_PlayerState>(1)->Init();
 }
 
 void Game::Uninit()

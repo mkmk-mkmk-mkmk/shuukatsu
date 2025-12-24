@@ -3,7 +3,7 @@
 #include "renderer.h"
 #include "Vector2.h"
 #include "texture.h"
-#include "cursor.h"
+#include "title_Cursor.h"
 #include "input.h"
 #include "scene.h"
 #include "manager.h"
@@ -108,12 +108,12 @@ void Title_BreakableBox::Update()
 		//	m_BoxBreakEffectList.push_back(std::move(effect));
 		//}
 
-		m_CursorPos = Manager::GetScene()->GetUIObject<Cursor>()->GetPosition();
-		m_CursorScale = Manager::GetScene()->GetUIObject<Cursor>()->GetScale();
+		m_CursorPos = Manager::GetScene()->GetUIObject<Title_Cursor>()->GetPosition();
+		m_CursorScale = Manager::GetScene()->GetUIObject<Title_Cursor>()->GetScale();
 
 		m_HitCursor = BoxCollisionCommon(m_Position, m_Scale, m_CursorPos, m_CursorScale);
 
-		if (m_HitCursor)
+		if (m_HitCursor && !m_Breaking)
 		{
 			m_Breaking = true;
 			//エフェクト生成

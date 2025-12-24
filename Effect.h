@@ -12,6 +12,7 @@ struct EffectData
 	float	scale;
 	float	rotate;
 	Vector2 vec;
+	int effectType = 0;
 };
 
 class Effect
@@ -55,6 +56,20 @@ public:
 	void SetDestroy()
 	{ 
 		m_Destroy = true;
+	}
+
+	bool Destroy()
+	{
+		if (m_Destroy)
+		{
+			Uninit();
+			delete this;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	//Vector2 GetPosition() { return m_Position; }

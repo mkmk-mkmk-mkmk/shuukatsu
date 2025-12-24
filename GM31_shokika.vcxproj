@@ -182,6 +182,7 @@
     <ClInclude Include="title.h" />
     <ClInclude Include="breakableBox.h" />
     <ClInclude Include="title_BreakableBox.h" />
+    <ClInclude Include="title_Cursor.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_PlayerState.h" />
     <ClInclude Include="UI_StartButton.h" />
@@ -233,6 +234,7 @@
     <ClCompile Include="title.cpp" />
     <ClCompile Include="breakableBox.cpp" />
     <ClCompile Include="title_BreakableBox.cpp" />
+    <ClCompile Include="title_Cursor.cpp" />
     <ClCompile Include="UI_PlayerState.cpp" />
     <ClCompile Include="UI_StartButton.cpp" />
     <ClCompile Include="untouchableBox.cpp" />

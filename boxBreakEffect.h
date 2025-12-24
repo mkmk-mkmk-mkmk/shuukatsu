@@ -8,7 +8,7 @@ private:
 
 	EffectData m_PieceData;
 
-	int m_PieceCount = 5;
+	int m_PieceCount = 10;
 
 public:
 	void Init(Vector2 position);

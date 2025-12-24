@@ -31,6 +31,12 @@
     <Filter Include="ソース ファイル\Effect">
       <UniqueIdentifier>{2a3177fd-4a6c-49cd-bb58-28603edf7654}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Title">
+      <UniqueIdentifier>{d6afe963-0177-4720-b87f-f29aae4ea6b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\TitleHedder">
+      <UniqueIdentifier>{088808c0-00d9-445b-b635-de375d856e7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -132,9 +138,6 @@
     <ClInclude Include="BehaviorTree\sequenceNode.h">
       <Filter>BehaviorTree</Filter>
     </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="backGround.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -159,9 +162,6 @@
     <ClInclude Include="springBoard.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="particle_touch.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="UI_PlayerState.h">
       <Filter>ヘッダー ファイル\UIHedder</Filter>
     </ClInclude>
@@ -177,9 +177,6 @@
     <ClInclude Include="fade.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="title_BreakableBox.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="boxBreakEffect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -188,6 +185,18 @@
     </ClInclude>
     <ClInclude Include="click_ColorCircle.h">
       <Filter>ヘッダー ファイル\EffectHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>ヘッダー ファイル\TitleHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="title_BreakableBox.h">
+      <Filter>ヘッダー ファイル\TitleHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="particle_touch.h">
+      <Filter>ヘッダー ファイル\TitleHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="title_Cursor.h">
+      <Filter>ヘッダー ファイル\TitleHedder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -261,9 +270,6 @@
     <ClCompile Include="collision.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="backGround.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -288,9 +294,6 @@
     <ClCompile Include="springBoard.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="particle_touch.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="UI_PlayerState.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
@@ -303,9 +306,6 @@
     <ClCompile Include="fade.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="title_BreakableBox.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="boxBreakEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -314,6 +314,18 @@
     </ClCompile>
     <ClCompile Include="click_ColorCircle.cpp">
       <Filter>ソース ファイル\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>ソース ファイル\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="title_BreakableBox.cpp">
+      <Filter>ソース ファイル\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="particle_touch.cpp">
+      <Filter>ソース ファイル\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="title_Cursor.cpp">
+      <Filter>ソース ファイル\Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

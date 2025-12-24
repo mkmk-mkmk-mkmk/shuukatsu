@@ -8,7 +8,7 @@
 #include "manager.h"
 #include "scene.h"
 #include "game.h"
-#include "cursor.h"
+#include "title_Cursor.h"
 #include "collision.h"
 #include "UI_StartButton.h"
 
@@ -67,8 +67,8 @@ void UI_StartButton::Uninit()
 
 void UI_StartButton::Update()
 {
-	m_ButtonPos = Manager::GetScene()->GetUIObject<Cursor>()->GetPosition();
-	m_ButtonScale = Manager::GetScene()->GetUIObject<Cursor>()->GetScale();
+	m_ButtonPos = Manager::GetScene()->GetUIObject<Title_Cursor>()->GetPosition();
+	m_ButtonScale = Manager::GetScene()->GetUIObject<Title_Cursor>()->GetScale();
 
 	//ƒ{ƒ^ƒ“‚Æ‚Ì“–‚½‚è”»’è
 	m_CursorOnButton = Collision::BoxCollisionCommon(m_ButtonPos, m_ButtonScale, m_Position, m_Scale);

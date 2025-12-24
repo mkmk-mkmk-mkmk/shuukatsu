@@ -77,7 +77,7 @@ void UI_PlayerState::Draw()
 	//テクスチャセット
 	switch (m_PlayerState)
 	{
-	case PlayerState::Normal:
+	case PlayerState::Player_Normal:
 
 		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[0]);
 		break;

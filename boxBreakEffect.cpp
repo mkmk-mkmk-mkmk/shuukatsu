@@ -81,6 +81,7 @@ void BoxBreakEffect::Update()
 	if (m_EffectDataList.empty())
 	{
 		m_Destroy = true;
+		//Destroy();
 	}
 }
 

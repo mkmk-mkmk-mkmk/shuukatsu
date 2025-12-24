@@ -5,7 +5,7 @@
 
 enum PlayerState
 {
-	Normal,
+	Player_Normal,
 	GettingTrail,
 	HaveTrail,
 	MoveTrail,
@@ -36,7 +36,7 @@ private:
 	bool m_GettingTrail = false;	//軌跡取得中
 	bool m_MoveTrail = false;		//軌跡移動中かどうか
 
-	PlayerState m_PlayerState = PlayerState::Normal;	//プレイヤーの状態
+	PlayerState m_PlayerState = PlayerState::Player_Normal;	//プレイヤーの状態
 
 	VERTEX_3D vertex[4];
 

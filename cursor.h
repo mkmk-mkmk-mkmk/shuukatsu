@@ -8,7 +8,14 @@
 #include "UI.h"
 
 #include "particle_touch.h"
-#include "title_BreakableBox.h"
+#include "click_ColorCircle.h"
+
+enum CursorState
+{
+	Cursor_Normal,
+	LeftClick,
+	RightClick
+};
 
 class Cursor : public UI
 {
@@ -21,18 +28,17 @@ private:
 
 	ID3D11ShaderResourceView* m_Texture[4];
 
-	bool	m_ButtonUse = false;	//ボタン使用中
+	POINT pt;
+	Click_ColorCircle m_ClickColorCircle;
 
-	bool	m_HitBox = false;		//ボックスに当たったかどうか
+	CursorState m_CursorState = CursorState::Cursor_Normal;
+	CursorState m_OldCursorState = CursorState::Cursor_Normal;
+
+	bool	m_DrawCurcle = false;	//円を描画
+	bool	m_ReleaseClick = false;	//長押しが途切れたか
 
 	Vector2  m_CursorLockPos;		//カーソル位置固定座標
 
-	POINT pt;
-
-	bool m_MakeParticle = true; //パーティクルを生成するかどうか
-	std::vector<std::unique_ptr<ParticleTouch>> m_ParticleTouchList;
-
-	std::vector<std::unique_ptr<Title_BreakableBox>> m_BreakableBoxList;
 
 public:
 	void Init();
@@ -40,10 +46,5 @@ public:
 	void Uninit();
 	void Draw();
 
-	bool GetMakeParticle() { return m_MakeParticle; }
-	void SetMakeParticle(bool make)
-	{
-		m_MakeParticle = make;
-	}
 };
 

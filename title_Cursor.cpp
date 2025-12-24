@@ -1,13 +1,14 @@
-#include "cursor.h"  
+#include "title_Cursor.h"  
 #include "texture.h"
 #include "renderer.h"
 #include "input.h"
 #include "manager.h"
 #include "scene.h"
 //#include "player.h"
+#include "title_BreakableBox.h"
 
 
-void Cursor::Init()
+void Title_Cursor::Init()
 {
 	//マウス初期位置
 	m_CursorLockPos = { 0.0f, 0.0f };
@@ -62,8 +63,10 @@ void Cursor::Init()
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
 	m_Texture[0] = Texture::Load("asset\\texture\\UI\\cursor.png");
-	m_Texture[1] = Texture::Load("asset\\texture\\UI\\cursor_GettingReverse.png");
+	m_Texture[1] = Texture::Load("asset\\texture\\UI\\cursor_2.png");
+
 	m_Texture[2] = Texture::Load("asset\\texture\\UI\\cursor_GettingTrail.png");
+	m_Texture[3] = Texture::Load("asset\\texture\\UI\\cursor_GettingReverse.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
@@ -81,7 +84,7 @@ void Cursor::Init()
 	//cursorInstance.m_TextureSplit = { 1, 1 };
 }
 
-void Cursor::Uninit()
+void Title_Cursor::Uninit()
 {
 	////カーソル情報解放
 	//if (cursorInstance.m_VertexBuffer) 
@@ -101,74 +104,65 @@ void Cursor::Uninit()
 
 }
 
-void Cursor::Update()
+void Title_Cursor::Update()
 {
 	if (GetCursorPos(&pt))
 	{
 		SetPosition(Vector2{ static_cast<float>(pt.x), static_cast<float>(pt.y) });
 	}
 
-	//前回の状態を保存
-	m_OldCursorState = m_CursorState;
-
 	//クリック検出
-	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
-	{
-		m_CursorState = CursorState::LeftClick;
-	}
-	else if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)
-	{
-		m_CursorState = CursorState::RightClick;
-	}
-	else
-	{
-		m_CursorState = CursorState::Cursor_Normal;
-	}
+	m_LeftClick = (GetAsyncKeyState(VK_LBUTTON) & 0x8000);
+	m_RightClick = (GetAsyncKeyState(VK_RBUTTON) & 0x8000);
 
-	if (m_OldCursorState != CursorState::Cursor_Normal && m_CursorState == CursorState::Cursor_Normal)
+	//パーティクル生成
+	if (m_MakeParticle)
 	{
-		m_ReleaseClick = true;
-	}
+		bool left = (GetAsyncKeyState(VK_LBUTTON) & 0x8000);
 
-	if (!m_DrawCurcle && m_CursorState != CursorState::Cursor_Normal)
-	{
-		m_ClickColorCircle.Init(GetPosition(), (m_CursorState == CursorState::LeftClick) ? 0 : 1);
-		m_DrawCurcle = true;
-	}
-
-	if (m_DrawCurcle)
-	{
-		m_ClickColorCircle.Update(m_ReleaseClick);
-		if (m_ClickColorCircle.GetEndDraw())
+		if (left && !m_ButtonUse)
 		{
-			m_DrawCurcle = false;
-			m_ReleaseClick = false;
-			m_ClickColorCircle.Uninit();
+			auto particle = std::make_unique<ParticleTouch>();
+			particle->Init(m_Position);
+			m_ParticleTouchList.push_back(std::move(particle));
+		}
+
+		m_ButtonUse = left;
+	}
+
+	//カーソル情報更新
+	if (GetCursorPos(&pt))
+	{
+		SetPosition(Vector2{ static_cast<float>(pt.x), static_cast<float>(pt.y) });
+	}
+
+	for (auto it = m_ParticleTouchList.begin(); it != m_ParticleTouchList.end(); )
+	{
+		(*it)->Update();
+
+		if ((*it)->GetDestroy())
+		{
+			it = m_ParticleTouchList.erase(it);
+		}
+		else
+		{
+			++it;
 		}
 	}
 
 }
 
-void Cursor::Draw()
+void Title_Cursor::Draw()
 {
-	if (m_DrawCurcle)
-	{
-		m_ClickColorCircle.Draw();
-	}
+	//m_HitBox = Manager::GetScene()->GetGameObject<Title_BreakableBox>()->GetHitCursor();
 
-	switch (m_CursorState)
+	if (m_ButtonUse || m_HitBox)
 	{
-	case CursorState::Cursor_Normal:
-		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[0]);
-		break;
-
-	case CursorState::LeftClick:
 		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[1]);
-		break;
-
-	case CursorState::RightClick:
-		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[2]);
-		break;
+	}
+	else
+	{
+		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture[0]);
 	}
 
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
@@ -203,4 +197,9 @@ void Cursor::Draw()
 	//カーソル描画
 	Renderer::GetDeviceContext()->Draw(4, 0);
 
+
+	for (auto& p : m_ParticleTouchList)
+	{
+		p->Draw();
+	}
 }
