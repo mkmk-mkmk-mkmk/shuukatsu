@@ -10,6 +10,12 @@ class GameObject : public Vector2, public Collision
 {
 protected:
 
+	ID3D11Buffer* m_VertexBuffer;
+
+	ID3D11InputLayout* m_VertexLayout;
+	ID3D11VertexShader* m_VertexShader;
+	ID3D11PixelShader* m_PixelShader;
+
 	int m_Frame = 0;
 
 	bool m_Destroy = false;

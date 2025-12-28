@@ -7,6 +7,12 @@ class UI : public Collision
 {
 protected:
 
+	ID3D11Buffer* m_VertexBuffer;
+
+	ID3D11InputLayout* m_VertexLayout;
+	ID3D11VertexShader* m_VertexShader;
+	ID3D11PixelShader* m_PixelShader;
+
 	bool m_Destroy = false;
 
 	Vector2 m_Position{ 0.0f,0.0f };		//ƒ[ƒ‹ƒhÀ•W

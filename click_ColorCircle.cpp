@@ -67,6 +67,13 @@ void Click_ColorCircle::Init(Vector2 position, int type)
 
 void Click_ColorCircle::Uninit()
 {
+	m_Texture[0]->Release();
+	m_Texture[1]->Release();
+
+	m_VertexBuffer->Release();
+	m_VertexLayout->Release();
+	m_VertexShader->Release();
+	m_PixelShader->Release();
 
 }
 

@@ -166,6 +166,7 @@
     <ClInclude Include="modelRenderer.h" />
     <ClInclude Include="particle_touch.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="player_TrailBar.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="renderer.h" />
@@ -221,6 +222,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="player_TrailBar.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="save.cpp" />

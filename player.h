@@ -14,11 +14,6 @@ enum PlayerState
 class Player :public GameObject
 {
 private:
-	ID3D11Buffer* m_VertexBuffer;
-
-	ID3D11InputLayout* m_VertexLayout;
-	ID3D11VertexShader* m_VertexShader;
-	ID3D11PixelShader* m_PixelShader;
 
 	ID3D11ShaderResourceView* m_Texture[4];
 
@@ -46,8 +41,14 @@ public:
 	void Update();
 	void Draw();
 
-	void PlayerMove();	//プレイヤー移動処理
+	//軌跡を持っているかどうか取得
+	bool GetHaveTrail()
+	{
+		return m_HaveTrail;
+	}
 
+	void PlayerMove();	//プレイヤー移動処理
+	//移動中かどうか取得
 	bool GetMoveTrail()
 	{
 		return m_MoveTrail;

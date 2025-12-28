@@ -4,7 +4,7 @@
 #include "input.h"
 #include "manager.h"
 #include "scene.h"
-//#include "player.h"
+#include "player.h"
 
 
 void Cursor::Init()
@@ -111,19 +111,33 @@ void Cursor::Update()
 	//前回の状態を保存
 	m_OldCursorState = m_CursorState;
 
-	//クリック検出
-	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
+	//プレイヤーが軌跡を持っているかどうか
+	if (Manager::GetScene()->GetGameObject<Player>() != nullptr)
 	{
-		m_CursorState = CursorState::LeftClick;
+		m_PlayerHaveTrail = Manager::GetScene()->GetGameObject<Player>()->GetHaveTrail();
 	}
-	else if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)
+
+	//クリック検出
+	if (!m_PlayerHaveTrail)
 	{
-		m_CursorState = CursorState::RightClick;
+		if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
+		{
+			m_CursorState = CursorState::LeftClick;
+		}
+		else if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)
+		{
+			m_CursorState = CursorState::RightClick;
+		}
+		else
+		{
+			m_CursorState = CursorState::Cursor_Normal;
+		}
 	}
 	else
 	{
 		m_CursorState = CursorState::Cursor_Normal;
 	}
+
 
 	if (m_OldCursorState != CursorState::Cursor_Normal && m_CursorState == CursorState::Cursor_Normal)
 	{

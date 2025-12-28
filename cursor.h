@@ -37,6 +37,8 @@ private:
 	bool	m_DrawCurcle = false;	//円を描画
 	bool	m_ReleaseClick = false;	//長押しが途切れたか
 
+	bool	m_PlayerHaveTrail = false;	//プレイヤーがトレイルを持っているかどうか
+
 	Vector2  m_CursorLockPos;		//カーソル位置固定座標
 
 
