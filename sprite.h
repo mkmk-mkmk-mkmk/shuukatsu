@@ -5,7 +5,7 @@
 #include "renderer.h"
 #include <memory>
 
-class ObjectManager;
+//class ObjectManager;
 
 //------------------------
 // マクロ定義
@@ -22,14 +22,14 @@ class ObjectManager;
 //------------------------
 // グローバル変数
 //------------------------
-static ID3D11Buffer* g_VertexBuffer = NULL;		//線用の頂点情報
+//static ID3D11Buffer* g_VertexBuffer = NULL;		//線用の頂点情報
 
 struct VERTEX_T
 {
-	XMFLOAT2		pos;		//位置ベクトル
-	XMFLOAT2		vel;		//速度ベクトル
-	XMFLOAT4		color;		//頂点カラー
-	XMFLOAT2		texCoord;	//テクスチャ座標
+	XMFLOAT2	Position;	//位置ベクトル
+	XMFLOAT2	Normal;		//法線ベクトル
+	XMFLOAT4	Diffuse;	//頂点カラー
+	XMFLOAT2	TexCoord;	//テクスチャ座標
 };
 
 struct TextureCoord
@@ -37,11 +37,29 @@ struct TextureCoord
 	XMFLOAT2 pos[4];
 };
 
-static VERTEX_T g_Vertex[NUM_VERTEX];
-
 class Sprite
 {
+protected:
 
+	ID3D11Buffer*			m_VertexBuffer = nullptr;
+	ID3D11VertexShader*		m_VertexShader = nullptr;
+	ID3D11InputLayout*		m_VertexLayout = nullptr;
+	ID3D11PixelShader*		m_PixelShader = nullptr;
+
+	VERTEX_T vertex[4];
+
+	std::vector<ID3D11ShaderResourceView*> m_TextureList;
+	ID3D11ShaderResourceView* m_Texture;
+
+private:
+	Sprite();
+
+	void InitSprite();
+	void UnInitSprite();
+	void DrawSprite(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int texNum, float alpha);
+	void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int pattern, int cols, int rows, int texNum, float alpha);
+
+	void SetVertexSprite();
 };
 static int g_AnimPattern = 0;
 static int g_AnimFrame = 0;
