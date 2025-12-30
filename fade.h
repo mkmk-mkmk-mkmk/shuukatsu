@@ -3,16 +3,9 @@
 #include "Vector2.h"
 #include "framework.h"
 
-class Fade
+class Fade : public Sprite
 {
 private:
-	ID3D11Buffer* m_VertexBuffer;
-
-	ID3D11InputLayout* m_VertexLayout;
-	ID3D11VertexShader* m_VertexShader;
-	ID3D11PixelShader* m_PixelShader;
-
-	ID3D11ShaderResourceView* m_Texture;
 
 	float m_FadeSpeed = 0.02f;
 	float m_Alpha = 0.0f;

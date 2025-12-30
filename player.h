@@ -14,9 +14,6 @@ enum PlayerState
 class Player :public GameObject
 {
 private:
-
-	ID3D11ShaderResourceView* m_Texture[4];
-
 	//int frame = 0;
 
 	float m_Speed = 10.0f;			//プレイヤーの移動速度

@@ -5,9 +5,6 @@
 class SpringBoard : public GameObject
 {
 private:
-
-	ID3D11ShaderResourceView* m_Texture;
-
 	ChainPoint* m_LeftPoint;
 	ChainPoint* m_RightPoint;
 

@@ -5,8 +5,6 @@ class Goal : public GameObject
 {
 private:
 
-	ID3D11ShaderResourceView* m_Texture;
-
 	Vector2  m_FirstPos; //ボックス初期座標
 
 	Vector2 m_Piece;
