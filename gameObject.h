@@ -6,15 +6,17 @@
 #include "random.h"
 #include <list>
 
-class GameObject : public Vector2, public Collision
+#include "sprite.h"
+
+class GameObject : public Vector2, public Collision, public Sprite
 {
 protected:
 
-	ID3D11Buffer* m_VertexBuffer;
+	//ID3D11Buffer* m_VertexBuffer;
 
-	ID3D11InputLayout* m_VertexLayout;
-	ID3D11VertexShader* m_VertexShader;
-	ID3D11PixelShader* m_PixelShader;
+	//ID3D11InputLayout* m_VertexLayout;
+	//ID3D11VertexShader* m_VertexShader;
+	//ID3D11PixelShader* m_PixelShader;
 
 	int m_Frame = 0;
 

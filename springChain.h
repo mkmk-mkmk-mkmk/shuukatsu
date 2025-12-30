@@ -11,9 +11,6 @@ struct ChainPoint
 class SpringChain : public GameObject
 {
 private:
-
-	ID3D11ShaderResourceView* m_Texture;
-
 	std::vector<ChainPoint> m_ChainPointList;
 
 	int m_ChainPointCount;

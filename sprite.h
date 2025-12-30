@@ -1,41 +1,7 @@
 #pragma once
 
-#include "main.h"
-#include "manager.h"
 #include "renderer.h"
 #include <memory>
-
-//class ObjectManager;
-
-//------------------------
-// マクロ定義
-//------------------------
-#define NUM_VERTEX (4)	//必要な頂点の数
-			//原点が中心
-#define P_POSX (-100.0f)	//スプライトのデフォルト位置x
-#define P_POSY (-200.0f)	//スプライトのデフォルト位置y
-
-//------------------------
-// プロトタイプ宣言
-//------------------------
-
-//------------------------
-// グローバル変数
-//------------------------
-//static ID3D11Buffer* g_VertexBuffer = NULL;		//線用の頂点情報
-
-struct VERTEX_T
-{
-	XMFLOAT2	Position;	//位置ベクトル
-	XMFLOAT2	Normal;		//法線ベクトル
-	XMFLOAT4	Diffuse;	//頂点カラー
-	XMFLOAT2	TexCoord;	//テクスチャ座標
-};
-
-struct TextureCoord
-{
-	XMFLOAT2 pos[4];
-};
 
 class Sprite
 {
@@ -46,33 +12,34 @@ protected:
 	ID3D11InputLayout*		m_VertexLayout = nullptr;
 	ID3D11PixelShader*		m_PixelShader = nullptr;
 
-	VERTEX_T vertex[4];
+	VERTEX_3D vertex[4];
 
 	std::vector<ID3D11ShaderResourceView*> m_TextureList;
-	ID3D11ShaderResourceView* m_Texture;
 
-private:
+	int m_TextureType;
+
+public:
 	Sprite();
 
 	void InitSprite();
 	void UnInitSprite();
-	void DrawSprite(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int texNum, float alpha);
+	void DrawSprite(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int texNum, float alpha = 1.0f);
 	void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int pattern, int cols, int rows, int texNum, float alpha);
 
 	void SetVertexSprite();
 };
-static int g_AnimPattern = 0;
-static int g_AnimFrame = 0;
-
-void InitSprite();
-void UnInitSprite();
-void UpdateSprite();
-void DrawSprite(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha = 1.0f);
-void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha, int pattern, int cols, int rows);
+//static int g_AnimPattern = 0;
+//static int g_AnimFrame = 0;
+//
+//void InitSprite();
+//void UnInitSprite();
+//void UpdateSprite();
+//void DrawSprite(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha = 1.0f);
+//void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha, int pattern, int cols, int rows);
 //void DrawSprite(const ObjectManager& obj, bool EnableShake = true, TextureCoord Texcoord = { XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 0.0f), XMFLOAT2(0.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) });
 //void DrawSpriteColor(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, XMFLOAT4 col, bool EnableShake = true, TextureCoord Texcoord = { XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 0.0f), XMFLOAT2(0.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) });
 //void DrawSpriteColor(ObjectManager& obj, bool EnableShake = true, XMFLOAT2 ExtraDrawDiff = XMFLOAT2(0.0f, 0.0f), TextureCoord Texcoord = { XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 0.0f), XMFLOAT2(0.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) });
 ////void DrawSpriteBar(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, float alpha, float end);
 //void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int AnimCols, int AnimRows, int AnimPattern, float alpha = 1.0f, bool EnableShake = true);
 //void DrawSpriteAnim(ObjectManager& obj, int AnimCols, int AnimRows, int AnimPattern, XMFLOAT4 col = { 1.0f, 1.0f, 1.0f, 1.0f }, bool EnableShake = true);
-void SetVertexSprite();
+//void SetVertexSprite();

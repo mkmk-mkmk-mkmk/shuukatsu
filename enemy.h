@@ -35,9 +35,6 @@ class Enemy : public GameObject
 {
 private:
 
-	ID3D11ShaderResourceView* m_Texture;
-	ID3D11ShaderResourceView* m_Texture_AttackHitBox;
-
 	CompositeNode* m_RootNode = nullptr;
 
 	AnimationState m_AnimationState;

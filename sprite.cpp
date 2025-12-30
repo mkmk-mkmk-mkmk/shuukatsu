@@ -1,27 +1,33 @@
 
+#include "main.h"
 #include "sprite.h"
 
-Sprite::Sprite()
+Sprite::Sprite(void)
 {
-	vertex[0].Position = { -0.5f, -0.5 };
-	vertex[0].Normal = { 0.0f, 0.0f };
+
+}
+
+void Sprite::InitSprite()
+{
+	vertex[0].Position = XMFLOAT3( - 0.5f, -0.5, 0.0f);
+	vertex[0].Normal = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	vertex[0].Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[0].TexCoord = { 0.0f, 0.0f };
+	vertex[0].TexCoord = XMFLOAT2(0.0f, 0.0f);
 
-	vertex[1].Position = { 0.5f, -0.5f };
-	vertex[1].Normal = { 0.0f, 0.0f };
+	vertex[1].Position = XMFLOAT3(0.5f, -0.5f, 0.0f);
+	vertex[1].Normal = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	vertex[1].Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[1].TexCoord = { 1.0f, 0.0f };
+	vertex[1].TexCoord = XMFLOAT2(1.0f, 0.0f);
 
-	vertex[2].Position = { -0.5f, 0.5f };
-	vertex[2].Normal = { 0.0f, 0.0f };
+	vertex[2].Position = XMFLOAT3( -0.5f, 0.5f, 0.0f);
+	vertex[2].Normal = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	vertex[2].Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[2].TexCoord = { 0.0f, 1.0f };
+	vertex[2].TexCoord = XMFLOAT2(0.0f, 1.0f);
 
-	vertex[3].Position = { 0.5f, 0.5f };
-	vertex[3].Normal = { 0.0f, 0.0f };
+	vertex[3].Position = XMFLOAT3(0.5f, 0.5f, 0.0f);
+	vertex[3].Normal = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	vertex[3].Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[3].TexCoord = { 1.0f, 1.0f };
+	vertex[3].TexCoord = XMFLOAT2(1.0f, 1.0f);
 
 
 	D3D11_BUFFER_DESC bd{};
@@ -43,10 +49,6 @@ Sprite::Sprite()
 
 }
 
-void Sprite::InitSprite()
-{
-
-}
 
 void Sprite::UnInitSprite()
 {
@@ -79,7 +81,7 @@ void Sprite::DrawSprite(XMFLOAT2 Pos, float Rotate, XMFLOAT2 Scale, int texNum, 
 
 	//マテリアル設定
 	MATERIAL material{};
-	material.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+	material.Diffuse = { 1.0f, 1.0f, 1.0f, alpha };
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 
@@ -95,52 +97,52 @@ void Sprite::DrawSprite(XMFLOAT2 Pos, float Rotate, XMFLOAT2 Scale, int texNum, 
 
 void Sprite::DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int pattern, int cols, int rows, int texNum, float alpha)
 {
-	//頂点バッファ設定
-	UINT stride = sizeof(VERTEX_3D);
-	UINT offset = 0;
-	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
+	////頂点バッファ設定
+	//UINT stride = sizeof(VERTEX_3D);
+	//UINT offset = 0;
+	//Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
 
-	//プロジェクションマトリクス設定
-	XMMATRIX projection;
-	projection = XMMatrixOrthographicOffCenterLH(0.0f, screenWidth, screenHeight, 0.0f, 0.0f, 1.0f);
-	Renderer::SetProjectionMatrix(projection);
+	////プロジェクションマトリクス設定
+	//XMMATRIX projection;
+	//projection = XMMatrixOrthographicOffCenterLH(0.0f, screenWidth, screenHeight, 0.0f, 0.0f, 1.0f);
+	//Renderer::SetProjectionMatrix(projection);
 
-	//ビューマトリクス設定
-	XMMATRIX view;
-	view = XMMatrixIdentity();
-	Renderer::SetViewMatrix(view);
+	////ビューマトリクス設定
+	//XMMATRIX view;
+	//view = XMMatrixIdentity();
+	//Renderer::SetViewMatrix(view);
 
-	//移動・回転マトリクス設定
-	XMMATRIX trans, world, rot, scale;
-	scale = XMMatrixScaling(Scale.x, Scale.y, 0.0f);
+	////移動・回転マトリクス設定
+	//XMMATRIX trans, world, rot, scale;
+	//scale = XMMatrixScaling(Scale.x, Scale.y, 0.0f);
 
-	trans = XMMatrixTranslation(Position.x, Position.y, 0.0f);
-	rot = XMMatrixRotationZ(Rotate);	//ラジアン角
-	world = scale * rot * trans;
-	Renderer::SetWorldMatrix(world);
+	//trans = XMMatrixTranslation(Position.x, Position.y, 0.0f);
+	//rot = XMMatrixRotationZ(Rotate);	//ラジアン角
+	//world = scale * rot * trans;
+	//Renderer::SetWorldMatrix(world);
 
-	//プリミティブトポロジ設定
-	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	////プリミティブトポロジ設定
+	//Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-	//マテリアル設定(半年後に登場)
-	MATERIAL material;
-	ZeroMemory(&material, sizeof(material));
-	material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, alpha);
-	Renderer::SetMaterial(material);
+	////マテリアル設定(半年後に登場)
+	//MATERIAL material;
+	//ZeroMemory(&material, sizeof(material));
+	//material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, alpha);
+	//Renderer::SetMaterial(material);
 
-	int x = pattern % cols;
-	int y = pattern / cols;
-	//一部のみを描画、アニメーション化（横二列）
-	vertex[0].TexCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * y);
-	vertex[1].TexCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * y);
-	vertex[2].TexCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * (y + 1));
-	vertex[3].TexCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * (y + 1));
+	//int x = pattern % cols;
+	//int y = pattern / cols;
+	////一部のみを描画、アニメーション化（横二列）
+	//vertex[0].TexCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * y);
+	//vertex[1].TexCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * y);
+	//vertex[2].TexCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * (y + 1));
+	//vertex[3].TexCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * (y + 1));
 
-	SetVertexSprite();
+	//SetVertexSprite();
 
-	//スプライト描画
-	Renderer::GetDeviceContext()->Draw(4, 0);
+	////スプライト描画
+	//Renderer::GetDeviceContext()->Draw(4, 0);
 
 
 
@@ -189,7 +191,7 @@ void Sprite::DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int
 	SetVertexSprite();
 
 	// ---------- 頂点バッファ設定 ----------
-	UINT stride = sizeof(VERTEX_T);
+	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;
 	Renderer::GetDeviceContext()->IASetVertexBuffers(
 		0, 1, &m_VertexBuffer, &stride, &offset);
@@ -217,7 +219,7 @@ void Sprite::SetVertexSprite()
 	if (SUCCEEDED(hr))
 	{
 		// 頂点配列 → バッファへコピー
-		memcpy(mappedResource.pData, vertex, sizeof(VERTEX_3D) * NUM_VERTEX);
+		memcpy(mappedResource.pData, vertex, sizeof(VERTEX_3D) * 4);
 
 		// アンマップ
 		Renderer::GetDeviceContext()->Unmap(m_VertexBuffer, 0);

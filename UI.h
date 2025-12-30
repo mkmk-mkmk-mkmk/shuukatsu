@@ -2,16 +2,11 @@
 
 #include "framework.h"
 #include "collision.h"
+#include "sprite.h"
 
-class UI : public Collision
+class UI : public Collision, public Sprite
 {
 protected:
-
-	ID3D11Buffer* m_VertexBuffer;
-
-	ID3D11InputLayout* m_VertexLayout;
-	ID3D11VertexShader* m_VertexShader;
-	ID3D11PixelShader* m_PixelShader;
 
 	bool m_Destroy = false;
 

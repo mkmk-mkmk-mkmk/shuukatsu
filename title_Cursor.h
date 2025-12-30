@@ -14,8 +14,6 @@ class Title_Cursor : public UI
 {
 private:
 
-	ID3D11ShaderResourceView* m_Texture[4];
-
 	bool	m_ButtonUse = false;	//ボタン使用中（パーティクル用）
 
 	bool	m_LeftClick = false;	//左ボタンが押されているかどうか

@@ -177,9 +177,6 @@
     <ClInclude Include="fade.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="boxBreakEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>ヘッダー ファイル\EffectHedder</Filter>
     </ClInclude>
@@ -197,6 +194,12 @@
     </ClInclude>
     <ClInclude Include="title_Cursor.h">
       <Filter>ヘッダー ファイル\TitleHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="player_TrailBar.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="boxBreakEffect.h">
+      <Filter>ヘッダー ファイル\EffectHedder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -306,9 +309,6 @@
     <ClCompile Include="fade.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="boxBreakEffect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Vertex.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClCompile>
@@ -326,6 +326,12 @@
     </ClCompile>
     <ClCompile Include="title_Cursor.cpp">
       <Filter>ソース ファイル\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="player_TrailBar.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="boxBreakEffect.cpp">
+      <Filter>ソース ファイル\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

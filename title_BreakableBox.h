@@ -7,8 +7,6 @@ class Title_BreakableBox : public GameObject
 {
 private:
 
-	ID3D11ShaderResourceView* m_Texture;
-
 	Vector2 m_CursorPos;	//カーソルの位置
 	Vector2 m_CursorScale;	//カーソルの大きさ
 

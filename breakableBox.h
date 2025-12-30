@@ -7,8 +7,6 @@ class BreakableBox : public GameObject
 {
 private:
 
-	ID3D11ShaderResourceView* m_Texture;
-
 	Vector2  m_FirstPos; //ボックス初期座標
 
 	bool m_HitPlayerMoveTrail;	//プレイヤーの軌跡移動中に当たっているか
