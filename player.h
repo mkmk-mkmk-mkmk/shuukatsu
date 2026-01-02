@@ -24,9 +24,11 @@ private:
 
 	std::list<Vector2> m_TrailPosList;
 	std::list<Vector2> m_TrailDiffList;
+
 	bool m_HaveTrail = false;		//‹OÕ‚ğ‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
 	bool m_GettingTrail = false;	//‹OÕæ“¾’†
 	bool m_MoveTrail = false;		//‹OÕˆÚ“®’†‚©‚Ç‚¤‚©
+	bool m_TrailType = false;		//‹OÕ‚Ìí—ŞBtrueFÄ¶AfalseF‹tÄ¶
 
 	PlayerState m_PlayerState = PlayerState::Player_Normal;	//ƒvƒŒƒCƒ„[‚Ìó‘Ô
 
@@ -38,7 +40,18 @@ public:
 	void Update();
 	void Draw();
 
-	//‹OÕ‚ğ‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©æ“¾
+	//‹OÕ‚ğ­‚µ‚Å‚à‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©æ“¾
+	bool GetPlayerHaveTrail()
+	{
+		if (m_GettingTrail || m_HaveTrail)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+
+	//‹OÕ‚ğæ“¾‚µI‚¦‚ÄA‚Á‚Ä‚¢‚éó‘Ô‚©‚Ç‚¤‚©
 	bool GetHaveTrail()
 	{
 		return m_HaveTrail;
@@ -56,6 +69,16 @@ public:
 	PlayerState GetPlayerState()
 	{
 		return m_PlayerState;
+	}
+
+	int GetTrailTime()
+	{
+		return m_TrailDiffList.size();
+	}
+
+	bool GetTrailType()
+	{
+		return m_TrailType;
 	}
 
 };

@@ -127,12 +127,15 @@ void Player::Update()
 
 			m_TrailDiffList.push_back(m_Vector);
 
+			m_TrailType = true;
 		}
 		else if (GetAsyncKeyState(VK_LBUTTON) & 0x8000 && !m_HaveTrail) //¶ƒNƒŠƒbƒN‚Å‹t‘–‚Ìæ“¾
 		{
 			m_GettingTrail = true;
 
 			m_TrailDiffList.push_front(-m_Vector);
+
+			m_TrailType = false;
 		}
 		else
 		{

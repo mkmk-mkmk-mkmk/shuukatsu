@@ -6,11 +6,11 @@ class PlayerTrailBar : public UI
 {
 private:
 
-	float m_TrailTime;		//æ“¾‚µ‚Ä‚¢‚éÄ¶‚Ì‘±ŠÔ
-	float m_ReverseTime;	//æ“¾‚µ‚Ä‚¢‚é‹tÄ¶‚Ì‘±ŠÔ
+	int m_TrailTime;		//æ“¾‚µ‚Ä‚¢‚éÄ¶‚Ì‘±ŠÔ
+	int m_ReverseTime;		//æ“¾‚µ‚Ä‚¢‚é‹tÄ¶‚Ì‘±ŠÔ
 
-	bool m_GettingTrail;	//‹OÕ‚ğæ“¾’†‚©‚Ç‚¤‚©
-	bool m_GettingReverse;	//‹tÄ¶‚ğæ“¾’†‚©‚Ç‚¤‚©
+	bool m_HaveTrail;		//‹OÕ‚ğæ“¾’†A‚Ü‚½—Öæ“¾Ï‚İ‚©‚Ç‚¤‚©
+	bool m_TrailType;		//‹OÕ‚Ìí—ŞBtrueFÄ¶AfalseF‹tÄ¶
 
 public:
 
