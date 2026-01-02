@@ -29,9 +29,9 @@ void Cursor::Init()
 
 	InitSprite();
 
-	m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\cursor_icon.png"));
-	m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\cursor_icon_GettingReverse.png"));
-	m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\cursor_icon_GettingTrail.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\cursor.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\cursor_GettingReverse.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\cursor_GettingTrail.png"));
 
 	//マウス初期位置変更後再移動
 	m_CursorLockPos = { screenWidth * 0.5f, screenHeight * 0.5f };
