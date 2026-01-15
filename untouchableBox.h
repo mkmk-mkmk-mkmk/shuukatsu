@@ -1,7 +1,6 @@
 #pragma once
 
 #include "gameObject.h"
-#include "enemy.h"
 
 class UntouchableBox : public GameObject
 {

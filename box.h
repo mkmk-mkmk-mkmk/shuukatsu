@@ -1,6 +1,6 @@
 #pragma once
 #include "gameObject.h"
-#include "enemy.h"
+#include "enemy_Ground.h"
 
 class Box : public GameObject
 {
@@ -11,7 +11,7 @@ private:
 public:
 	void Init();
 	void Uninit();
-	void Update(const std::list<Enemy*>& enemies);
+	void Update(const std::list<Enemy_Ground*>& enemies);
 	void Draw();
 
 };

@@ -11,7 +11,7 @@
 #include "map.h"
 #include "player.h"
 #include "camera.h"
-#include "enemy.h"
+#include "enemy_Ground.h"
 
 void Box::Init()
 {
@@ -34,7 +34,7 @@ void Box::Uninit()
 	m_PixelShader->Release();
 }
 
-void Box::Update(const std::list<Enemy*>& enemies)
+void Box::Update(const std::list<Enemy_Ground*>& enemies)
 {
 	//•`‰æˆÊ’uXV
 	m_DrawPosition =

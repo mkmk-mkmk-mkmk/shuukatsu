@@ -9,7 +9,7 @@
 #include "sprite.h"
 #include "player.h"
 
-#include "player_TrailBar.h"
+#include "UI_PlayerTrailBar.h"
 
 void PlayerTrailBar::Init()
 {

@@ -11,7 +11,6 @@
 #include "map.h"
 #include "player.h"
 #include "camera.h"
-#include "enemy.h"
 
 void SpringBoard::Init(ChainPoint* leftPoint, ChainPoint* rightPoint, float height)
 {

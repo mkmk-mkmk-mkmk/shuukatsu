@@ -24,14 +24,7 @@ enum class AnimationState
 	LookAround	//Œ©‰ñ‚µ
 };
 
-//“G‚ÌŽí—Þ
-enum EnemyType
-{
-	Ground,
-	Flying
-};
-
-class Enemy : public GameObject
+class Enemy_Ground : public GameObject
 {
 private:
 
@@ -79,7 +72,7 @@ private:
 
 public:
 
-	void Init(Vector2 pos, Vector2 scale, int enemyType);
+	void Init(Vector2 pos, Vector2 scale);
 	void Uninit();
 	void Update();
 	void Draw();

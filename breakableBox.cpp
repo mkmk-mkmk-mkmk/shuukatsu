@@ -11,7 +11,7 @@
 #include "map.h"
 #include "player.h"
 #include "camera.h"
-#include "enemy.h"
+#include "enemy_Ground.h"
 #include "boxBreakEffect.h"
 
 
@@ -35,7 +35,7 @@ void BreakableBox::Uninit()
 	m_PixelShader->Release();
 }
 
-void BreakableBox::Update(const std::list<Enemy*>& enemies)
+void BreakableBox::Update(const std::list<Enemy_Ground*>& enemies)
 {
 	//プレイヤーのボックス当たり判定
 	Vector2 playerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();

@@ -151,7 +151,7 @@
     <ClInclude Include="component.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="Effect.h" />
-    <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemy_Ground.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="game.h" />
@@ -166,7 +166,10 @@
     <ClInclude Include="modelRenderer.h" />
     <ClInclude Include="particle_touch.h" />
     <ClInclude Include="player.h" />
-    <ClInclude Include="player_TrailBar.h" />
+    <ClInclude Include="rule.h" />
+    <ClInclude Include="stageSelect.h" />
+    <ClInclude Include="UI_Button.h" />
+    <ClInclude Include="UI_PlayerTrailBar.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="renderer.h" />
@@ -206,7 +209,7 @@
     <ClCompile Include="click_ColorCircle.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cursor.cpp" />
-    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemy_Ground.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="gameOver.cpp" />
     <ClCompile Include="game.cpp" />
@@ -222,7 +225,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="player.cpp" />
-    <ClCompile Include="player_TrailBar.cpp" />
+    <ClCompile Include="rule.cpp" />
+    <ClCompile Include="stageSelect.cpp" />
+    <ClCompile Include="UI_Button.cpp" />
+    <ClCompile Include="UI_PlayerTrailBar.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="save.cpp" />

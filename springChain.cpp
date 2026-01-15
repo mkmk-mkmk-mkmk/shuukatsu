@@ -11,7 +11,6 @@
 #include "map.h"
 #include "player.h"
 #include "camera.h"
-#include "enemy.h"
 
 void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, float chainWidth)
 {

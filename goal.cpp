@@ -11,7 +11,6 @@
 #include "map.h"
 #include "player.h"
 #include "camera.h"
-#include "enemy.h"
 #include "stageClear.h"
 
 void Goal::Init()

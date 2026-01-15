@@ -1,15 +1,12 @@
 #pragma once
 
-#include "UI.h"
+#include "UI_Button.h"
 
-class UI_StartButton : public UI
+class UI_StartButton : public UI_Button
 {
 private:
-
-	bool m_CursorOnButton = false;
-	bool m_ClickButton = false;
-	Vector2 m_ButtonPos;
-	Vector2 m_ButtonScale;
+	std::vector<UI_Button> m_ButtonList;
+	UI_Button button;
 
 public:
 	void Init();

@@ -14,7 +14,7 @@
 #include "goal.h"
 #include "map.h"
 #include "camera.h"
-#include "enemy.h"
+#include "enemy_Ground.h"
 
 #include "spring.h"
 
@@ -24,7 +24,7 @@
 //初期データのみのリスト(Init用)
 std::list<EnemyData> m_EnemiesInitVal;
 //当たり判定のための、中身が更新されるリスト
-std::list<Enemy*> m_EnemyObjects;
+std::list<Enemy_Ground*> m_EnemyObjects;
 
 
 void Game::Init()
@@ -68,8 +68,8 @@ void Game::Init()
 	for (auto& enemies : m_EnemiesInitVal)
 	{
 		//エネミーオブジェクト追加
-		Enemy* enemy = AddGameObject<Enemy>(3);
-		enemy->Init(enemies.pos, enemies.scale, enemies.enemyType);
+		Enemy_Ground* enemy = AddGameObject<Enemy_Ground>(3);
+		enemy->Init(enemies.pos, enemies.scale);
 
 		//リストにも保存
 		m_EnemyObjects.push_back(enemy);

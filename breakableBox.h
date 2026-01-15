@@ -1,6 +1,6 @@
 #pragma once
 #include "gameObject.h"
-#include "enemy.h"
+#include "enemy_Ground.h"
 #include "boxBreakEffect.h"
 
 class BreakableBox : public GameObject
@@ -18,7 +18,7 @@ private:
 public:
 	void Init();
 	void Uninit();
-	void Update(const std::list<Enemy*>& enemies);
+	void Update(const std::list<Enemy_Ground*>& enemies);
 	void Draw();
 
 };

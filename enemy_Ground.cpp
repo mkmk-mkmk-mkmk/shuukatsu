@@ -8,7 +8,7 @@
 #include "camera.h"
 #include "map.h"
 
-#include "enemy.h"
+#include "enemy_Ground.h"
 
 #include "BehaviorTree/actionNode.h"
 #include "BehaviorTree/conditionNode.h"
@@ -16,23 +16,13 @@
 #include "BehaviorTree/selectorNode.h"
 
 
-void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
+void Enemy_Ground::Init(Vector2 pos, Vector2 scale)
 {
 	//敵キャラスタート位置
 	m_Position = pos;
 
 	//敵キャラの大きさ
 	m_Scale = scale;
-
-	////敵のタイプ（地上or空中）
-	//if (enemyType == 0)
-	//{
-	//	EnemyType::Ground;
-	//}
-	//else if (enemyType == 1)
-	//{
-	//	EnemyType::Flying;
-	//}
 	
 	//敵のHP（enmeyの種類に応じて体力設定）
 	//switch(enemyType)
@@ -83,7 +73,7 @@ void Enemy::Init(Vector2 pos, Vector2 scale, int enemyType)
 	m_RootNode->AddChild(patrol);
 }
 
-void Enemy::Uninit()
+void Enemy_Ground::Uninit()
 {
 	m_VertexBuffer->Release();
 	m_VertexLayout->Release();
@@ -94,7 +84,7 @@ void Enemy::Uninit()
 	m_RootNode = nullptr;
 }
 
-void Enemy::Update()
+void Enemy_Ground::Update()
 {
 	//プレイヤーの位置と大きさ更新
 	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
@@ -174,7 +164,7 @@ void Enemy::Update()
 	}
 }
 
-void Enemy::Draw()
+void Enemy_Ground::Draw()
 {
 	//描画位置更新
 	m_DrawPosition =
@@ -188,7 +178,7 @@ void Enemy::Draw()
 	}
 }
 
-void Enemy::DrawAttackHitBox()
+void Enemy_Ground::DrawAttackHitBox()
 {
 	m_AttackHitBoxPos = m_Direction ?
 		Vector2(m_Position.x + m_AttackRange.x / 2, m_Position.y) :
@@ -203,7 +193,7 @@ void Enemy::DrawAttackHitBox()
 
 }
 
-NodeStatus Enemy::Patrol() //徘徊中
+NodeStatus Enemy_Ground::Patrol() //徘徊中
 {
 	m_OldAnimationState = m_AnimationState;
 	m_AnimationState = AnimationState::Patrol;
@@ -216,7 +206,7 @@ NodeStatus Enemy::Patrol() //徘徊中
 
 }
 
-NodeStatus Enemy::Chase() //プレイヤーに向かって移動中
+NodeStatus Enemy_Ground::Chase() //プレイヤーに向かって移動中
 {
 	m_OldAnimationState = m_AnimationState;
 	m_AnimationState = AnimationState::Chase;
@@ -229,7 +219,7 @@ NodeStatus Enemy::Chase() //プレイヤーに向かって移動中
 
 }
 
-NodeStatus Enemy::Attack() //攻撃
+NodeStatus Enemy_Ground::Attack() //攻撃
 {
 	m_OldAnimationState = m_AnimationState;
 	m_AnimationState = AnimationState::Attack;
@@ -242,12 +232,12 @@ NodeStatus Enemy::Attack() //攻撃
 
 }
 
-NodeStatus Enemy::OnlyAnimation() //アニメーションのみ再生
+NodeStatus Enemy_Ground::OnlyAnimation() //アニメーションのみ再生
 {
 	return NodeStatus::Success;
 }
 
-void Enemy::UpdatePatrol()
+void Enemy_Ground::UpdatePatrol()
 {
 	//徘徊処理
 
@@ -280,7 +270,7 @@ void Enemy::UpdatePatrol()
 	}
 }
 
-void Enemy::UpdateChase()
+void Enemy_Ground::UpdateChase()
 {
 	//追跡処理
 
@@ -289,7 +279,7 @@ void Enemy::UpdateChase()
 
 }
 
-void Enemy::UpdateAttack()
+void Enemy_Ground::UpdateAttack()
 {
 	//攻撃中は移動しない
 	m_Vector.x = 0.0f;
@@ -322,7 +312,7 @@ void Enemy::UpdateAttack()
 	}
 }
 
-void Enemy::UpdateFind()
+void Enemy_Ground::UpdateFind()
 {
 	//発見アニメーション再生
 
@@ -339,7 +329,7 @@ void Enemy::UpdateFind()
 	}
 }
 
-void Enemy::UpdateLookAround()
+void Enemy_Ground::UpdateLookAround()
 {
 	//見回しアニメーション再生
 
@@ -355,7 +345,7 @@ void Enemy::UpdateLookAround()
 	}
 }
 
-void Enemy::DeleteAnimation()
+void Enemy_Ground::DeleteAnimation()
 {
 	//消滅アニメーション再生
 
@@ -366,7 +356,7 @@ void Enemy::DeleteAnimation()
 	m_DeleteAnimationFinished = true;
 }
 
-void Enemy::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale)
+void Enemy_Ground::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale)
 {
 
 	if (m_Position.y < boxPos.y	//ボックスの上に乗っている場合
@@ -407,7 +397,7 @@ void Enemy::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 bo
 
 }
 
-void Enemy::CheckStairs()
+void Enemy_Ground::CheckStairs()
 {
 	m_JumpStairs = true;
 
