@@ -1,7 +1,5 @@
 
 #include "main.h"
-#include "renderer.h"
-#include "Vector2.h"
 #include "texture.h"
 #include "input.h"
 #include "manager.h"

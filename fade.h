@@ -7,7 +7,7 @@ class Fade : public Sprite
 {
 private:
 
-	float m_FadeSpeed = 0.02f;
+	float m_FadeSpeed = 0.05f;
 	float m_Alpha = 0.0f;
 	bool m_Fade = false;
 	bool m_FadeInFinished = false;

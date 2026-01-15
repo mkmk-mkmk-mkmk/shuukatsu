@@ -10,9 +10,11 @@
 #include "particle_touch.h"
 #include "title_BreakableBox.h"
 
-class Title_Cursor : public UI
+class UI_Cursor : public UI
 {
 private:
+
+	bool	m_UsableButton = false; //フェードが明けてから入力を受け付ける
 
 	bool	m_ButtonUse = false;	//ボタン使用中（パーティクル用）
 

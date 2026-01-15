@@ -1,9 +1,5 @@
 #include "main.h"
-#include "renderer.h"
-#include "Vector2.h"
 #include "texture.h"
-#include "cursor.h"
-#include "input.h"
 #include "scene.h"
 #include "manager.h"
 
@@ -27,10 +23,7 @@ void Goal::Init()
 
 void Goal::Uninit()
 {
-	m_VertexBuffer->Release();
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
+	UnInitSprite();
 }
 
 void Goal::Update()

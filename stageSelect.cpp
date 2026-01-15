@@ -1,27 +1,22 @@
 #include "main.h"
-#include "renderer.h"
-#include "Vector2.h"
-#include "texture.h"
-#include "cursor.h"
+#include "UI_Cursor.h"
 #include "input.h"
 #include "scene.h"
 #include "manager.h"
-#include "title.h"
-#include "game.h"
 #include "backGround.h"
-#include "map.h"
-#include "box.h"
-#include "camera.h"
-#include "player.h"
 
 #include "stageSelect.h"
+#include "stageSelect_Button.h"
 
 void StageSelect::Init()
 {
-	AddGameObject<BackGround>(0)->Init(2);
+	AddGameObject<BackGround>(0)->Init(0);
+
+	//ステージ選択ボタン
+	AddUIObject<StageSelectButton>(0)->Init();
 
 	//カーソルの取得
-	AddUIObject<Cursor>(0)->Init();
+	AddUIObject<UI_Cursor>(1)->Init();
 }
 
 void StageSelect::Uninit()
@@ -32,11 +27,6 @@ void StageSelect::Uninit()
 void StageSelect::Update()
 {
 	Scene::Update();
-
-	if (Input::GetKeyTrigger(VK_RETURN))
-	{
-		Manager::SetScene<Title>();
-	}
 }
 
 void StageSelect::Draw()

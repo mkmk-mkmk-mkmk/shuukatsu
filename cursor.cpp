@@ -1,6 +1,5 @@
 #include "cursor.h"  
 #include "texture.h"
-#include "renderer.h"
 #include "input.h"
 #include "manager.h"
 #include "scene.h"
@@ -47,19 +46,7 @@ void Cursor::Init()
 
 void Cursor::Uninit()
 {
-	////ƒJ[ƒ\ƒ‹î•ñ‰ð•ú
-	//if (cursorInstance.m_VertexBuffer) 
-	//{
-	//	cursorInstance.m_VertexBuffer->Release();
-	//	cursorInstance.m_VertexBuffer = nullptr;
-	//}
-
-	m_VertexBuffer->Release();
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
-
-
+	UnInitSprite();
 }
 
 void Cursor::Update()

@@ -1,19 +1,13 @@
 
 #include "main.h"
-#include "renderer.h"
-#include "Vector2.h"
 #include "texture.h"
-#include "title_Cursor.h"
-#include "input.h"
+#include "UI_Cursor.h"
 #include "scene.h"
 #include "manager.h"
 
 #include "map.h"
 #include "title_BreakableBox.h"
 #include "boxBreakEffect.h"
-#include "spring.h"
-#include "springChain.h"
-#include "springBoard.h"
 #include "collision.h"
 
 
@@ -70,8 +64,8 @@ void Title_BreakableBox::Update()
 		//	m_BoxBreakEffectList.push_back(std::move(effect));
 		//}
 
-		m_CursorPos = Manager::GetScene()->GetUIObject<Title_Cursor>()->GetPosition();
-		m_CursorScale = Manager::GetScene()->GetUIObject<Title_Cursor>()->GetScale();
+		m_CursorPos = Manager::GetScene()->GetUIObject<UI_Cursor>()->GetPosition();
+		m_CursorScale = Manager::GetScene()->GetUIObject<UI_Cursor>()->GetScale();
 
 		m_HitCursor = BoxCollisionCommon(m_Position, m_Scale, m_CursorPos, m_CursorScale);
 
@@ -105,6 +99,11 @@ void Title_BreakableBox::Update()
 				this->SetDestroy();
 			}
 		}
+	}
+
+	if (m_Position.y > screenHeight * 1.2f)
+	{
+		this->SetDestroy();
 	}
 }
 

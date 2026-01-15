@@ -1,7 +1,6 @@
 
 #include "framework.h"
 #include "main.h"
-#include "renderer.h"
 #include "texture.h"
 #include "input.h"
 
@@ -31,12 +30,7 @@ void Click_ColorCircle::Init(Vector2 position, int type)
 
 void Click_ColorCircle::Uninit()
 {
-
-	m_VertexBuffer->Release();
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
-
+	UnInitSprite();
 }
 
 void Click_ColorCircle::Update(bool click)

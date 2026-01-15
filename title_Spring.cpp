@@ -1,13 +1,14 @@
 #include "main.h"
+#include "texture.h"
 #include "scene.h"
 #include "manager.h"
 
-#include "spring.h"
+#include "title_Spring.h"
 #include "map.h"
 #include "player.h"
 #include "camera.h"
 
-void Spring::Init(Vector2 topLeftPos, Vector2 topRightPos, Vector2 bottomLeftPos, Vector2 bottomRightPos,
+void Title_Spring::Init(Vector2 topLeftPos, Vector2 topRightPos, Vector2 bottomLeftPos, Vector2 bottomRightPos,
 	float chainSplitLeft, float chainSplitRight, float chainWidth, float boardHeight, int gameObjectNumber)
 {
 	//チェーンオブジェクト作成
@@ -21,21 +22,21 @@ void Spring::Init(Vector2 topLeftPos, Vector2 topRightPos, Vector2 bottomLeftPos
 	board.Init(&leftChain.GetEndPoint(),&rightChain.GetEndPoint(),boardHeight);
 }
 
-void Spring::Uninit()
+void Title_Spring::Uninit()
 {
 	leftChain.Uninit();
 	rightChain.Uninit();
 }
 
-void Spring::Update()
+void Title_Spring::Update()
 {
 	leftChain.Update();
 	rightChain.Update();
 
-	//board.Update();
+	board.Update();
 }
 
-void Spring::Draw()
+void Title_Spring::Draw()
 {
 	leftChain.Draw();
 	rightChain.Draw();

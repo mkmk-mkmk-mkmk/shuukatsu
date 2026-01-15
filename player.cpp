@@ -1,5 +1,4 @@
 #include "main.h"
-#include "renderer.h"
 #include "texture.h"
 #include "input.h"
 
@@ -38,10 +37,7 @@ void Player::Init()
 
 void Player::Uninit()
 {
-	m_VertexBuffer->Release();
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
+	UnInitSprite();
 }
 
 void Player::Update()

@@ -31,12 +31,6 @@
     <Filter Include="ソース ファイル\Effect">
       <UniqueIdentifier>{2a3177fd-4a6c-49cd-bb58-28603edf7654}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Title">
-      <UniqueIdentifier>{d6afe963-0177-4720-b87f-f29aae4ea6b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\TitleHedder">
-      <UniqueIdentifier>{088808c0-00d9-445b-b635-de375d856e7c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Blocks">
       <UniqueIdentifier>{5e9c2db5-c73b-469d-a06d-ce3c824b660f}</UniqueIdentifier>
     </Filter>
@@ -60,6 +54,42 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\BlocksHedder">
       <UniqueIdentifier>{999bc9f6-d4c5-4279-a520-2665b9c1a5a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Title">
+      <UniqueIdentifier>{d6afe963-0177-4720-b87f-f29aae4ea6b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SceneHedder\TitleHedder">
+      <UniqueIdentifier>{088808c0-00d9-445b-b635-de375d856e7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\StageSelect">
+      <UniqueIdentifier>{2745a0b0-2d6e-46ce-8f55-e62c08331e6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Rule">
+      <UniqueIdentifier>{a478267e-9470-4d2d-b460-d6075ef2fcb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Game">
+      <UniqueIdentifier>{efee77e6-6e8a-4923-9d70-92289d0a7bb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\StageClear">
+      <UniqueIdentifier>{645e39c4-15da-4134-86d2-bd1445b54329}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\GameOver">
+      <UniqueIdentifier>{23e01c16-9b41-47d1-8b6c-436ed43ec0f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SceneHedder\GameOverHedder">
+      <UniqueIdentifier>{5af67aeb-10eb-4fea-b53e-b247fc4df2d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SceneHedder\GameHedder">
+      <UniqueIdentifier>{7c2df73b-2627-48c3-b3b5-016ca339858e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SceneHedder\StageClearHedder">
+      <UniqueIdentifier>{b0cbca02-c20e-48ab-8f33-10f45118e26f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SceneHedder\StageSelectHedder">
+      <UniqueIdentifier>{9472cf9e-5c72-4465-91ce-80a6547c605a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SceneHedder\RuleHedder">
+      <UniqueIdentifier>{f5967bfc-5638-49e8-b410-d6984769efe2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,9 +120,6 @@
     <ClInclude Include="UI_PlayerState.h">
       <Filter>ヘッダー ファイル\UIHedder</Filter>
     </ClInclude>
-    <ClInclude Include="UI_StartButton.h">
-      <Filter>ヘッダー ファイル\UIHedder</Filter>
-    </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>ヘッダー ファイル\UIHedder</Filter>
     </ClInclude>
@@ -103,16 +130,13 @@
       <Filter>ヘッダー ファイル\EffectHedder</Filter>
     </ClInclude>
     <ClInclude Include="title.h">
-      <Filter>ヘッダー ファイル\TitleHedder</Filter>
+      <Filter>ヘッダー ファイル\SceneHedder\TitleHedder</Filter>
     </ClInclude>
     <ClInclude Include="title_BreakableBox.h">
-      <Filter>ヘッダー ファイル\TitleHedder</Filter>
+      <Filter>ヘッダー ファイル\SceneHedder\TitleHedder</Filter>
     </ClInclude>
     <ClInclude Include="particle_touch.h">
-      <Filter>ヘッダー ファイル\TitleHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="title_Cursor.h">
-      <Filter>ヘッダー ファイル\TitleHedder</Filter>
+      <Filter>ヘッダー ファイル\SceneHedder\TitleHedder</Filter>
     </ClInclude>
     <ClInclude Include="boxBreakEffect.h">
       <Filter>ヘッダー ファイル\EffectHedder</Filter>
@@ -121,15 +145,6 @@
       <Filter>ヘッダー ファイル\SceneHedder</Filter>
     </ClInclude>
     <ClInclude Include="fade.h">
-      <Filter>ヘッダー ファイル\SceneHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>ヘッダー ファイル\SceneHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="gameOver.h">
-      <Filter>ヘッダー ファイル\SceneHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="map.h">
       <Filter>ヘッダー ファイル\SceneHedder</Filter>
     </ClInclude>
     <ClInclude Include="box.h">
@@ -204,6 +219,54 @@
     <ClInclude Include="player.h">
       <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
     </ClInclude>
+    <ClInclude Include="goal.h">
+      <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_PlayerTrailBar.h">
+      <Filter>ヘッダー ファイル\UIHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>ヘッダー ファイル\SceneHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Button.h">
+      <Filter>ヘッダー ファイル\UIHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="title_Button.h">
+      <Filter>ヘッダー ファイル\SceneHedder\TitleHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="stage1.h">
+      <Filter>ヘッダー ファイル\SceneHedder\GameHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="gameOver.h">
+      <Filter>ヘッダー ファイル\SceneHedder\GameOverHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="stageClear.h">
+      <Filter>ヘッダー ファイル\SceneHedder\StageClearHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="stageSelect.h">
+      <Filter>ヘッダー ファイル\SceneHedder\StageSelectHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="rule.h">
+      <Filter>ヘッダー ファイル\SceneHedder\RuleHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>ヘッダー ファイル\SceneHedder\GameHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="stageSelect_Button.h">
+      <Filter>ヘッダー ファイル\SceneHedder\StageSelectHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Cursor.h">
+      <Filter>ヘッダー ファイル\UIHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="title_Spring.h">
+      <Filter>ヘッダー ファイル\SceneHedder\TitleHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="title_SpringBoard.h">
+      <Filter>ヘッダー ファイル\SceneHedder\TitleHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="title_SpringChain.h">
+      <Filter>ヘッダー ファイル\SceneHedder\TitleHedder</Filter>
+    </ClInclude>
     <ClInclude Include="spring.h">
       <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
     </ClInclude>
@@ -212,27 +275,6 @@
     </ClInclude>
     <ClInclude Include="springChain.h">
       <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="stageClear.h">
-      <Filter>ヘッダー ファイル\SceneHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="goal.h">
-      <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="UI_PlayerTrailBar.h">
-      <Filter>ヘッダー ファイル\UIHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="stageSelect.h">
-      <Filter>ヘッダー ファイル\SceneHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>ヘッダー ファイル\SceneHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="UI_Button.h">
-      <Filter>ヘッダー ファイル\UIHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="rule.h">
-      <Filter>ヘッダー ファイル\SceneHedder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -255,23 +297,17 @@
     <ClCompile Include="UI_PlayerState.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="UI_StartButton.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
     <ClCompile Include="click_ColorCircle.cpp">
       <Filter>ソース ファイル\Effect</Filter>
     </ClCompile>
     <ClCompile Include="title.cpp">
-      <Filter>ソース ファイル\Title</Filter>
+      <Filter>ソース ファイル\Scene\Title</Filter>
     </ClCompile>
     <ClCompile Include="title_BreakableBox.cpp">
-      <Filter>ソース ファイル\Title</Filter>
+      <Filter>ソース ファイル\Scene\Title</Filter>
     </ClCompile>
     <ClCompile Include="particle_touch.cpp">
-      <Filter>ソース ファイル\Title</Filter>
-    </ClCompile>
-    <ClCompile Include="title_Cursor.cpp">
-      <Filter>ソース ファイル\Title</Filter>
+      <Filter>ソース ファイル\Scene\Title</Filter>
     </ClCompile>
     <ClCompile Include="boxBreakEffect.cpp">
       <Filter>ソース ファイル\Effect</Filter>
@@ -303,12 +339,6 @@
     <ClCompile Include="fade.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="gameOver.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="input.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
@@ -333,26 +363,11 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="stageClear.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="scene.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="map.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="modelRenderer.cpp">
       <Filter>ソース ファイル\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="springChain.cpp">
-      <Filter>ソース ファイル\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="springBoard.cpp">
-      <Filter>ソース ファイル\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="spring.cpp">
-      <Filter>ソース ファイル\Objects</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
       <Filter>ソース ファイル\Objects</Filter>
@@ -363,17 +378,56 @@
     <ClCompile Include="Vertex.h">
       <Filter>ヘッダー ファイル\ManagerHedder</Filter>
     </ClCompile>
-    <ClCompile Include="stageSelect.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="UI_Button.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="goal.cpp">
       <Filter>ソース ファイル\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="title_Button.cpp">
+      <Filter>ソース ファイル\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="stageSelect.cpp">
+      <Filter>ソース ファイル\Scene\StageSelect</Filter>
+    </ClCompile>
     <ClCompile Include="rule.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\Scene\Rule</Filter>
+    </ClCompile>
+    <ClCompile Include="stage1.cpp">
+      <Filter>ソース ファイル\Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>ソース ファイル\Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="stageClear.cpp">
+      <Filter>ソース ファイル\Scene\StageClear</Filter>
+    </ClCompile>
+    <ClCompile Include="gameOver.cpp">
+      <Filter>ソース ファイル\Scene\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="stageSelect_Button.cpp">
+      <Filter>ソース ファイル\Scene\StageSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Cursor.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="title_SpringBoard.cpp">
+      <Filter>ソース ファイル\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="title_Spring.cpp">
+      <Filter>ソース ファイル\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="title_SpringChain.cpp">
+      <Filter>ソース ファイル\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="spring.cpp">
+      <Filter>ソース ファイル\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="springBoard.cpp">
+      <Filter>ソース ファイル\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="springChain.cpp">
+      <Filter>ソース ファイル\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

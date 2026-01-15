@@ -10,7 +10,6 @@ struct EnemyData
 {
 	Vector2 pos;
 	Vector2 scale;
-	int		enemyType;
 };
 
 //アニメーション状態

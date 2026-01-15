@@ -1,19 +1,8 @@
 #include "main.h"
 #include "manager.h"
-#include "renderer.h"
-#include "sprite.h"
 #include "input.h"
-#include "game.h"
 #include "title.h"
 
-#include "cursor.h"
-#include "polygon.h"
-#include "player.h"
-//#include "map.h"
-
-Cursor cursor;
-Polygon2D polygon;
-//MapManager mapmanager;
 
 Scene* Manager::m_Scene = nullptr;
 Scene* Manager::m_NextScene = nullptr;

@@ -7,8 +7,8 @@
 #include "manager.h"
 #include "scene.h"
 #include "game.h"
-#include "title_Cursor.h"
 #include "collision.h"
+#include "UI_Cursor.h"
 #include "UI_Button.h"
 
 void UI_Button::Init(Vector2 position, Vector2 scale,
@@ -30,8 +30,8 @@ void UI_Button::Uninit()
 
 void UI_Button::Update()
 {
-	m_CursorPos = Manager::GetScene()->GetUIObject<Title_Cursor>()->GetPosition();
-	m_CursorScale = Manager::GetScene()->GetUIObject<Title_Cursor>()->GetScale();
+	m_CursorPos = Manager::GetScene()->GetUIObject<UI_Cursor>()->GetPosition();
+	m_CursorScale = Manager::GetScene()->GetUIObject<UI_Cursor>()->GetScale();
 
 	//ƒ{ƒ^ƒ“‚Æ‚Ì“–‚½‚è”»’è
 	m_CursorOnButton = Collision::BoxCollisionCommon(m_CursorPos, m_CursorScale, m_Position, m_Scale);

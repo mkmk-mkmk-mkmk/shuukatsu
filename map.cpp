@@ -6,8 +6,6 @@
 
 #include "map.h"
 #include "main.h"
-#include "renderer.h"
-#include "texture.h"
 #include "manager.h"
 #include "scene.h"
 
@@ -23,13 +21,15 @@ void Map::Init(int maptype)
 	switch (maptype)
 	{
 	case 0:
-		load_file.open("map\\title.txt");
 		break;
 
 	case 1:
 		load_file.open("map\\map1.txt");
 		break;
 
+	case 2:
+		load_file.open("map\\map2.txt");
+		break;
 	}
 
 	std::string line;

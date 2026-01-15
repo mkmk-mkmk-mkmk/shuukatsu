@@ -2,7 +2,7 @@
 
 #include "UI_Button.h"
 
-class UI_StartButton : public UI_Button
+class TitleButton : public UI_Button
 {
 private:
 	std::vector<UI_Button> m_ButtonList;

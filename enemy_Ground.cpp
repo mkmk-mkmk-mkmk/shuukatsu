@@ -1,6 +1,4 @@
 #include "main.h"
-#include "renderer.h"
-#include "Vector2.h"
 #include "player.h"
 #include "texture.h"
 #include "scene.h"
@@ -75,10 +73,7 @@ void Enemy_Ground::Init(Vector2 pos, Vector2 scale)
 
 void Enemy_Ground::Uninit()
 {
-	m_VertexBuffer->Release();
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
+	UnInitSprite();
 
 	delete m_RootNode;
 	m_RootNode = nullptr;

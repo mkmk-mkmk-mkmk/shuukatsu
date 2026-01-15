@@ -1,6 +1,6 @@
 #pragma once
 
-class Game : public Scene
+class Stage1 : public Scene
 {
 private:
 	class Audio* m_BGM;

@@ -1,14 +1,14 @@
-#include "title_Cursor.h"  
+#include "UI_Cursor.h"  
 #include "texture.h"
 #include "renderer.h"
 #include "input.h"
 #include "manager.h"
 #include "scene.h"
-//#include "player.h"
+#include "fade.h"
 #include "title_BreakableBox.h"
 
 
-void Title_Cursor::Init()
+void UI_Cursor::Init()
 {
 	//マウス初期位置
 	m_CursorLockPos = { 0.0f, 0.0f };
@@ -47,7 +47,7 @@ void Title_Cursor::Init()
 	//cursorInstance.m_TextureSplit = { 1, 1 };
 }
 
-void Title_Cursor::Uninit()
+void UI_Cursor::Uninit()
 {
 	////カーソル情報解放
 	//if (cursorInstance.m_VertexBuffer) 
@@ -63,7 +63,7 @@ void Title_Cursor::Uninit()
 
 }
 
-void Title_Cursor::Update()
+void UI_Cursor::Update()
 {
 	if (GetCursorPos(&pt))
 	{
@@ -111,7 +111,7 @@ void Title_Cursor::Update()
 
 }
 
-void Title_Cursor::Draw()
+void UI_Cursor::Draw()
 {
 	//m_HitBox = Manager::GetScene()->GetGameObject<Title_BreakableBox>()->GetHitCursor();
 

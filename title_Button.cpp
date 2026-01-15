@@ -1,19 +1,16 @@
 
 #include "framework.h"
 #include "main.h"
-#include "renderer.h"
 #include "texture.h"
-#include "input.h"
 
 #include "manager.h"
 #include "scene.h"
 #include "rule.h"
-#include "game.h"
-#include "title_Cursor.h"
+#include "stageSelect.h"
 #include "collision.h"
-#include "UI_StartButton.h"
+#include "title_Button.h"
 
-void UI_StartButton::Init()
+void TitleButton::Init()
 {
 	m_ButtonList.push_back(button);
 	m_ButtonList[0].Init(Vector2((float)screenWidth * 0.5f, (float)screenHeight * 0.65),
@@ -22,19 +19,19 @@ void UI_StartButton::Init()
 		Texture::Load("asset\\texture\\UI\\StartButton_2.png"));
 
 	m_ButtonList.push_back(button);
-	m_ButtonList[1].Init(Vector2((float)screenWidth * 0.5f, (float)screenHeight * 0.9),
+	m_ButtonList[1].Init(Vector2((float)screenWidth * 0.5f, (float)screenHeight * 0.85),
 		Vector2((float)screenWidth * 0.25, (float)screenHeight * 0.15f),
 		Texture::Load("asset\\texture\\UI\\StartButton.png"),
 		Texture::Load("asset\\texture\\UI\\StartButton_2.png"));
 
 }
 
-void UI_StartButton::Uninit()
+void TitleButton::Uninit()
 {
 
 }
 
-void UI_StartButton::Update()
+void TitleButton::Update()
 {
 	for (int i = 0; i < m_ButtonList.size(); i++)
 	{
@@ -43,7 +40,7 @@ void UI_StartButton::Update()
 
 	if (m_ButtonList[0].GetAction() == true)
 	{
-		Manager::SetScene<Game>();
+		Manager::SetScene<StageSelect>();
 	}
 	else if (m_ButtonList[1].GetAction() == true)
 	{
@@ -52,7 +49,7 @@ void UI_StartButton::Update()
 
 }
 
-void UI_StartButton::Draw()
+void TitleButton::Draw()
 {
 	for (int i = 0; i < m_ButtonList.size(); i++)
 	{

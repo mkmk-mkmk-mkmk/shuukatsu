@@ -1,18 +1,10 @@
 #include "main.h"
-#include "renderer.h"
-#include "Vector2.h"
-#include "texture.h"
-#include "cursor.h"
+#include "UI_Cursor.h"
 #include "input.h"
 #include "scene.h"
 #include "manager.h"
 #include "title.h"
-#include "game.h"
 #include "backGround.h"
-#include "map.h"
-#include "box.h"
-#include "camera.h"
-#include "player.h"
 
 #include "stageClear.h"
 
@@ -21,7 +13,7 @@ void StageClear::Init()
 	AddGameObject<BackGround>(0)->Init(2);
 
 	//ÉJÅ[É\ÉãÇÃéÊìæ
-	AddUIObject<Cursor>(0)->Init();
+	AddUIObject<UI_Cursor>(0)->Init();
 }
 
 void StageClear::Uninit()

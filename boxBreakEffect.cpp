@@ -1,6 +1,5 @@
 
 #include "main.h"
-#include "renderer.h"
 #include "texture.h"
 #include "manager.h"
 

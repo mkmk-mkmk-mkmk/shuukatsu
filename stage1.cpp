@@ -3,7 +3,7 @@
 #include "renderer.h"
 #include "input.h"
 
-#include "game.h"
+#include "stage1.h"
 #include "player.h"
 #include "cursor.h"
 #include "polygon.h"
@@ -16,7 +16,7 @@
 #include "camera.h"
 #include "enemy_Ground.h"
 
-#include "spring.h"
+//#include "spring.h"
 
 #include "UI_PlayerState.h"
 
@@ -27,7 +27,7 @@ std::list<EnemyData> m_EnemiesInitVal;
 std::list<Enemy_Ground*> m_EnemyObjects;
 
 
-void Game::Init()
+void Stage1::Init()
 {
 	//リスタート時用にリストをクリアしておく
 	m_EnemiesInitVal.clear();
@@ -51,7 +51,7 @@ void Game::Init()
 	//カメラの追加
 	AddGameObject<Camera>(2)->Init();
 
-	//敵追加（変数は、pos、scale、enemyType。enemyTypeが0 : 地上の敵、1 : 飛んでいる敵）
+	//敵追加
 	int enemyCount = GetGameObject<Map>()->m_EnemyPosList.size();
 	for (int i = 0; i < enemyCount; i++)
 	{
@@ -59,8 +59,7 @@ void Game::Init()
 		Vector2 enemyScale = { 100.0f, 100.0f };
 		Vector2 enemyPos = { GetGameObject<Map>()->m_EnemyPosList.front().x,
 			GetGameObject<Map>()->m_EnemyPosList.front().y  - (MAPCHIP_HEIGHT + enemyScale.y * 0.5f)};
-		int enemyType = 0;
-		m_EnemiesInitVal.push_back({ enemyPos, enemyScale, enemyType });
+		m_EnemiesInitVal.push_back({ enemyPos, enemyScale });
 		GetGameObject<Map>()->m_EnemyPosList.pop_front();
 	}
 
@@ -118,17 +117,17 @@ void Game::Init()
 	AddUIObject<UI_PlayerState>(1)->Init();
 }
 
-void Game::Uninit()
+void Stage1::Uninit()
 {
 	Scene::Uninit();
 }
 
-void Game::Update()
+void Stage1::Update()
 {
 	Scene::Update();
 }
 
-void Game::Draw()
+void Stage1::Draw()
 {
 	Scene::Draw();
 }

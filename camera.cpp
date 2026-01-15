@@ -1,7 +1,6 @@
 #include "main.h"
 #include "manager.h"
 #include "scene.h"
-#include "input.h"
 
 #include "camera.h"
 #include "player.h"

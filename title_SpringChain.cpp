@@ -3,12 +3,11 @@
 #include "scene.h"
 #include "manager.h"
 
-#include "springChain.h"
+#include "title_SpringChain.h"
 #include "map.h"
 #include "player.h"
-#include "camera.h"
 
-void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, float chainWidth)
+void Title_SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, float chainWidth)
 {
 	//分割数+1が点の数
 	m_ChainPointCount = (int)chainSplit + 1;
@@ -18,14 +17,14 @@ void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, floa
 	m_ChainLength = length(chainPieceScale);
 
 	//リストをクリアしておく
-	m_ChainPointList.clear();
+	m_TitleChainPointList.clear();
 
 	float swingPower = 3.0f;
 
 	//点のリスト初期化
 	for (int i = 0; i < m_ChainPointCount; i++)
 	{
-		ChainPoint pointList;
+		Title_ChainPoint pointList;
 		pointList.pos = topPos + (chainPieceScale * (float)i);
 
 		float t = (float)i / (m_ChainPointCount - 1);
@@ -35,7 +34,7 @@ void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, floa
 		pointList.acceleration = Vector2(0.0f, 0.0f);
 		pointList.lock = false;			//後に一番上だけ固定する
 
-		m_ChainPointList.push_back(pointList);
+		m_TitleChainPointList.push_back(pointList);
 	}
 
 	m_Scale = Vector2(chainWidth, chainPieceScale.y);
@@ -45,18 +44,15 @@ void SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, floa
 
 }
 
-void SpringChain::Uninit()
+void Title_SpringChain::Uninit()
 {
-	m_VertexBuffer->Release();
-	m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();
+	UnInitSprite();
 }
 
-void SpringChain::Update()
+void Title_SpringChain::Update()
 {
 	//重力適用
-	for (auto& point : m_ChainPointList)
+	for (auto& point : m_TitleChainPointList)
 	{
 		if (!point.lock)
 		{
@@ -65,7 +61,7 @@ void SpringChain::Update()
 	}
 
 	//位置更新
-	for (auto& point : m_ChainPointList)
+	for (auto& point : m_TitleChainPointList)
 	{
 		if (point.lock)
 		{
@@ -87,8 +83,8 @@ void SpringChain::Update()
 	{
 		for (int i = 0; i < m_ChainPointCount - 1; i++)
 		{
-			ChainPoint& point1 = m_ChainPointList[i];
-			ChainPoint& point2 = m_ChainPointList[i + 1];
+			Title_ChainPoint& point1 = m_TitleChainPointList[i];
+			Title_ChainPoint& point2 = m_TitleChainPointList[i + 1];
 
 			Vector2 delta = point2.pos - point1.pos;
 			float pointDistance = length(delta);
@@ -112,14 +108,14 @@ void SpringChain::Update()
 		}
 	}
 
-	if (m_ChainPointList.front().pos.y > -screenHeight / 4)
+	if (m_TitleChainPointList.front().pos.y > -screenHeight / 4)
 	{
 		//一番上の点を固定
-		m_ChainPointList.front().lock = true;
+		m_TitleChainPointList.front().lock = true;
 	}
 }
 
-void SpringChain::Draw()
+void Title_SpringChain::Draw()
 {
 	for (int i = 0; i < m_ChainPointCount - 1; i++)
 	{
@@ -127,10 +123,10 @@ void SpringChain::Draw()
 	}
 }
 
-void SpringChain::DrawPiece(int count)
+void Title_SpringChain::DrawPiece(int count)
 {
-	ChainPoint point1 = m_ChainPointList[count];
-	ChainPoint point2 = m_ChainPointList[count + 1];
+	Title_ChainPoint point1 = m_TitleChainPointList[count];
+	Title_ChainPoint point2 = m_TitleChainPointList[count + 1];
 
 	m_Position = point1.pos + ((point2.pos - point1.pos) * 0.5f);
 	m_Rotate = PI * 0.5f - atan2(point2.pos.y - point1.pos.y,
