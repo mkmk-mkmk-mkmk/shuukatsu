@@ -27,6 +27,7 @@ public:
 	void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int pattern, int cols, int rows, int texNum, float alpha);
 
 	void SetVertexSprite();
+	void SetVertexSpriteAnim();
 };
 //static int g_AnimPattern = 0;
 //static int g_AnimFrame = 0;

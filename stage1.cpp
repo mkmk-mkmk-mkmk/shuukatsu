@@ -29,10 +29,12 @@ std::list<Enemy_Ground*> m_EnemyObjects;
 
 void Stage1::Init()
 {
+	//ポーズ状態を初期化
+	m_Pause->Init();
+
 	//リスタート時用にリストをクリアしておく
 	m_EnemiesInitVal.clear();
 	m_EnemyObjects.clear();
-
 
 	//追加する順番に注意
 	//Map->Player→Camera→Enemyなど
@@ -119,15 +121,26 @@ void Stage1::Init()
 
 void Stage1::Uninit()
 {
+	m_Pause->Uninit();
 	Scene::Uninit();
 }
 
 void Stage1::Update()
 {
+	m_Pause->Update();
+	if (m_Pause->GetSceneStop())
+	{
+		return;
+	}
+
 	Scene::Update();
 }
 
 void Stage1::Draw()
 {
 	Scene::Draw();
+	if (m_Pause->GetSceneStop())
+	{
+		m_Pause->Draw();
+	}
 }

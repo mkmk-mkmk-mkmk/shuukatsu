@@ -15,7 +15,6 @@ void Manager::Init()
 	Renderer::Init();
 	Input::Init();
 	m_Fade->Init();
-	//InitSprite();
 
 	m_Scene = new Title();
 	m_Scene->Init();

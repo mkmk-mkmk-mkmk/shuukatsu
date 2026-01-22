@@ -90,116 +90,51 @@ void Sprite::DrawSprite(XMFLOAT2 Pos, float Rotate, XMFLOAT2 Scale, int texNum, 
 	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-	//カーソル描画
+	//描画
 	Renderer::GetDeviceContext()->Draw(4, 0);
 
 }
 
 void Sprite::DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int pattern, int cols, int rows, int texNum, float alpha)
 {
-	////頂点バッファ設定
-	//UINT stride = sizeof(VERTEX_3D);
-	//UINT offset = 0;
-	//Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
-
-
-	////プロジェクションマトリクス設定
-	//XMMATRIX projection;
-	//projection = XMMatrixOrthographicOffCenterLH(0.0f, screenWidth, screenHeight, 0.0f, 0.0f, 1.0f);
-	//Renderer::SetProjectionMatrix(projection);
-
-	////ビューマトリクス設定
-	//XMMATRIX view;
-	//view = XMMatrixIdentity();
-	//Renderer::SetViewMatrix(view);
-
-	////移動・回転マトリクス設定
-	//XMMATRIX trans, world, rot, scale;
-	//scale = XMMatrixScaling(Scale.x, Scale.y, 0.0f);
-
-	//trans = XMMatrixTranslation(Position.x, Position.y, 0.0f);
-	//rot = XMMatrixRotationZ(Rotate);	//ラジアン角
-	//world = scale * rot * trans;
-	//Renderer::SetWorldMatrix(world);
-
-	////プリミティブトポロジ設定
-	//Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-
-	////マテリアル設定(半年後に登場)
-	//MATERIAL material;
-	//ZeroMemory(&material, sizeof(material));
-	//material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, alpha);
-	//Renderer::SetMaterial(material);
-
-	//int x = pattern % cols;
-	//int y = pattern / cols;
-	////一部のみを描画、アニメーション化（横二列）
-	//vertex[0].TexCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * y);
-	//vertex[1].TexCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * y);
-	//vertex[2].TexCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * (y + 1));
-	//vertex[3].TexCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * (y + 1));
-
-	//SetVertexSprite();
-
-	////スプライト描画
-	//Renderer::GetDeviceContext()->Draw(4, 0);
-
-
-
-	//
-
-
-
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_TextureList[texNum]);
 
-	// ---------- シェーダ設定 ----------
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, nullptr, 0);
-	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, nullptr, 0);
 
-	// ---------- 行列設定（DrawSpriteと統一） ----------
+	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
+	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
+
+	//マトリクス設定
 	Renderer::SetWorldViewProjection2D();
 
-	XMMATRIX scale = XMMatrixScaling(Scale.x, Scale.y, 1.0f);
-	XMMATRIX rot = XMMatrixRotationZ(Rotate);
-	XMMATRIX trans = XMMatrixTranslation(Position.x, Position.y, 0.0f);
+	XMMATRIX world, scale, rot, trans;
+	scale = XMMatrixScaling(Scale.x, Scale.y, 1.0f);
+	rot = XMMatrixRotationZ(Rotate);
+	trans = XMMatrixTranslation(Position.x, Position.y, 0.0f);
 
-	XMMATRIX world = scale * rot * trans;
+	world = scale * rot * trans;
+
 	Renderer::SetWorldMatrix(world);
 
-	// ---------- マテリアル ----------
+	//マテリアル設定
 	MATERIAL material{};
-	material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, alpha);
+	material.Diffuse = { 1.0f, 1.0f, 1.0f, alpha };
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 
-	// ---------- UV計算 ----------
 	int x = pattern % cols;
 	int y = pattern / cols;
+	//一部のみを描画、アニメーション化（横二列）
+	vertex[0].TexCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * y);
+	vertex[1].TexCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * y);
+	vertex[2].TexCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * (y + 1));
+	vertex[3].TexCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * (y + 1));
 
-	float u0 = (float)x / cols;
-	float v0 = (float)y / rows;
-	float u1 = (float)(x + 1) / cols;
-	float v1 = (float)(y + 1) / rows;
-
-	vertex[0].TexCoord = { u0, v0 };
-	vertex[1].TexCoord = { u1, v0 };
-	vertex[2].TexCoord = { u0, v1 };
-	vertex[3].TexCoord = { u1, v1 };
-
-	// ---------- 頂点バッファ更新（必要な時だけ） ----------
 	SetVertexSprite();
 
-	// ---------- 頂点バッファ設定 ----------
-	UINT stride = sizeof(VERTEX_3D);
-	UINT offset = 0;
-	Renderer::GetDeviceContext()->IASetVertexBuffers(
-		0, 1, &m_VertexBuffer, &stride, &offset);
+	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-	Renderer::GetDeviceContext()->IASetPrimitiveTopology(
-		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-
-	// ---------- 描画 ----------
+	//スプライト描画
 	Renderer::GetDeviceContext()->Draw(4, 0);
 }
 

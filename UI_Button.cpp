@@ -6,7 +6,6 @@
 
 #include "manager.h"
 #include "scene.h"
-#include "game.h"
 #include "collision.h"
 #include "UI_Cursor.h"
 #include "UI_Button.h"

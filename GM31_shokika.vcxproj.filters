@@ -276,6 +276,9 @@
     <ClInclude Include="springChain.h">
       <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
     </ClInclude>
+    <ClInclude Include="pause.h">
+      <Filter>ヘッダー ファイル\SceneHedder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GM31_shokika.rc">
@@ -428,6 +431,9 @@
     </ClCompile>
     <ClCompile Include="springChain.cpp">
       <Filter>ソース ファイル\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="pause.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

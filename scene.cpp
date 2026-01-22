@@ -6,6 +6,7 @@
 #include "box.h"
 #include "breakableBox.h"
 #include "enemy_Ground.h"
+#include "input.h"
 //#include "camera.h"
 //#include "fade.h"
 
@@ -135,4 +136,5 @@ void Scene::Draw()
 			ui->Draw();
 		}
 	}
+
 }
