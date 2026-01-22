@@ -294,6 +294,9 @@
     <ClInclude Include="enemy.h">
       <Filter>ヘッダー ファイル\ObjectsHedder\EnemyHedder</Filter>
     </ClInclude>
+    <ClInclude Include="enemy_Frying.h">
+      <Filter>ヘッダー ファイル\ObjectsHedder\EnemyHedder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GM31_shokika.rc">
@@ -449,6 +452,9 @@
     </ClCompile>
     <ClCompile Include="springChain.cpp">
       <Filter>ソース ファイル\Objects\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy_Frying.cpp">
+      <Filter>ソース ファイル\Objects\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

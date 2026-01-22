@@ -127,6 +127,13 @@ void Stage1::Uninit()
 
 void Stage1::Update()
 {
+	if (HitStop())
+	{
+		//ヒットストップ中はカメラのみ更新
+		GetGameObject<Camera>()->Update();
+		return;
+	}
+
 	m_Pause->Update();
 	if (m_Pause->GetSceneStop())
 	{

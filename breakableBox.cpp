@@ -42,6 +42,8 @@ void BreakableBox::Update(const std::list<Enemy_Ground*>& enemies)
 
 		if (m_HitPlayerMoveTrail)
 		{
+			Manager::GetScene()->SetHitStop(true); //ヒットストップ発生
+
 			m_Breaking = true;
 			//エフェクト生成
 			auto effect = std::make_unique<BoxBreakEffect>();

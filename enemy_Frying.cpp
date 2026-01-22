@@ -6,17 +6,16 @@
 #include "camera.h"
 #include "map.h"
 
-#include "enemy_Ground.h"
+#include "enemy_Frying.h"
 
 #include "BehaviorTree/actionNode.h"
 #include "BehaviorTree/conditionNode.h"
 #include "BehaviorTree/sequenceNode.h"
 #include "BehaviorTree/selectorNode.h"
 
-void Enemy_Ground::Init(Vector2 pos, Vector2 scale)
+void Enemy_Frying::Init(Vector2 pos, Vector2 scale)
 {
 	m_Speed = 2.0f;
-	m_JumpPower = 6.0f;
 	m_VisibleRange = { 300.0f, 100.0f };
 	m_AttackRange = { 120.0f, 80.0f };
 
@@ -25,7 +24,7 @@ void Enemy_Ground::Init(Vector2 pos, Vector2 scale)
 
 	//敵キャラの大きさ
 	m_Scale = scale;
-	
+
 	//敵のHP（enmeyの種類に応じて体力設定）
 	//switch(enemyType)
 	m_Life = 1;
@@ -33,9 +32,6 @@ void Enemy_Ground::Init(Vector2 pos, Vector2 scale)
 	//プレイヤーの位置と大きさも取得
 	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
 	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetScale();
-
-	//乱数を初期化しておく
-	m_RandomInt = random.RandomInt(0, 2);
 
 	//動き始めのタイミングをランダムにする
 	m_Frame = random.RandomInt(0, 100);
@@ -75,7 +71,7 @@ void Enemy_Ground::Init(Vector2 pos, Vector2 scale)
 	m_RootNode->AddChild(patrol);
 }
 
-void Enemy_Ground::Uninit()
+void Enemy_Frying::Uninit()
 {
 	UnInitSprite();
 
@@ -83,16 +79,12 @@ void Enemy_Ground::Uninit()
 	m_RootNode = nullptr;
 }
 
-void Enemy_Ground::Update()
+void Enemy_Frying::Update()
 {
 	//プレイヤーの位置と大きさ更新
 	m_PlayerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
 	m_PlayerScale = Manager::GetScene()->GetGameObject<Player>()->GetScale();
 
-	if (m_HitSideBoxPos.size() > 0)
-	{
-		CheckStairs();
-	}
 
 	// ツリー実行
 	if (m_RootNode)
@@ -126,18 +118,6 @@ void Enemy_Ground::Update()
 		break;
 	}
 
-	//左右に力が働いている場合、重力を適用させる
-	if (m_Vector.x != 0.0f)
-	{
-		m_OnGround = false;
-	}
-
-	//重力を適用
-	if (!m_OnGround)
-	{
-		m_Vector.y += m_Gravity;
-	}
-
 	//位置更新
 	m_Position += m_Vector;
 
@@ -163,7 +143,7 @@ void Enemy_Ground::Update()
 	}
 }
 
-void Enemy_Ground::Draw()
+void Enemy_Frying::Draw()
 {
 	//描画位置更新
 	m_DrawPosition =
@@ -177,16 +157,11 @@ void Enemy_Ground::Draw()
 	}
 }
 
-void Enemy_Ground::DrawAttackHitBox()
+void Enemy_Frying::DrawAttackHitBox()
 {
-	if (m_Direction) //右向き
-	{
-		m_AttackHitBoxPos = Vector2(m_Position.x + m_AttackRange.x / 2, m_Position.y);
-	}
-	else //左向き
-	{
-		m_AttackHitBoxPos = Vector2(m_Position.x - m_AttackRange.x / 2, m_Position.y);
-	}
+	m_AttackHitBoxPos = m_Direction ?
+		Vector2(m_Position.x + m_AttackRange.x / 2, m_Position.y) :
+		Vector2(m_Position.x - m_AttackRange.x / 2, m_Position.y);
 
 	//描画位置更新
 	m_AttackHitBoxDrawPos =
@@ -197,7 +172,7 @@ void Enemy_Ground::DrawAttackHitBox()
 
 }
 
-NodeStatus Enemy_Ground::Patrol() //徘徊中
+NodeStatus Enemy_Frying::Patrol() //徘徊中
 {
 	m_OldAnimationState = m_AnimationState;
 	m_AnimationState = AnimationState::Patrol;
@@ -210,7 +185,7 @@ NodeStatus Enemy_Ground::Patrol() //徘徊中
 
 }
 
-NodeStatus Enemy_Ground::Chase() //プレイヤーに向かって移動中
+NodeStatus Enemy_Frying::Chase() //プレイヤーに向かって移動中
 {
 	m_OldAnimationState = m_AnimationState;
 	m_AnimationState = AnimationState::Chase;
@@ -223,7 +198,7 @@ NodeStatus Enemy_Ground::Chase() //プレイヤーに向かって移動中
 
 }
 
-NodeStatus Enemy_Ground::Attack() //攻撃
+NodeStatus Enemy_Frying::Attack() //攻撃
 {
 	m_OldAnimationState = m_AnimationState;
 	m_AnimationState = AnimationState::Attack;
@@ -236,45 +211,45 @@ NodeStatus Enemy_Ground::Attack() //攻撃
 
 }
 
-NodeStatus Enemy_Ground::OnlyAnimation() //アニメーションのみ再生
+NodeStatus Enemy_Frying::OnlyAnimation() //アニメーションのみ再生
 {
 	return NodeStatus::Success;
 }
 
-void Enemy_Ground::UpdatePatrol()
+void Enemy_Frying::UpdatePatrol()
 {
 	//徘徊処理
 
 	m_Frame++;
 	if (m_Frame > 150)
 	{
-		switch (m_RandomInt)
+		m_RandomInt = random.RandomInt(0, 1);
+		m_RandomFloat = random.RandomFloat(-1.0f, 1.0f);
+
+		m_Vector.x = m_RandomFloat * m_Speed;
+
+		if (m_Vector.x >= 0)
 		{
-		case 0: //右移動
-			m_Vector.x = m_Speed;
-			m_RandomInt = 2;
-			m_Direction = true;
-			m_Frame = 0;
+			m_Direction = true; //右向き
+		}
+		else if (m_Vector.x < 0)
+		{
+			m_Direction = false; //左向き
+		}
 
-			break;
-		case 1: //左移動
-			m_Vector.x = -m_Speed;
-			m_RandomInt = 2;
-			m_Direction = false;
-			m_Frame = 0;
-
-			break;
-		case 2: //停止
-			m_Vector.x = 0.0f;
-			m_RandomInt = random.RandomInt(0, 1);
-			m_Frame = 90;
-
-			break;
+		//0 : 上向きに移動、1 : 下向きに移動
+		if (m_RandomInt == 0)
+		{
+			m_Vector.y =  m_Speed - modulus(m_Vector.x);
+		}
+		else
+		{
+			m_Vector.y = -m_Speed + modulus(m_Vector.x);
 		}
 	}
 }
 
-void Enemy_Ground::UpdateChase()
+void Enemy_Frying::UpdateChase()
 {
 	//追跡処理
 
@@ -283,7 +258,7 @@ void Enemy_Ground::UpdateChase()
 
 }
 
-void Enemy_Ground::UpdateAttack()
+void Enemy_Frying::UpdateAttack()
 {
 	//攻撃中は移動しない
 	m_Vector.x = 0.0f;
@@ -316,7 +291,7 @@ void Enemy_Ground::UpdateAttack()
 	}
 }
 
-void Enemy_Ground::UpdateFind()
+void Enemy_Frying::UpdateFind()
 {
 	//発見アニメーション再生
 
@@ -333,7 +308,7 @@ void Enemy_Ground::UpdateFind()
 	}
 }
 
-void Enemy_Ground::UpdateLookAround()
+void Enemy_Frying::UpdateLookAround()
 {
 	//見回しアニメーション再生
 
@@ -349,7 +324,7 @@ void Enemy_Ground::UpdateLookAround()
 	}
 }
 
-void Enemy_Ground::DeleteAnimation()
+void Enemy_Frying::DeleteAnimation()
 {
 	//消滅アニメーション再生
 
@@ -360,7 +335,7 @@ void Enemy_Ground::DeleteAnimation()
 	m_DeleteAnimationFinished = true;
 }
 
-void Enemy_Ground::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale)
+void Enemy_Frying::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale)
 {
 
 	if (m_Position.y < boxPos.y	//ボックスの上に乗っている場合
@@ -387,50 +362,12 @@ void Enemy_Ground::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vec
 		&& m_Position.y - m_Scale.y * 0.25f <= boxPos.y + boxScale.y * 0.5f)
 	{
 		m_Position.x = boxPos.x - boxScale.x * 0.5f - m_Scale.x * 0.5f; //位置をボックスの左に調整
-
-		m_HitSideBoxPos.push_back(boxPos); //当たっている箱の位置を保存
 	}
 	else if (m_Position.x > boxPos.x	//ボックスの右にいる場合
 		&& m_Position.y + m_Scale.y * 0.25f >= boxPos.y - boxScale.y * 0.5f
 		&& m_Position.y - m_Scale.y * 0.25f <= boxPos.y + boxScale.y * 0.5f)
 	{
 		m_Position.x = boxPos.x + boxScale.x * 0.5f + m_Scale.x * 0.5f; //位置をボックスの右に調整
-
-		m_HitSideBoxPos.push_back(boxPos); //当たっている箱の位置を保存
-	}
-
-}
-
-void Enemy_Ground::CheckStairs()
-{
-	m_JumpStairs = true;
-
-	//側面で当たっているboxの数だけループ
-	for (int i = 0; i < m_HitSideBoxPos.size(); i++)
-	{
-		//体の半分より上に箱がある場合は飛べない
-		if (m_Position.y > m_HitSideBoxPos.front().y - MAPCHIP_HEIGHT * 0.5f)
-		{
-			m_JumpStairs = false;
-
-			//ずっと壁に直進しないようにする
-			if (m_Position.x < m_HitSideBoxPos.front().x)	//ボックスの左にいる
-			{
-				m_RandomInt = 1;
-			}
-			else											//ボックスの右にいる
-			{
-				m_RandomInt = 0;
-			}
-		}
-		m_HitSideBoxPos.pop_front();
-	}
-
-	//階段上り処理
-	if (m_OnGround && m_JumpStairs)
-	{
-		m_Vector.y += -m_JumpPower; //上に移動
-		m_OnGround = false;
 	}
 
 }

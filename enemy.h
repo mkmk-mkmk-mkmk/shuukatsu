@@ -65,7 +65,8 @@ protected:
 	bool m_HitPlayerAttackOnce = false;	//プレイヤーの攻撃が多段ヒットしないように
 	bool m_HitPlayerAttack = false;		//プレイヤーの攻撃が当たったか
 
-	int m_Random;	//乱数用
+	int m_RandomInt;		//乱数用
+	float m_RandomFloat;	//乱数用
 
 //public:
 //

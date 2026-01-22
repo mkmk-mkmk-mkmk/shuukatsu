@@ -138,3 +138,22 @@ void Scene::Draw()
 	}
 
 }
+
+bool Scene::HitStop()
+{
+	//ヒットストップ中は更新を止める
+	if (m_HitStop)
+	{
+		m_HitStopFrame++;
+
+		if (m_HitStopFrame >= m_HitStopFrameMax)
+		{
+			m_HitStop = false;
+			m_HitStopFrame = 0;
+		}
+
+		return m_HitStop;
+	}
+
+	return false;
+}

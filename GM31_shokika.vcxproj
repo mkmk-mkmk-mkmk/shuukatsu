@@ -152,6 +152,7 @@
     <ClInclude Include="cursor.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemy_Frying.h" />
     <ClInclude Include="enemy_Ground.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="framework.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="click_ColorCircle.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="enemy_Frying.cpp" />
     <ClCompile Include="enemy_Ground.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="gameOver.cpp" />
