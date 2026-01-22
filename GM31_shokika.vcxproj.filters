@@ -91,6 +91,18 @@
     <Filter Include="ヘッダー ファイル\SceneHedder\RuleHedder">
       <UniqueIdentifier>{f5967bfc-5638-49e8-b410-d6984769efe2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Objects\Enemy">
+      <UniqueIdentifier>{9424a374-5fc9-4746-8bc8-4124c3667cd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Objects\Spring">
+      <UniqueIdentifier>{a94fc8cd-54a7-4592-abee-9d24a79be958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ObjectsHedder\EnemyHedder">
+      <UniqueIdentifier>{29ece2b8-e48f-407d-b089-caba25fd412c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ObjectsHedder\SpringHedder">
+      <UniqueIdentifier>{66fe4814-c8ad-4548-928a-8961a9ca24eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -213,9 +225,6 @@
     <ClInclude Include="cursor.h">
       <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
     </ClInclude>
-    <ClInclude Include="enemy_Ground.h">
-      <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
-    </ClInclude>
     <ClInclude Include="player.h">
       <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
     </ClInclude>
@@ -267,17 +276,23 @@
     <ClInclude Include="title_SpringChain.h">
       <Filter>ヘッダー ファイル\SceneHedder\TitleHedder</Filter>
     </ClInclude>
-    <ClInclude Include="spring.h">
-      <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="springBoard.h">
-      <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
-    </ClInclude>
-    <ClInclude Include="springChain.h">
-      <Filter>ヘッダー ファイル\ObjectsHedder</Filter>
-    </ClInclude>
     <ClInclude Include="pause.h">
       <Filter>ヘッダー ファイル\SceneHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy_Ground.h">
+      <Filter>ヘッダー ファイル\ObjectsHedder\EnemyHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="spring.h">
+      <Filter>ヘッダー ファイル\ObjectsHedder\SpringHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="springBoard.h">
+      <Filter>ヘッダー ファイル\ObjectsHedder\SpringHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="springChain.h">
+      <Filter>ヘッダー ファイル\ObjectsHedder\SpringHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>ヘッダー ファイル\ObjectsHedder\EnemyHedder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -375,9 +390,6 @@
     <ClCompile Include="player.cpp">
       <Filter>ソース ファイル\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="enemy_Ground.cpp">
-      <Filter>ソース ファイル\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Vertex.h">
       <Filter>ヘッダー ファイル\ManagerHedder</Filter>
     </ClCompile>
@@ -423,17 +435,20 @@
     <ClCompile Include="title_SpringChain.cpp">
       <Filter>ソース ファイル\Scene\Title</Filter>
     </ClCompile>
-    <ClCompile Include="spring.cpp">
-      <Filter>ソース ファイル\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="springBoard.cpp">
-      <Filter>ソース ファイル\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="springChain.cpp">
-      <Filter>ソース ファイル\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="pause.cpp">
       <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy_Ground.cpp">
+      <Filter>ソース ファイル\Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="spring.cpp">
+      <Filter>ソース ファイル\Objects\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="springBoard.cpp">
+      <Filter>ソース ファイル\Objects\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="springChain.cpp">
+      <Filter>ソース ファイル\Objects\Spring</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

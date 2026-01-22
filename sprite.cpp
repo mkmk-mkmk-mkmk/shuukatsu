@@ -2,10 +2,6 @@
 #include "main.h"
 #include "sprite.h"
 
-Sprite::Sprite(void)
-{
-
-}
 
 void Sprite::InitSprite()
 {
@@ -95,7 +91,8 @@ void Sprite::DrawSprite(XMFLOAT2 Pos, float Rotate, XMFLOAT2 Scale, int texNum, 
 
 }
 
-void Sprite::DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int pattern, int cols, int rows, int texNum, float alpha)
+void Sprite::DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale,
+	int pattern, int cols, int rows, int texNum, float alpha, bool flip)
 {
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_TextureList[texNum]);
 
@@ -130,7 +127,23 @@ void Sprite::DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int
 	vertex[2].TexCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * (y + 1));
 	vertex[3].TexCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * (y + 1));
 
+	if (flip)
+	{
+		//¶‰E”½“]
+		m_SaveTexCoord[0] = vertex[0].TexCoord;
+		m_SaveTexCoord[1] = vertex[2].TexCoord;
+
+		vertex[0].TexCoord = vertex[1].TexCoord;
+		vertex[1].TexCoord = m_SaveTexCoord[0];
+		vertex[2].TexCoord = vertex[3].TexCoord;
+		vertex[3].TexCoord = m_SaveTexCoord[1];
+	}
+
 	SetVertexSprite();
+
+	UINT stride = sizeof(VERTEX_3D);
+	UINT offset = 0;
+	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 

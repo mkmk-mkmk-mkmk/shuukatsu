@@ -151,6 +151,7 @@
     <ClInclude Include="component.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="enemy_Ground.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="framework.h" />

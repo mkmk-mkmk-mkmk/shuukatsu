@@ -13,9 +13,13 @@
 #include "BehaviorTree/sequenceNode.h"
 #include "BehaviorTree/selectorNode.h"
 
-
 void Enemy_Ground::Init(Vector2 pos, Vector2 scale)
 {
+	m_Speed = 2.0f;
+	m_JumpPower = 6.0f;
+	m_VisibleRange = { 300.0f, 100.0f };
+	m_AttackRange = { 120.0f, 80.0f };
+
 	//敵キャラスタート位置
 	m_Position = pos;
 
@@ -165,7 +169,7 @@ void Enemy_Ground::Draw()
 	m_DrawPosition =
 		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
-	DrawSprite(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), m_TextureType, 1.0f);
+	DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, m_Direction);
 
 	if (m_DrawHitBox)
 	{

@@ -5,6 +5,9 @@
 
 class Sprite
 {
+private:
+	XMFLOAT2 m_SaveTexCoord[2];	//UVç¿ïWÇàÍéûï€ë∂Ç∑ÇÈóp
+
 protected:
 
 	ID3D11Buffer*			m_VertexBuffer = nullptr;
@@ -19,15 +22,14 @@ protected:
 	int m_TextureType;
 
 public:
-	Sprite();
 
 	void InitSprite();
 	void UnInitSprite();
 	void DrawSprite(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int texNum, float alpha = 1.0f);
-	void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int pattern, int cols, int rows, int texNum, float alpha);
+	void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale,
+		int pattern, int cols, int rows, int texNum, float alpha, bool flip);
 
 	void SetVertexSprite();
-	void SetVertexSpriteAnim();
 };
 //static int g_AnimPattern = 0;
 //static int g_AnimFrame = 0;

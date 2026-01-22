@@ -198,7 +198,7 @@ void Player::Draw()
 	m_DrawPosition =
 		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
-	DrawSprite(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), m_TextureType, 1.0f);
+	DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, !m_Direction);
 
 }
 
