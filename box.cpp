@@ -8,7 +8,7 @@
 #include "map.h"
 #include "player.h"
 #include "camera.h"
-#include "enemy_Ground.h"
+#include "enemy.h"
 
 void Box::Init()
 {
@@ -28,7 +28,7 @@ void Box::Uninit()
 	UnInitSprite();
 }
 
-void Box::Update(const std::list<Enemy_Ground*>& enemies)
+void Box::Update(const std::list<Enemy*>& enemies)
 {
 	//描画位置更新
 	m_DrawPosition =
@@ -40,6 +40,12 @@ void Box::Update(const std::list<Enemy_Ground*>& enemies)
 		Vector2 enemyPos = enemy->GetPosition();
 		Vector2 enemyScale = enemy->GetScale();
 		enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
+	}
+
+	if (m_DrawPosition.x < -m_Scale.x || m_DrawPosition.x > screenWidth + m_Scale.x ||
+		m_DrawPosition.y < -m_Scale.y || m_DrawPosition.y > screenHeight + m_Scale.y)
+	{
+		return; //画面外なら描画しない
 	}
 
 	//プレイヤーの位置と大きさ更新

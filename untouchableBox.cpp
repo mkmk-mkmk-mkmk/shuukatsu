@@ -36,5 +36,11 @@ void UntouchableBox::Draw()
 	m_DrawPosition =
 		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
+	if (m_DrawPosition.x < -m_Scale.x || m_DrawPosition.x > screenWidth + m_Scale.x ||
+		m_DrawPosition.y < -m_Scale.y || m_DrawPosition.y > screenHeight + m_Scale.y)
+	{
+		return; //‰æ–ÊŠO‚È‚ç•`‰æ‚µ‚È‚¢
+	}
+
 	DrawSprite(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), 0, 1.0f);
 }

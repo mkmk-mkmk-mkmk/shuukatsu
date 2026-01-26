@@ -19,7 +19,7 @@ protected:
 
 	std::vector<ID3D11ShaderResourceView*> m_TextureList;
 
-	int m_TextureType;
+	int m_TextureType = 0;
 
 public:
 

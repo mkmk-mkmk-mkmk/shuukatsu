@@ -14,7 +14,7 @@
 #include "goal.h"
 #include "map.h"
 #include "camera.h"
-#include "enemy_Ground.h"
+#include "enemy.h"
 
 //#include "spring.h"
 
@@ -24,7 +24,7 @@
 //初期データのみのリスト(Init用)
 std::list<EnemyData> m_EnemiesInitVal;
 //当たり判定のための、中身が更新されるリスト
-std::list<Enemy_Ground*> m_EnemyObjects;
+std::list<Enemy*> m_EnemyObjects;
 
 
 void Stage1::Init()
@@ -54,23 +54,34 @@ void Stage1::Init()
 	AddGameObject<Camera>(2)->Init();
 
 	//敵追加
-	int enemyCount = GetGameObject<Map>()->m_EnemyPosList.size();
-	for (int i = 0; i < enemyCount; i++)
+	int groundEnemyCount = GetGameObject<Map>()->m_GroundEnemyPosList.size();
+	for (int i = 0; i < groundEnemyCount; i++)
 	{
-		//エネミーの位置、大きさ、タイプを入れて生成（大きさとタイプは後々いじれるように）
+		//エネミーの位置、大きさ、タイプを入れて生成
 		Vector2 enemyScale = { 100.0f, 100.0f };
-		Vector2 enemyPos = { GetGameObject<Map>()->m_EnemyPosList.front().x,
-			GetGameObject<Map>()->m_EnemyPosList.front().y  - (MAPCHIP_HEIGHT + enemyScale.y * 0.5f)};
-		m_EnemiesInitVal.push_back({ enemyPos, enemyScale });
-		GetGameObject<Map>()->m_EnemyPosList.pop_front();
+		Vector2 enemyPos = { GetGameObject<Map>()->m_GroundEnemyPosList.front().x,
+			GetGameObject<Map>()->m_GroundEnemyPosList.front().y  - (MAPCHIP_HEIGHT + enemyScale.y * 0.5f)};
+		m_EnemiesInitVal.push_back({ enemyPos, enemyScale, Ground });
+		GetGameObject<Map>()->m_GroundEnemyPosList.pop_front();
+	}
+
+	int flyingEnemyCount = GetGameObject<Map>()->m_FlyingEnemyPosList.size();
+	for (int i = 0; i < flyingEnemyCount; i++)
+	{
+		//エネミーの位置、大きさ、タイプを入れて生成
+		Vector2 enemyScale = { 100.0f, 100.0f };
+		Vector2 enemyPos = { GetGameObject<Map>()->m_FlyingEnemyPosList.front().x,
+			GetGameObject<Map>()->m_FlyingEnemyPosList.front().y - (MAPCHIP_HEIGHT + enemyScale.y * 0.5f) };
+		m_EnemiesInitVal.push_back({ enemyPos, enemyScale, Flying });
+		GetGameObject<Map>()->m_FlyingEnemyPosList.pop_front();
 	}
 
 	//追加した敵を生成
 	for (auto& enemies : m_EnemiesInitVal)
 	{
 		//エネミーオブジェクト追加
-		Enemy_Ground* enemy = AddGameObject<Enemy_Ground>(3);
-		enemy->Init(enemies.pos, enemies.scale);
+		Enemy* enemy = AddGameObject<Enemy>(3);
+		enemy->Init(enemies.pos, enemies.scale, enemies.type);
 
 		//リストにも保存
 		m_EnemyObjects.push_back(enemy);

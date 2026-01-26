@@ -62,20 +62,16 @@ void Camera::Update()
 	}
 	else
 	{
-		//ƒJƒƒ‰—h‚êˆ—
+		//ƒJƒƒ‰ƒY[ƒ€ˆ—
 		m_CameraShakeFrame = Manager::GetScene()->GetHitStopFrame();
 
 		if (m_CameraShakeFrame <= m_CameraShakeFrameMax / 2)
 		{
-			//—h‚êŽn‚ß‚©‚ç’†‰›‚Ü‚Å
-			m_CameraCenterPosition = Manager::GetScene()->GetGameObject<Player>()->GetPosition()
-				+ Vector2(m_CameraShakePower, m_CameraShakePower);
+
 		}
 		else if (m_CameraShakeFrame <= m_CameraShakeFrameMax)
 		{
-			//’†‰›‚©‚ç—h‚êI‚í‚è‚Ü‚Å
-			m_CameraCenterPosition = Manager::GetScene()->GetGameObject<Player>()->GetPosition()
-				- Vector2(m_CameraShakePower, m_CameraShakePower);
+
 		}
 		else
 		{

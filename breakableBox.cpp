@@ -8,7 +8,7 @@
 #include "map.h"
 #include "player.h"
 #include "camera.h"
-#include "enemy_Ground.h"
+#include "enemy.h"
 #include "boxBreakEffect.h"
 
 
@@ -29,7 +29,7 @@ void BreakableBox::Uninit()
 	UnInitSprite();
 }
 
-void BreakableBox::Update(const std::list<Enemy_Ground*>& enemies)
+void BreakableBox::Update(const std::list<Enemy*>& enemies)
 {
 	//プレイヤーのボックス当たり判定
 	Vector2 playerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
@@ -97,13 +97,10 @@ void BreakableBox::Draw()
 
 	m_DrawPosition = m_Position - m_DrawDiff;
 
-	if (m_DrawPosition.x < -m_Scale.x / 2 ||
-		m_DrawPosition.x > screenWidth + m_Scale.x / 2 ||
-		m_DrawPosition.y < -m_Scale.y / 2 ||
-		m_DrawPosition.y > screenHeight + m_Scale.y / 2)
+	if (m_DrawPosition.x < -m_Scale.x || m_DrawPosition.x > screenWidth + m_Scale.x ||
+		m_DrawPosition.y < -m_Scale.y || m_DrawPosition.y > screenHeight + m_Scale.y)
 	{
-		//画面外なら描画しない
-		return;
+		return; //画面外なら描画しない
 	}
 
 	if (!m_Breaking)

@@ -279,9 +279,6 @@
     <ClInclude Include="pause.h">
       <Filter>ヘッダー ファイル\SceneHedder</Filter>
     </ClInclude>
-    <ClInclude Include="enemy_Ground.h">
-      <Filter>ヘッダー ファイル\ObjectsHedder\EnemyHedder</Filter>
-    </ClInclude>
     <ClInclude Include="spring.h">
       <Filter>ヘッダー ファイル\ObjectsHedder\SpringHedder</Filter>
     </ClInclude>
@@ -294,8 +291,8 @@
     <ClInclude Include="enemy.h">
       <Filter>ヘッダー ファイル\ObjectsHedder\EnemyHedder</Filter>
     </ClInclude>
-    <ClInclude Include="enemy_Frying.h">
-      <Filter>ヘッダー ファイル\ObjectsHedder\EnemyHedder</Filter>
+    <ClInclude Include="zoom.h">
+      <Filter>ヘッダー ファイル\ManagerHedder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -441,9 +438,6 @@
     <ClCompile Include="pause.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="enemy_Ground.cpp">
-      <Filter>ソース ファイル\Objects\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="spring.cpp">
       <Filter>ソース ファイル\Objects\Spring</Filter>
     </ClCompile>
@@ -453,7 +447,10 @@
     <ClCompile Include="springChain.cpp">
       <Filter>ソース ファイル\Objects\Spring</Filter>
     </ClCompile>
-    <ClCompile Include="enemy_Frying.cpp">
+    <ClCompile Include="zoom.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
       <Filter>ソース ファイル\Objects\Enemy</Filter>
     </ClCompile>
   </ItemGroup>

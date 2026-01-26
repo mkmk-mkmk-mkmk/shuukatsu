@@ -4,7 +4,7 @@
 #include <vector>
 #include "gameObject.h"
 #include "UI.h"
-#include "enemy_Ground.h"
+#include "enemy.h"
 
 class Scene
 {

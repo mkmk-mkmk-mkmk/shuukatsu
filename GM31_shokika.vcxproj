@@ -152,8 +152,6 @@
     <ClInclude Include="cursor.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="enemy.h" />
-    <ClInclude Include="enemy_Frying.h" />
-    <ClInclude Include="enemy_Ground.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pause.h" />
@@ -200,6 +198,7 @@
     <ClInclude Include="untouchableBox.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
+    <ClInclude Include="zoom.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GM31_shokika.rc" />
@@ -216,8 +215,7 @@
     <ClCompile Include="click_ColorCircle.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cursor.cpp" />
-    <ClCompile Include="enemy_Frying.cpp" />
-    <ClCompile Include="enemy_Ground.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="gameOver.cpp" />
     <ClCompile Include="pause.cpp" />
@@ -260,6 +258,7 @@
     <ClCompile Include="title_Button.cpp" />
     <ClCompile Include="untouchableBox.cpp" />
     <ClCompile Include="Vertex.h" />
+    <ClCompile Include="zoom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">
