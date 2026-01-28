@@ -1,12 +1,12 @@
 #include "main.h"
 #include "manager.h"
-#include "renderer.h"
 #include "scene.h"
 
 #include "map.h"
 #include "box.h"
 #include "breakableBox.h"
 #include "enemy.h"
+#include "input.h"
 //#include "camera.h"
 //#include "fade.h"
 
@@ -136,4 +136,24 @@ void Scene::Draw()
 			ui->Draw();
 		}
 	}
+
+}
+
+bool Scene::HitStop()
+{
+	//ヒットストップ中は更新を止める
+	if (m_HitStop)
+	{
+		m_HitStopFrame++;
+
+		if (m_HitStopFrame >= m_HitStopFrameMax)
+		{
+			m_HitStop = false;
+			m_HitStopFrame = 0;
+		}
+
+		return m_HitStop;
+	}
+
+	return false;
 }

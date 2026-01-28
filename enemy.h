@@ -6,11 +6,18 @@
 #include <list>
 #include "random.h"
 
+enum EnemyType
+{
+	Ground,
+	Flying
+};
+
+//敵初期データ構造体
 struct EnemyData
 {
 	Vector2 pos;
 	Vector2 scale;
-	int		enemyType;
+	EnemyType type;
 };
 
 //アニメーション状態
@@ -24,25 +31,11 @@ enum class AnimationState
 	LookAround	//見回し
 };
 
-//敵の種類
-enum EnemyType
-{
-	Ground,
-	Flying
-};
-
 class Enemy : public GameObject
 {
-private:
+protected:
 
-	ID3D11Buffer* m_VertexBuffer;
-
-	ID3D11InputLayout* m_VertexLayout;
-	ID3D11VertexShader* m_VertexShader;
-	ID3D11PixelShader* m_PixelShader;
-
-	ID3D11ShaderResourceView* m_Texture;
-	ID3D11ShaderResourceView* m_Texture_AttackHitBox;
+	EnemyType m_EnemyType;
 
 	CompositeNode* m_RootNode = nullptr;
 
@@ -55,27 +48,25 @@ private:
 	Vector2 m_PlayerScale;			//プレイヤースケール
 	std::list<Vector2> m_HitSideBoxPos; //左右で当たっている箱のリスト
 
-	float m_Speed = 2.0f;			//移動速度
-	float m_JumpPower = 6.0f;		//ジャンプ力
-	bool m_JumpStairs;				//段差をジャンプするか
-	Vector2 m_VisibleRange = { 300.0f, 100.0f };//発見範囲
-	Vector2 m_AttackRange = { 120.0f, 80.0f };	//攻撃範囲
+	float m_Speed;			//移動速度
+	Vector2 m_VisibleRange;	//発見範囲
+	Vector2 m_AttackRange;	//攻撃範囲
 
 	bool m_DrawHitBox = false;
 	Vector2 m_AttackHitBoxPos = { 0.0f, 0.0f };	//攻撃判定の位置（デバッグ用）
 	Vector2 m_AttackHitBoxDrawPos = { 0.0f, 0.0f };	//攻撃判定の描画位置（デバッグ用）
 
-	bool m_VisiblePlayer = false;	//プレイヤーが見えているかどうか
-	bool m_InAttackRange = false;	//攻撃範囲内かどうか
-	bool m_AttackCoolTime = false;	//攻撃のクールタイム中かどうか
-	bool m_Attacking = false;		//攻撃中かどうか
+	bool m_VisiblePlayer = false;	//プレイヤーが見えているか
+	bool m_InAttackRange = false;	//攻撃範囲内か
+	bool m_AttackCoolTime = false;	//攻撃のクールタイム中か
+	bool m_Attacking = false;		//攻撃中か
 
-	bool m_AttackAnimationStarted = false;		//攻撃アニメーション開始したかどうか
-	bool m_AttackAnimationFinished = false;		//攻撃アニメーションが終了したかどうか
-	bool m_ChaseAnimationStarted = false;		//追跡アニメーション開始したかどうか
-	bool m_ChaseAnimationFinished = false;		//追跡アニメーションが終了したかどうか
-	bool m_PatrolAnimationStarted = false;		//徘徊アニメーション開始したかどうか
-	bool m_PatrolAnimationFinished = false;		//徘徊アニメーションが終了したかどうか
+	bool m_AttackAnimationStarted = false;		//攻撃アニメーション開始したか
+	bool m_AttackAnimationFinished = false;		//攻撃アニメーションが終了したか
+	bool m_ChaseAnimationStarted = false;		//追跡アニメーション開始したか
+	bool m_ChaseAnimationFinished = false;		//追跡アニメーションが終了したか
+	bool m_PatrolAnimationStarted = false;		//徘徊アニメーション開始したか
+	bool m_PatrolAnimationFinished = false;		//徘徊アニメーションが終了したか
 
 	bool m_StopTick = false;		//tickを止める（攻撃などのアニメーション再生中に使用）
 	bool m_HitOnce = false;			//自分の攻撃が多段ヒットしないように
@@ -84,11 +75,20 @@ private:
 	bool m_HitPlayerAttackOnce = false;	//プレイヤーの攻撃が多段ヒットしないように
 	bool m_HitPlayerAttack = false;		//プレイヤーの攻撃が当たったか
 
-	int m_Random;	//乱数用
+	int m_EnemyInvincibleFrame = 20;	//無敵時間用フレームカウント
+	bool m_EnemyInvincible = false;		//無敵状態か（当たり判定があるか）
+
+	int m_RandomInt;		//乱数用
+	float m_RandomFloat;	//乱数用
+
+	//地上エネミー用
+	float m_JumpPower;		//ジャンプ力
+	bool m_JumpStairs;		//段差をジャンプするか
+
 
 public:
 
-	void Init(Vector2 pos, Vector2 scale, int enemyType);
+	void Init(Vector2 pos, Vector2 scale, EnemyType enemyType);
 	void Uninit();
 	void Update();
 	void Draw();

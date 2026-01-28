@@ -2,8 +2,9 @@
 
 #include "framework.h"
 #include "collision.h"
+#include "sprite.h"
 
-class UI : public Collision
+class UI : public Collision, public Sprite
 {
 protected:
 

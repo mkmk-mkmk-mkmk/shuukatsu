@@ -1,5 +1,7 @@
 #pragma once
 
+#include "DirectXMath.h"
+using namespace DirectX;
 
 struct VERTEX_2D
 {

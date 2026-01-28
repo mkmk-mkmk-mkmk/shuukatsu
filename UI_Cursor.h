@@ -10,16 +10,11 @@
 #include "particle_touch.h"
 #include "title_BreakableBox.h"
 
-class Title_Cursor : public UI
+class UI_Cursor : public UI
 {
 private:
-	ID3D11Buffer* m_VertexBuffer;
 
-	ID3D11InputLayout* m_VertexLayout;
-	ID3D11VertexShader* m_VertexShader;
-	ID3D11PixelShader* m_PixelShader;
-
-	ID3D11ShaderResourceView* m_Texture[4];
+	bool	m_UsableButton = false; //フェードが明けてから入力を受け付ける
 
 	bool	m_ButtonUse = false;	//ボタン使用中（パーティクル用）
 

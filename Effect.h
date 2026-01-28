@@ -3,6 +3,7 @@
 #include "framework.h"
 #include "random.h"
 #include "Vector2.h"
+#include "sprite.h"
 #include <vector>
 
 struct EffectData
@@ -15,7 +16,7 @@ struct EffectData
 	int effectType = 0;
 };
 
-class Effect
+class Effect : public Sprite
 {
 protected:
 
@@ -35,14 +36,6 @@ protected:
 	Random random;
 
 	std::vector<EffectData> m_EffectDataList;
-
-	ID3D11Buffer* m_VertexBuffer;
-
-	ID3D11InputLayout* m_VertexLayout;
-	ID3D11VertexShader* m_VertexShader;
-	ID3D11PixelShader* m_PixelShader;
-
-	ID3D11ShaderResourceView* m_Texture[5];
 
 private :
 

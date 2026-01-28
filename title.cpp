@@ -1,18 +1,14 @@
 #include "main.h"
-#include "renderer.h"
-#include "Vector2.h"
-#include "texture.h"
 #include "manager.h"
 
-#include "title_Cursor.h"
+#include "UI_Cursor.h"
 #include "input.h"
 #include "scene.h"
 #include "title.h"
-#include "game.h"
 #include "backGround.h"
-#include "spring.h"
+#include "title_Spring.h"
 #include "title_BreakableBox.h"
-#include "UI_StartButton.h"
+#include "title_Button.h"
 
 void Title::Init()
 {
@@ -21,7 +17,7 @@ void Title::Init()
 	
 
 	//スプリングの追加
-	AddGameObject<Spring>(2)->
+	AddGameObject<Title_Spring>(2)->
 		Init(Vector2((float)screenWidth * 2 / 7, -(float)screenHeight / 5 * 3),
 			Vector2((float)screenWidth * 5 / 7, -(float)screenHeight / 5 * 3),
 			Vector2((float)screenWidth * 2 / 7, 0.0f),
@@ -29,10 +25,10 @@ void Title::Init()
 			10.0f, 10.0f, screenHeight / 35, screenHeight * 2 / 5, 3);
 
 
-	AddUIObject<UI_StartButton>(0)->Init();
+	AddUIObject<TitleButton>(0)->Init();
 
 	//カーソルの取得
-	AddUIObject<Title_Cursor>(1)->Init();
+	AddUIObject<UI_Cursor>(1)->Init();
 }
 
 void Title::Uninit()

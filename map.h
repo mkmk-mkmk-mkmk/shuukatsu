@@ -28,7 +28,8 @@ public:
 	std::list<Vector2> m_BreakableBoxPosList;	//壊せる箱の位置リスト
 	std::list<Vector2> m_UntouchableBoxPosList;	//当たり判定のない箱の位置リスト
 	std::list<Vector2> m_GoalPosList;			//ゴールの位置リスト
-	std::list<Vector2> m_EnemyPosList;			//エネミーの位置リスト
+	std::list<Vector2> m_GroundEnemyPosList;	//地上エネミーの位置リスト
+	std::list<Vector2> m_FlyingEnemyPosList;	//飛行エネミーの位置リスト
 
 	int GetBlockWidth() const { return STAGEBLOCK_WIDTH; }
 	int GetBlockHeight() const { return STAGEBLOCK_HEIGHT; }

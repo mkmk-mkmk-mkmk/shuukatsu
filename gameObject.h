@@ -6,7 +6,9 @@
 #include "random.h"
 #include <list>
 
-class GameObject : public Vector2, public Collision
+#include "sprite.h"
+
+class GameObject : public Vector2, public Collision, public Sprite
 {
 protected:
 

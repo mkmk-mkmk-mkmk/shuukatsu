@@ -3,7 +3,7 @@
 #include "renderer.h"
 #include "input.h"
 
-#include "game.h"
+#include "stage1.h"
 #include "player.h"
 #include "cursor.h"
 #include "polygon.h"
@@ -16,7 +16,7 @@
 #include "camera.h"
 #include "enemy.h"
 
-#include "spring.h"
+//#include "spring.h"
 
 #include "UI_PlayerState.h"
 
@@ -27,12 +27,14 @@ std::list<EnemyData> m_EnemiesInitVal;
 std::list<Enemy*> m_EnemyObjects;
 
 
-void Game::Init()
+void Stage1::Init()
 {
+	//ポーズ状態を初期化
+	m_Pause->Init();
+
 	//リスタート時用にリストをクリアしておく
 	m_EnemiesInitVal.clear();
 	m_EnemyObjects.clear();
-
 
 	//追加する順番に注意
 	//Map->Player→Camera→Enemyなど
@@ -51,17 +53,27 @@ void Game::Init()
 	//カメラの追加
 	AddGameObject<Camera>(2)->Init();
 
-	//敵追加（変数は、pos、scale、enemyType。enemyTypeが0 : 地上の敵、1 : 飛んでいる敵）
-	int enemyCount = GetGameObject<Map>()->m_EnemyPosList.size();
-	for (int i = 0; i < enemyCount; i++)
+	//敵追加
+	int groundEnemyCount = GetGameObject<Map>()->m_GroundEnemyPosList.size();
+	for (int i = 0; i < groundEnemyCount; i++)
 	{
-		//エネミーの位置、大きさ、タイプを入れて生成（大きさとタイプは後々いじれるように）
+		//エネミーの位置、大きさ、タイプを入れて生成
 		Vector2 enemyScale = { 100.0f, 100.0f };
-		Vector2 enemyPos = { GetGameObject<Map>()->m_EnemyPosList.front().x,
-			GetGameObject<Map>()->m_EnemyPosList.front().y  - (MAPCHIP_HEIGHT + enemyScale.y * 0.5f)};
-		int enemyType = 0;
-		m_EnemiesInitVal.push_back({ enemyPos, enemyScale, enemyType });
-		GetGameObject<Map>()->m_EnemyPosList.pop_front();
+		Vector2 enemyPos = { GetGameObject<Map>()->m_GroundEnemyPosList.front().x,
+			GetGameObject<Map>()->m_GroundEnemyPosList.front().y  - (MAPCHIP_HEIGHT + enemyScale.y * 0.5f)};
+		m_EnemiesInitVal.push_back({ enemyPos, enemyScale, Ground });
+		GetGameObject<Map>()->m_GroundEnemyPosList.pop_front();
+	}
+
+	int flyingEnemyCount = GetGameObject<Map>()->m_FlyingEnemyPosList.size();
+	for (int i = 0; i < flyingEnemyCount; i++)
+	{
+		//エネミーの位置、大きさ、タイプを入れて生成
+		Vector2 enemyScale = { 100.0f, 100.0f };
+		Vector2 enemyPos = { GetGameObject<Map>()->m_FlyingEnemyPosList.front().x,
+			GetGameObject<Map>()->m_FlyingEnemyPosList.front().y - (MAPCHIP_HEIGHT + enemyScale.y * 0.5f) };
+		m_EnemiesInitVal.push_back({ enemyPos, enemyScale, Flying });
+		GetGameObject<Map>()->m_FlyingEnemyPosList.pop_front();
 	}
 
 	//追加した敵を生成
@@ -69,7 +81,7 @@ void Game::Init()
 	{
 		//エネミーオブジェクト追加
 		Enemy* enemy = AddGameObject<Enemy>(3);
-		enemy->Init(enemies.pos, enemies.scale, enemies.enemyType);
+		enemy->Init(enemies.pos, enemies.scale, enemies.type);
 
 		//リストにも保存
 		m_EnemyObjects.push_back(enemy);
@@ -118,17 +130,35 @@ void Game::Init()
 	AddUIObject<UI_PlayerState>(1)->Init();
 }
 
-void Game::Uninit()
+void Stage1::Uninit()
 {
+	m_Pause->Uninit();
 	Scene::Uninit();
 }
 
-void Game::Update()
+void Stage1::Update()
 {
+	if (HitStop())
+	{
+		//ヒットストップ中はカメラのみ更新
+		GetGameObject<Camera>()->Update();
+		return;
+	}
+
+	m_Pause->Update();
+	if (m_Pause->GetSceneStop())
+	{
+		return;
+	}
+
 	Scene::Update();
 }
 
-void Game::Draw()
+void Stage1::Draw()
 {
 	Scene::Draw();
+	if (m_Pause->GetSceneStop())
+	{
+		m_Pause->Draw();
+	}
 }
