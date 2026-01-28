@@ -177,17 +177,29 @@ void Player::Update()
 void Player::Draw()
 {
 	//テクスチャセット
-	if (m_MoveTrail)
+	if ((m_GettingTrail || m_HaveTrail) && m_TrailType)
 	{
-		m_TextureType = 0;
+		//軌跡移動中とそれ以外で違うテクスチャに
+		if (m_MoveTrail)
+		{
+			m_TextureType = 2;
+		}
+		else
+		{
+			m_TextureType = 2;
+		}
 	}
-	else if (m_GettingTrail)
+	else if ((m_GettingTrail || m_HaveTrail) && !m_TrailType)
 	{
-		m_TextureType = 1;
-	}
-	else if (m_HaveTrail)
-	{
-		m_TextureType = 2;
+		//軌跡移動中とそれ以外で違うテクスチャに
+		if (m_MoveTrail)
+		{
+			m_TextureType = 1;
+		}
+		else
+		{
+			m_TextureType = 1;
+		}
 	}
 	else
 	{

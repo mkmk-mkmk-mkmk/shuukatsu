@@ -23,8 +23,8 @@ void Click_ColorCircle::Init(Vector2 position, int type)
 
 	InitSprite();
 
+	m_TextureList.push_back(Texture::Load("asset\\texture\\effect\\redCircle.png"));
 	m_TextureList.push_back(Texture::Load("asset\\texture\\effect\\blueCircle.png"));
-	m_TextureList.push_back(Texture::Load("asset\\texture\\effect\\greenCircle.png"));
 
 }
 
