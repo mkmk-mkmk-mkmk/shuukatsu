@@ -27,39 +27,39 @@ void Enemy::Init(Vector2 pos, Vector2 scale, EnemyType enemyType)
 	//エネミーの種類に応じて基礎初期値設定）
 	switch (m_EnemyType)
 	{
-		case Ground:
-			m_Life = 1;
-			m_Speed = 2.0f;
-			m_JumpPower = 6.0f;
-			m_VisibleRange = { 300.0f, 100.0f };
-			m_AttackRange = { 120.0f, 80.0f };
+	case Ground:
+		m_Life = 1;
+		m_Speed = 2.0f;
+		m_JumpPower = 6.0f;
+		m_VisibleRange = { 300.0f, 100.0f };
+		m_AttackRange = { 120.0f, 80.0f };
 
-			InitSprite();
-			m_TextureList.push_back(Texture::Load("asset\\texture\\enemy\\enemy_Ground\\enemy_Ground.png"));
-			m_TextureList.push_back(Texture::Load("asset\\texture\\enemy\\enemy_Ground\\enemy_GroundAnimation.png"));
-			m_TextureList.push_back(Texture::Load("asset\\texture\\chase.png"));
-			m_TextureList.push_back(Texture::Load("asset\\texture\\attack.png"));
-			m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\clickParticle.png"));
+		InitSprite();
+		m_TextureList.push_back(Texture::Load("asset\\texture\\enemy\\enemy_Ground\\enemy_Ground.png"));
+		m_TextureList.push_back(Texture::Load("asset\\texture\\enemy\\enemy_Ground\\enemy_GroundAnimation.png"));
+		m_TextureList.push_back(Texture::Load("asset\\texture\\chase.png"));
+		m_TextureList.push_back(Texture::Load("asset\\texture\\attack.png"));
+		m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\clickParticle.png"));
 
-			break;
+		break;
 
-		case Flying:
-			m_Life = 1;
-			m_Speed = 2.0f;
-			m_VisibleRange = { 300.0f, 100.0f };
-			m_AttackRange = { 120.0f, 80.0f };
+	case Flying:
+		m_Life = 1;
+		m_Speed = 2.0f;
+		m_VisibleRange = { 300.0f, 100.0f };
+		m_AttackRange = { 120.0f, 80.0f };
 
-			InitSprite();
-			m_TextureList.push_back(Texture::Load("asset\\texture\\patrol.png"));
-			m_TextureList.push_back(Texture::Load("asset\\texture\\patrol.png"));
-			m_TextureList.push_back(Texture::Load("asset\\texture\\chase.png"));
-			m_TextureList.push_back(Texture::Load("asset\\texture\\attack.png"));
-			m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\clickParticle.png"));
+		InitSprite();
+		m_TextureList.push_back(Texture::Load("asset\\texture\\enemy\\enemy_Flying\\enemy_FlyingAnimation.png"));
+		m_TextureList.push_back(Texture::Load("asset\\texture\\enemy\\enemy_Flying\\enemy_FlyingAnimation.png"));
+		m_TextureList.push_back(Texture::Load("asset\\texture\\chase.png"));
+		m_TextureList.push_back(Texture::Load("asset\\texture\\attack.png"));
+		m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\clickParticle.png"));
 
-			break;
+		break;
 
-		default:
-			break;
+	default:
+		break;
 	}
 
 	//プレイヤーの位置と大きさも取得
@@ -283,35 +283,65 @@ void Enemy::Draw()
 		}
 	}
 
-	switch (m_AnimationState)
+	switch (m_EnemyType)
 	{
-	case AnimationState::Patrol:
-		if (m_Vector.x != 0.0f)
+	case Ground:
+		switch (m_AnimationState)
 		{
+		case AnimationState::Patrol:
+			if (m_Vector.x != 0.0f)
+			{
+				DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+					XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 8, 1, 1, 1.0f, m_Direction);
+			}
+			else
+			{
+				DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+					XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, 0, 1.0f, m_Direction);
+			}
+			break;
+		case AnimationState::Chase:
 			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
 				XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 8, 1, 1, 1.0f, m_Direction);
-		}
-		else
-		{
+			break;
+		case AnimationState::Attack:
 			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-				XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, 0, 1.0f, m_Direction);
+				XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 1, 1, 0, 1.0f, m_Direction);
+			break;
+		case AnimationState::FindPlayer:
+
+			break;
+
+		case AnimationState::LookAround:
+
+			break;
 		}
 		break;
-	case AnimationState::Chase:
-		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-			XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 8, 1, 1, 1.0f, m_Direction);
-		break;
-	case AnimationState::Attack:
-		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-			XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 1, 1, 0, 1.0f, m_Direction);
-		break;
-	case AnimationState::FindPlayer:
+	case Flying:
+		switch (m_AnimationState)
+		{
+		case AnimationState::Patrol:
+			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+				XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 8, 1, 1, 1.0f, m_Direction);
+			break;
+		case AnimationState::Chase:
+			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+				XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 8, 1, 1, 1.0f, m_Direction);
+			break;
+		case AnimationState::Attack:
+			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+				XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 1, 1, 0, 1.0f, m_Direction);
+			break;
+		case AnimationState::FindPlayer:
 
+			break;
+
+		case AnimationState::LookAround:
+
+			break;
+		}
 		break;
 
-	case AnimationState::LookAround:
-
-		break;
 	}
 
 	if (m_DrawHitBox)
@@ -437,7 +467,7 @@ void Enemy::UpdatePatrol()
 				m_Direction = false; //左向き
 			}
 
-			
+
 			switch (m_RandomInt)
 			{
 			case 0: //上向き
@@ -648,7 +678,7 @@ void Enemy::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 bo
 	default:
 		break;
 	}
-	
+
 }
 
 void Enemy::CheckStairs()
