@@ -294,8 +294,17 @@
     <ClInclude Include="zoom.h">
       <Filter>ヘッダー ファイル\ManagerHedder</Filter>
     </ClInclude>
-    <ClInclude Include="ruleBoard.h">
+    <ClInclude Include="rule_SpringBoard.h">
       <Filter>ヘッダー ファイル\SceneHedder\RuleHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="rule_SpringChain.h">
+      <Filter>ヘッダー ファイル\SceneHedder\RuleHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="rule_Button.h">
+      <Filter>ヘッダー ファイル\SceneHedder\RuleHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_PlayerLife.h">
+      <Filter>ヘッダー ファイル\UIHedder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -456,8 +465,23 @@
     <ClCompile Include="enemy.cpp">
       <Filter>ソース ファイル\Objects\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="ruleBoard.cpp">
+    <ClCompile Include="rule_SpringBoard.cpp">
       <Filter>ソース ファイル\Scene\Rule</Filter>
+    </ClCompile>
+    <ClCompile Include="rule_Spring.h">
+      <Filter>ヘッダー ファイル\SceneHedder\RuleHedder</Filter>
+    </ClCompile>
+    <ClCompile Include="rule_Spring.cpp">
+      <Filter>ソース ファイル\Scene\Rule</Filter>
+    </ClCompile>
+    <ClCompile Include="rule_SpringChain.cpp">
+      <Filter>ソース ファイル\Scene\Rule</Filter>
+    </ClCompile>
+    <ClCompile Include="rule_Button.cpp">
+      <Filter>ソース ファイル\Scene\Rule</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_PlayerLife.cpp">
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

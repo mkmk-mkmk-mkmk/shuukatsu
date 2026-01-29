@@ -20,6 +20,10 @@ private:
 	float m_JumpPower = -12.0f;		//ジャンプ力
 	bool m_Dash = false;			//ダッシュ中かどうか
 
+	int m_DamageFrame = 0;			//ダメージ処理用フレームカウント
+	int m_NoDamageFrame = 60;		//無敵時間用フレームカウント
+	bool m_NoDamage = false;		//無敵状態かどうか
+
 	Vector2 m_ClickPos;
 
 	std::list<Vector2> m_TrailPosList;
@@ -39,6 +43,18 @@ public:
 	void Uninit();
 	void Update();
 	void Draw();
+
+	void NoDamage();	//無敵時間処理
+
+	bool GetNoDamage()
+	{
+		return m_NoDamage;
+	}
+
+	void SetNoDamage(bool noDamage)
+	{
+		m_NoDamage = noDamage;
+	}
 
 	//軌跡を少しでも持っているかどうか取得
 	bool GetPlayerHaveTrail()

@@ -15,7 +15,7 @@
 void Player::Init()
 {
 	//プレイヤーのライフ初期設定
-	m_Life = 100;
+	m_Life = 5;
 
 	//プレイヤースタート位置
 	float playerFirstPosX = MAPCHIP_WIDTH * 5.0f + m_Scale.x * 0.5f;
@@ -52,6 +52,8 @@ void Player::Update()
 	{
 		m_Life = 0;
 	}
+
+	NoDamage(); //無敵時間処理
 
 	m_OldPosition = m_Position;
 
@@ -264,6 +266,19 @@ void Player::PlayerMove()
 		m_Direction = false; //左向き
 	}
 
+}
+
+void Player::NoDamage()
+{
+	if (m_NoDamage)
+	{
+		m_DamageFrame++;
+		if (m_DamageFrame >= m_NoDamageFrame)
+		{
+			m_NoDamage = false;
+			m_DamageFrame = 0;
+		}
+	}
 }
 
 void Player::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale)

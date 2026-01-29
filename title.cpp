@@ -22,9 +22,10 @@ void Title::Init()
 			Vector2((float)screenWidth * 5 / 7, -(float)screenHeight / 5 * 3),
 			Vector2((float)screenWidth * 2 / 7, 0.0f),
 			Vector2((float)screenWidth * 5 / 7, 0.0f),
-			10.0f, 10.0f, screenHeight / 35, screenHeight * 2 / 5, 3);
+			10.0f, 10.0f, screenHeight / 35, screenHeight * 2 / 5, 2);
 
 
+	//ボタンの追加
 	AddUIObject<TitleButton>(0)->Init();
 
 	//カーソルの取得

@@ -155,7 +155,9 @@
     <ClInclude Include="fade.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pause.h" />
-    <ClInclude Include="ruleBoard.h" />
+    <ClInclude Include="rule_Button.h" />
+    <ClInclude Include="rule_SpringBoard.h" />
+    <ClInclude Include="rule_SpringChain.h" />
     <ClInclude Include="stage1.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameOver.h" />
@@ -175,6 +177,7 @@
     <ClInclude Include="stageSelect.h" />
     <ClInclude Include="stageSelect_Button.h" />
     <ClInclude Include="UI_Button.h" />
+    <ClInclude Include="UI_PlayerLife.h" />
     <ClInclude Include="UI_PlayerTrailBar.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="random.h" />
@@ -220,7 +223,11 @@
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="gameOver.cpp" />
     <ClCompile Include="pause.cpp" />
-    <ClCompile Include="ruleBoard.cpp" />
+    <ClCompile Include="rule_Button.cpp" />
+    <ClCompile Include="rule_Spring.cpp" />
+    <ClCompile Include="rule_SpringBoard.cpp" />
+    <ClCompile Include="rule_Spring.h" />
+    <ClCompile Include="rule_SpringChain.cpp" />
     <ClCompile Include="stage1.cpp" />
     <ClCompile Include="goal.cpp" />
     <ClCompile Include="input.cpp" />
@@ -241,6 +248,7 @@
     <ClCompile Include="stageSelect.cpp" />
     <ClCompile Include="stageSelect_Button.cpp" />
     <ClCompile Include="UI_Button.cpp" />
+    <ClCompile Include="UI_PlayerLife.cpp" />
     <ClCompile Include="UI_PlayerTrailBar.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="renderer.cpp" />

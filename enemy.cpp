@@ -467,10 +467,13 @@ void Enemy::UpdateAttack()
 
 			m_DrawHitBox = true;
 
-			if (!m_HitOnce && m_HitAttack)
+			if (m_HitAttack)
 			{
-				Manager::GetScene()->GetGameObject<Player>()->AddLife(-100);
-				m_HitAttack = true;
+				if (!Manager::GetScene()->GetGameObject<Player>()->GetNoDamage())
+				{
+					Manager::GetScene()->GetGameObject<Player>()->AddLife(-1);
+					Manager::GetScene()->GetGameObject<Player>()->SetNoDamage(true);
+				}
 			}
 		}
 

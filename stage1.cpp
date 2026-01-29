@@ -19,6 +19,7 @@
 //#include "spring.h"
 
 #include "UI_PlayerState.h"
+#include "UI_PlayerLife.h"
 
 //エネミー用リスト
 //初期データのみのリスト(Init用)
@@ -126,8 +127,11 @@ void Stage1::Init()
 	//カーソルの取得
 	AddUIObject<Cursor>(0)->Init();
 
-	//UIの追加
+	//PlayerStateUIの追加
 	AddUIObject<UI_PlayerState>(1)->Init();
+
+	//PlayerLifeUIの追加
+	AddUIObject<UI_PlayerLife>(1)->Init();
 }
 
 void Stage1::Uninit()
