@@ -155,6 +155,7 @@
     <ClInclude Include="fade.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pause.h" />
+    <ClInclude Include="ruleBoard.h" />
     <ClInclude Include="stage1.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameOver.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="gameOver.cpp" />
     <ClCompile Include="pause.cpp" />
+    <ClCompile Include="ruleBoard.cpp" />
     <ClCompile Include="stage1.cpp" />
     <ClCompile Include="goal.cpp" />
     <ClCompile Include="input.cpp" />

@@ -24,7 +24,7 @@ void Cursor::Init()
 		MessageBox(nullptr, "Cursor position could not be retrieved.", "Error", MB_OK | MB_ICONERROR);
 	}
 
-	m_Scale = { 80.0f, 80.0f }; //カーソルのスケールを初期化
+	m_Scale = { 50.0f, 50.0f }; //カーソルのスケールを初期化
 
 	InitSprite();
 

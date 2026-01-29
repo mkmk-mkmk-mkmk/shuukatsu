@@ -294,6 +294,9 @@
     <ClInclude Include="zoom.h">
       <Filter>ヘッダー ファイル\ManagerHedder</Filter>
     </ClInclude>
+    <ClInclude Include="ruleBoard.h">
+      <Filter>ヘッダー ファイル\SceneHedder\RuleHedder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GM31_shokika.rc">
@@ -452,6 +455,9 @@
     </ClCompile>
     <ClCompile Include="enemy.cpp">
       <Filter>ソース ファイル\Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ruleBoard.cpp">
+      <Filter>ソース ファイル\Scene\Rule</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

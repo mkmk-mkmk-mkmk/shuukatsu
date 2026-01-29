@@ -14,15 +14,15 @@ void TitleButton::Init()
 {
 	m_ButtonList.push_back(button);
 	m_ButtonList[0].Init(Vector2((float)screenWidth * 0.5f, (float)screenHeight * 0.65),
-		Vector2((float)screenWidth * 0.3, (float)screenHeight * 0.2f),
-		Texture::Load("asset\\texture\\UI\\StartButton.png"),
-		Texture::Load("asset\\texture\\UI\\StartButton_2.png"));
+		Vector2((float)screenWidth * 0.25, (float)screenHeight * 0.2f),
+		Texture::Load("asset\\texture\\UI\\startButton.png"),
+		Texture::Load("asset\\texture\\UI\\startButton_2.png"));
 
 	m_ButtonList.push_back(button);
-	m_ButtonList[1].Init(Vector2((float)screenWidth * 0.5f, (float)screenHeight * 0.85),
-		Vector2((float)screenWidth * 0.25, (float)screenHeight * 0.15f),
-		Texture::Load("asset\\texture\\UI\\StartButton.png"),
-		Texture::Load("asset\\texture\\UI\\StartButton_2.png"));
+	m_ButtonList[1].Init(Vector2((float)screenWidth * 0.5f, (float)screenHeight * 0.87),
+		Vector2((float)screenWidth * 0.2, (float)screenHeight * 0.15f),
+		Texture::Load("asset\\texture\\UI\\ruleButton.png"),
+		Texture::Load("asset\\texture\\UI\\ruleButton_2.png"));
 
 }
 

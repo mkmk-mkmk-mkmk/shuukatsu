@@ -26,14 +26,12 @@ void UI_Cursor::Init()
 		MessageBox(nullptr, "Cursor position could not be retrieved.", "Error", MB_OK | MB_ICONERROR);
 	}
 
-	m_Scale = { 80.0f, 80.0f }; //カーソルのスケールを初期化
+	m_Scale = { 50.0f, 50.0f }; //カーソルのスケールを初期化
 
 	InitSprite();
 
 	m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\cursor.png"));
 	m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\cursor_2.png"));
-	m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\cursor_GettingTrail.png"));
-	m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\cursor_GettingReverse.png"));
 
 	//マウス初期位置変更後再移動
 	m_CursorLockPos = { screenWidth * 0.5f, screenHeight * 0.5f };
