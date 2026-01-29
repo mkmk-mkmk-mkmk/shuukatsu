@@ -13,6 +13,8 @@ class GameObject : public Vector2, public Collision, public Sprite
 protected:
 
 	int m_Frame = 0;
+	int m_AnimationFrame = 0;
+	int m_AnimationFrameCount = 0;
 
 	bool m_Destroy = false;
 

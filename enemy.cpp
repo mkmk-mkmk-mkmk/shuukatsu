@@ -35,8 +35,8 @@ void Enemy::Init(Vector2 pos, Vector2 scale, EnemyType enemyType)
 			m_AttackRange = { 120.0f, 80.0f };
 
 			InitSprite();
-			m_TextureList.push_back(Texture::Load("asset\\texture\\patrol.png"));
-			m_TextureList.push_back(Texture::Load("asset\\texture\\patrol.png"));
+			m_TextureList.push_back(Texture::Load("asset\\texture\\enemy\\enemy_Ground\\enemy_Ground.png"));
+			m_TextureList.push_back(Texture::Load("asset\\texture\\enemy\\enemy_Ground\\enemy_GroundAnimation.png"));
 			m_TextureList.push_back(Texture::Load("asset\\texture\\chase.png"));
 			m_TextureList.push_back(Texture::Load("asset\\texture\\attack.png"));
 			m_TextureList.push_back(Texture::Load("asset\\texture\\UI\\clickParticle.png"));
@@ -272,8 +272,47 @@ void Enemy::Draw()
 		return; //‰æ–ÊŠO‚È‚ç•`‰æ‚µ‚È‚¢
 	}
 
-	DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-		XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, m_Direction);
+	m_AnimationFrame++;
+	if (m_AnimationFrame > 6)
+	{
+		m_AnimationFrame = 0;
+		m_AnimationFrameCount++;
+		if (m_AnimationFrameCount > 7)
+		{
+			m_AnimationFrameCount = 0;
+		}
+	}
+
+	switch (m_AnimationState)
+	{
+	case AnimationState::Patrol:
+		if (m_Vector.x != 0.0f)
+		{
+			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+				XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 8, 1, 1, 1.0f, m_Direction);
+		}
+		else
+		{
+			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+				XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, 0, 1.0f, m_Direction);
+		}
+		break;
+	case AnimationState::Chase:
+		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+			XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 8, 1, 1, 1.0f, m_Direction);
+		break;
+	case AnimationState::Attack:
+		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+			XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 1, 1, 0, 1.0f, m_Direction);
+		break;
+	case AnimationState::FindPlayer:
+
+		break;
+
+	case AnimationState::LookAround:
+
+		break;
+	}
 
 	if (m_DrawHitBox)
 	{
