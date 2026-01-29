@@ -74,6 +74,7 @@ void UI_Button::Draw()
 	}
 
 
-	DrawSprite(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), m_TextureType, 1.0f);
+	DrawSprite(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+		XMFLOAT2(m_Scale.x, m_Scale.y), m_TextureType, 1.0f);
 
 }

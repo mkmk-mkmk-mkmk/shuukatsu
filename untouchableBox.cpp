@@ -42,5 +42,6 @@ void UntouchableBox::Draw()
 		return; //‰æ–ÊŠO‚È‚ç•`‰æ‚µ‚È‚¢
 	}
 
-	DrawSprite(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), 0, 1.0f);
+	DrawSprite(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+		XMFLOAT2(m_Scale.x, m_Scale.y), 0, 1.0f);
 }

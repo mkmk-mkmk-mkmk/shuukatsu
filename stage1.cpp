@@ -20,6 +20,7 @@
 
 #include "UI_PlayerState.h"
 #include "UI_PlayerLife.h"
+#include "UI_TrailSecond.h"
 
 //エネミー用リスト
 //初期データのみのリスト(Init用)
@@ -132,6 +133,9 @@ void Stage1::Init()
 
 	//PlayerLifeUIの追加
 	AddUIObject<UI_PlayerLife>(1)->Init();
+
+	//TrailSecondUIの追加
+	AddUIObject<UI_TrailSecond>(1)->Init();
 }
 
 void Stage1::Uninit()

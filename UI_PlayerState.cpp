@@ -62,6 +62,7 @@ void UI_PlayerState::Draw()
 		break;
 	}
 
-	DrawSprite(XMFLOAT2(m_Position.x, m_Position.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), m_TextureType, 1.0f);
+	DrawSprite(XMFLOAT2(m_Position.x, m_Position.y), m_Rotate,
+		XMFLOAT2(m_Scale.x, m_Scale.y), m_TextureType, 1.0f);
 
 }

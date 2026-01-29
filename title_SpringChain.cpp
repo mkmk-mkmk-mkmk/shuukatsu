@@ -132,6 +132,7 @@ void Title_SpringChain::DrawPiece(int count)
 	m_Rotate = PI * 0.5f - atan2(point2.pos.y - point1.pos.y,
 		point2.pos.x - point1.pos.x);
 
-	DrawSprite(XMFLOAT2(m_Position.x, m_Position.y), -m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y + 50.0f), 0, 1.0f);
+	DrawSprite(XMFLOAT2(m_Position.x, m_Position.y), -m_Rotate,
+		XMFLOAT2(m_Scale.x, m_Scale.y + 50.0f), 0, 1.0f);
 
 }

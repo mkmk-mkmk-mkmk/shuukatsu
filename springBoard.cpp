@@ -42,6 +42,7 @@ void SpringBoard::Draw()
 	m_Rotate = atan2(m_RightPoint->pos.y - m_LeftPoint->pos.y,
 		m_RightPoint->pos.x - m_LeftPoint->pos.x);
 
-	DrawSprite(XMFLOAT2(m_Position.x, m_Position.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), 0, 1.0f);
+	DrawSprite(XMFLOAT2(m_Position.x, m_Position.y), m_Rotate,
+		XMFLOAT2(m_Scale.x, m_Scale.y), 0, 1.0f);
 
 }

@@ -30,5 +30,6 @@ void Pause::Uninit()
 
 void Pause::Draw()
 {
-	DrawSprite(XMFLOAT2(screenWidth * 0.5f, screenHeight * 0.5f), 0.0f, XMFLOAT2(screenWidth, screenHeight), 0, m_Alpha);
+	DrawSprite(XMFLOAT2(screenWidth * 0.5f, screenHeight * 0.5f), 0.0f,
+		XMFLOAT2(screenWidth, screenHeight), 0, m_Alpha);
 }

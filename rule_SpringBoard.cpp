@@ -42,6 +42,7 @@ void Rule_SpringBoard::Update()
 void Rule_SpringBoard::Draw()
 {
 
-	DrawSprite(XMFLOAT2(m_Position.x, m_Position.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), 0, 1.0f);
+	DrawSprite(XMFLOAT2(m_Position.x, m_Position.y), m_Rotate,
+		XMFLOAT2(m_Scale.x, m_Scale.y), 0, 1.0f);
 
 }

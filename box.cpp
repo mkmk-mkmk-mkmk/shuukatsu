@@ -69,6 +69,7 @@ void Box::Draw()
 		return;
 	}
 
-	DrawSprite(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), 0, 1.0f);
+	DrawSprite(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+		XMFLOAT2(m_Scale.x, m_Scale.y), 0, 1.0f);
 
 }

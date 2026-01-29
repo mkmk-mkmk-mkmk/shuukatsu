@@ -57,6 +57,7 @@ void ParticleTouch::DrawParticle(int count)
 	Particle particle = m_ParticleList[count];
 	m_Position = particle.pos;
 
-	DrawSprite(XMFLOAT2(particle.pos.x, particle.pos.y), 0.0f, XMFLOAT2(particle.scale, particle.scale), 0, 1.0f);
+	DrawSprite(XMFLOAT2(particle.pos.x, particle.pos.y), 0.0f,
+		XMFLOAT2(particle.scale, particle.scale), 0, 1.0f);
 
 }

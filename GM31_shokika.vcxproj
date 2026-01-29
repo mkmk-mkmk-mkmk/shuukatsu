@@ -178,7 +178,6 @@
     <ClInclude Include="stageSelect_Button.h" />
     <ClInclude Include="UI_Button.h" />
     <ClInclude Include="UI_PlayerLife.h" />
-    <ClInclude Include="UI_PlayerTrailBar.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="renderer.h" />
@@ -199,6 +198,7 @@
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_PlayerState.h" />
     <ClInclude Include="title_Button.h" />
+    <ClInclude Include="UI_TrailSecond.h" />
     <ClInclude Include="untouchableBox.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
@@ -249,7 +249,6 @@
     <ClCompile Include="stageSelect_Button.cpp" />
     <ClCompile Include="UI_Button.cpp" />
     <ClCompile Include="UI_PlayerLife.cpp" />
-    <ClCompile Include="UI_PlayerTrailBar.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="save.cpp" />
@@ -266,6 +265,7 @@
     <ClCompile Include="UI_Cursor.cpp" />
     <ClCompile Include="UI_PlayerState.cpp" />
     <ClCompile Include="title_Button.cpp" />
+    <ClCompile Include="UI_TrailSecond.cpp" />
     <ClCompile Include="untouchableBox.cpp" />
     <ClCompile Include="Vertex.h" />
     <ClCompile Include="zoom.cpp" />

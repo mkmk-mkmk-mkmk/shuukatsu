@@ -272,7 +272,8 @@ void Enemy::Draw()
 		return; //‰æ–ÊŠO‚È‚ç•`‰æ‚µ‚È‚¢
 	}
 
-	DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, m_Direction);
+	DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+		XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, m_Direction);
 
 	if (m_DrawHitBox)
 	{
