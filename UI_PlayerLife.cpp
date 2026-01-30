@@ -34,7 +34,7 @@ void UI_PlayerLife::Draw()
 {
 	m_PlayerLife = Manager::GetScene()->GetGameObject<Player>()->GetLife();
 
-	DrawSpriteAnim(XMFLOAT2(m_Position.x, m_Position.y), m_Rotate,
+	DrawSpritePiece(XMFLOAT2(m_Position.x, m_Position.y), m_Rotate,
 		XMFLOAT2(m_Scale.x, m_Scale.y), 5 - m_PlayerLife, 1, 6, 0, 1.0f, false);
 
 }

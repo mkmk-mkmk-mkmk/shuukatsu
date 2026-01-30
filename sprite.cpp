@@ -119,6 +119,77 @@ void Sprite::DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale,
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 
+	m_AnimationFrameCount++;
+	if (m_AnimationFrameCount >= m_AnimationUpdateFrame)
+	{
+		m_AnimationFrameCount = 0;
+		m_AnimationFrame++;
+		if (m_AnimationFrame >= pattern)
+		{
+			m_AnimationFrame = 0;
+		}
+	}
+
+	int x = m_AnimationFrame % cols;
+	int y = m_AnimationFrame / cols;
+	//一部のみを描画、アニメーション化（横二列）
+	vertex[0].TexCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * y);
+	vertex[1].TexCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * y);
+	vertex[2].TexCoord = XMFLOAT2(1.0f / cols * x, 1.0f / rows * (y + 1));
+	vertex[3].TexCoord = XMFLOAT2(1.0f / cols * (x + 1), 1.0f / rows * (y + 1));
+
+	if (flip)
+	{
+		//左右反転
+		m_SaveTexCoord[0] = vertex[0].TexCoord;
+		m_SaveTexCoord[1] = vertex[2].TexCoord;
+
+		vertex[0].TexCoord = vertex[1].TexCoord;
+		vertex[1].TexCoord = m_SaveTexCoord[0];
+		vertex[2].TexCoord = vertex[3].TexCoord;
+		vertex[3].TexCoord = m_SaveTexCoord[1];
+	}
+
+	SetVertexSprite();
+
+	UINT stride = sizeof(VERTEX_3D);
+	UINT offset = 0;
+	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
+
+	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	//スプライト描画
+	Renderer::GetDeviceContext()->Draw(4, 0);
+}
+
+void Sprite::DrawSpritePiece(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale,
+	int pattern, int cols, int rows, int texNum, float alpha, bool flip)
+{
+	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_TextureList[texNum]);
+
+	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
+
+	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
+	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
+
+	//マトリクス設定
+	Renderer::SetWorldViewProjection2D();
+
+	XMMATRIX world, scale, rot, trans;
+	scale = XMMatrixScaling(Scale.x, Scale.y, 1.0f);
+	rot = XMMatrixRotationZ(Rotate);
+	trans = XMMatrixTranslation(Position.x, Position.y, 0.0f);
+
+	world = scale * rot * trans;
+
+	Renderer::SetWorldMatrix(world);
+
+	//マテリアル設定
+	MATERIAL material{};
+	material.Diffuse = { 1.0f, 1.0f, 1.0f, alpha };
+	material.TextureEnable = true;
+	Renderer::SetMaterial(material);
+
 	int x = pattern % cols;
 	int y = pattern / cols;
 	//一部のみを描画、アニメーション化（横二列）

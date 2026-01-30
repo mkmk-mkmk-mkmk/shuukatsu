@@ -29,7 +29,7 @@ void Player::Init()
 
 	InitSprite();
 
-	m_TextureList.push_back(Texture::Load("asset\\texture\\roboR1_green.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_NormalAnimation.png"));
 	m_TextureList.push_back(Texture::Load("asset\\texture\\roboR1_red.png"));
 	m_TextureList.push_back(Texture::Load("asset\\texture\\roboR1_blue.png"));
 	m_TextureList.push_back(Texture::Load("asset\\texture\\roboR1_green.png"));
@@ -212,9 +212,27 @@ void Player::Draw()
 	m_DrawPosition =
 		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
-	DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-		XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, !m_Direction);
-
+	switch (m_TextureType)
+	{
+	case 0:
+		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+			XMFLOAT2(m_Scale.x, m_Scale.y), 8, 8, 1, m_TextureType, 1.0f, m_Direction);
+		break;
+	case 1:
+		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+			XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, !m_Direction);
+		break;
+	case 2:
+		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+			XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, !m_Direction);
+		break;
+	case 3:
+		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
+			XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, !m_Direction);
+		break;
+	default:
+		break;
+	}
 }
 
 void Player::PlayerMove()

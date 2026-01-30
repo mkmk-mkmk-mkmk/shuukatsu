@@ -50,11 +50,11 @@ void UI_TrailSecond::Draw()
 		XMFLOAT2(screenWidth * 0.25f, screenHeight * 0.1f), 1, 1, 1, 0, 1.0f, false);
 
 	//10ÇÃà 
-	DrawSpriteAnim(XMFLOAT2(screenWidth * 0.8f, screenHeight * 0.05f), m_Rotate,
+	DrawSpritePiece(XMFLOAT2(screenWidth * 0.8f, screenHeight * 0.05f), m_Rotate,
 		XMFLOAT2(screenWidth * 0.05f, screenHeight * 0.07f), m_TrailSecond_10, 10, 1, 1, 1.0f, false);
 
 	//1ÇÃà 
-	DrawSpriteAnim(XMFLOAT2(screenWidth * 0.83f, screenHeight * 0.05f), m_Rotate,
+	DrawSpritePiece(XMFLOAT2(screenWidth * 0.83f, screenHeight * 0.05f), m_Rotate,
 		XMFLOAT2(screenWidth * 0.05f, screenHeight * 0.07f), m_TrailSecond_1, 10, 1, 1, 1.0f, false);
 
 	//è¨êîì_
@@ -62,11 +62,11 @@ void UI_TrailSecond::Draw()
 		XMFLOAT2(screenWidth * 0.05f, screenHeight * 0.05), 1, 1, 1, 2, 1.0f, false);
 
 	//0.1ÇÃà 
-	DrawSpriteAnim(XMFLOAT2(screenWidth * 0.87f, screenHeight * 0.05f), m_Rotate,
+	DrawSpritePiece(XMFLOAT2(screenWidth * 0.87f, screenHeight * 0.05f), m_Rotate,
 		XMFLOAT2(screenWidth * 0.05f, screenHeight * 0.07f), m_TrailSecond_01, 10, 1, 1, 1.0f, false);
 
 	//0.01ÇÃà 
-	DrawSpriteAnim(XMFLOAT2(screenWidth * 0.9f, screenHeight * 0.05f), m_Rotate,
+	DrawSpritePiece(XMFLOAT2(screenWidth * 0.9f, screenHeight * 0.05f), m_Rotate,
 		XMFLOAT2(screenWidth * 0.05f, screenHeight * 0.07f), m_TrailSecond_001, 10, 1, 1, 1.0f, false);
 
 	//ïb

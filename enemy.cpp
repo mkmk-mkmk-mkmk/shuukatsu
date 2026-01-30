@@ -272,16 +272,6 @@ void Enemy::Draw()
 		return; //‰æ–ÊŠO‚È‚ç•`‰æ‚µ‚È‚¢
 	}
 
-	m_AnimationFrame++;
-	if (m_AnimationFrame > 6)
-	{
-		m_AnimationFrame = 0;
-		m_AnimationFrameCount++;
-		if (m_AnimationFrameCount > 7)
-		{
-			m_AnimationFrameCount = 0;
-		}
-	}
 
 	switch (m_EnemyType)
 	{
@@ -292,7 +282,7 @@ void Enemy::Draw()
 			if (m_Vector.x != 0.0f)
 			{
 				DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-					XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 8, 1, 1, 1.0f, m_Direction);
+					XMFLOAT2(m_Scale.x, m_Scale.y), 8, 8, 1, 1, 1.0f, m_Direction);
 			}
 			else
 			{
@@ -302,11 +292,11 @@ void Enemy::Draw()
 			break;
 		case AnimationState::Chase:
 			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-				XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 8, 1, 1, 1.0f, m_Direction);
+				XMFLOAT2(m_Scale.x, m_Scale.y), 8, 8, 1, 1, 1.0f, m_Direction);
 			break;
 		case AnimationState::Attack:
 			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-				XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 1, 1, 0, 1.0f, m_Direction);
+				XMFLOAT2(m_Scale.x, m_Scale.y), 8, 1, 1, 0, 1.0f, m_Direction);
 			break;
 		case AnimationState::FindPlayer:
 
@@ -322,15 +312,15 @@ void Enemy::Draw()
 		{
 		case AnimationState::Patrol:
 			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-				XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 8, 1, 1, 1.0f, m_Direction);
+				XMFLOAT2(m_Scale.x, m_Scale.y), 8, 8, 1, 1, 1.0f, m_Direction);
 			break;
 		case AnimationState::Chase:
 			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-				XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 8, 1, 1, 1.0f, m_Direction);
+				XMFLOAT2(m_Scale.x, m_Scale.y), 8, 8, 1, 1, 1.0f, m_Direction);
 			break;
 		case AnimationState::Attack:
 			DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-				XMFLOAT2(m_Scale.x, m_Scale.y), m_AnimationFrameCount, 1, 1, 0, 1.0f, m_Direction);
+				XMFLOAT2(m_Scale.x, m_Scale.y), 8, 1, 1, 0, 1.0f, m_Direction);
 			break;
 		case AnimationState::FindPlayer:
 
@@ -427,21 +417,43 @@ void Enemy::UpdatePatrol()
 			{
 			case 0: //‰EˆÚ“®
 				m_Vector.x = m_Speed;
-				m_RandomInt = 2;
+				m_RandomInt = random.RandomInt(0, 2);
+				//‚¸‚Á‚ÆˆÚ“®‚µ‚Ä‚¢‚é‚Ì‚ð–hŽ~
+				m_MoveCount++;
+				if (m_MoveCount >= m_MoveCountMax)
+				{
+					m_RandomInt = 2; //ŽŸ‚Í’âŽ~
+					m_MoveCount = 0;
+				}
 				m_Direction = true;
 				m_Frame = 0;
 
 				break;
 			case 1: //¶ˆÚ“®
 				m_Vector.x = -m_Speed;
-				m_RandomInt = 2;
+				m_RandomInt = random.RandomInt(0, 2);
+				//‚¸‚Á‚ÆˆÚ“®‚µ‚Ä‚¢‚é‚Ì‚ð–hŽ~
+				m_MoveCount++;
+				if (m_MoveCount >= m_MoveCountMax)
+				{
+					m_RandomInt = 2; //ŽŸ‚Í’âŽ~
+					m_MoveCount = 0;
+				}
 				m_Direction = false;
 				m_Frame = 0;
 
 				break;
 			case 2: //’âŽ~
 				m_Vector.x = 0.0f;
-				m_RandomInt = random.RandomInt(0, 1);
+				m_RandomInt = random.RandomInt(0, 2);
+
+				//‚¸‚Á‚Æ’âŽ~‚µ‚Ä‚¢‚é‚Ì‚ð–hŽ~
+				m_StopCount++;
+				if (m_StopCount >= m_StopCountMax)
+				{
+					m_RandomInt = random.RandomInt(0, 1); //ŽŸ‚ÍˆÚ“®
+					m_StopCount = 0;
+				}
 				m_Frame = 90;
 
 				break;
@@ -453,7 +465,6 @@ void Enemy::UpdatePatrol()
 		m_Frame++;
 		if (m_Frame > 150)
 		{
-			m_RandomInt = random.RandomInt(0, 2);
 			m_RandomFloat = random.RandomFloat(-1.0f, 1.0f);
 
 			m_Vector.x = m_RandomFloat * m_Speed;
@@ -472,12 +483,41 @@ void Enemy::UpdatePatrol()
 			{
 			case 0: //ãŒü‚«
 				m_Vector.y = m_Speed - modulus(m_Vector.x);
+				m_RandomInt = random.RandomInt(0, 2);
+
+				//‚¸‚Á‚ÆˆÚ“®‚µ‚Ä‚¢‚é‚Ì‚ð–hŽ~
+				m_MoveCount++;
+				if (m_MoveCount >= m_MoveCountMax)
+				{
+					m_RandomInt = 2; //ŽŸ‚Í’âŽ~
+					m_MoveCount = 0;
+				}
 				break;
 			case 1: //‰ºŒü‚«
 				m_Vector.y = -m_Speed + modulus(m_Vector.x);
+				m_RandomInt = random.RandomInt(0, 2);
+
+				//‚¸‚Á‚ÆˆÚ“®‚µ‚Ä‚¢‚é‚Ì‚ð–hŽ~
+				m_MoveCount++;
+				if (m_MoveCount >= m_MoveCountMax)
+				{
+					m_RandomInt = 2; //ŽŸ‚Í’âŽ~
+					m_MoveCount = 0;
+				}
+
 				break;
 			case 2: //’âŽ~
 				m_Vector = { 0.0f, 0.0f };
+				m_RandomInt = random.RandomInt(0, 2);
+
+				//‚¸‚Á‚Æ’âŽ~‚µ‚Ä‚¢‚é‚Ì‚ð–hŽ~
+				m_StopCount++;
+				if (m_StopCount >= m_StopCountMax)
+				{
+					m_RandomInt = random.RandomInt(0, 1); //ŽŸ‚ÍˆÚ“®
+					m_StopCount = 0;
+				}
+
 				break;
 			}
 

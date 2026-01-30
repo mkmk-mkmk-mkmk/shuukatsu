@@ -8,6 +8,10 @@ class Sprite
 private:
 	XMFLOAT2 m_SaveTexCoord[2];	//UVç¿ïWÇàÍéûï€ë∂Ç∑ÇÈóp
 
+	int m_AnimationFrame = 0;
+	int m_AnimationUpdateFrame = 8;
+	int m_AnimationFrameCount = 0;
+
 protected:
 
 	ID3D11Buffer*			m_VertexBuffer = nullptr;
@@ -27,6 +31,8 @@ public:
 	void UnInitSprite();
 	void DrawSprite(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int texNum, float alpha = 1.0f);
 	void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale,
+		int pattern, int cols, int rows, int texNum, float alpha, bool flip);
+	void DrawSpritePiece(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale,
 		int pattern, int cols, int rows, int texNum, float alpha, bool flip);
 
 	void SetVertexSprite();

@@ -52,6 +52,12 @@ protected:
 	Vector2 m_VisibleRange;	//発見範囲
 	Vector2 m_AttackRange;	//攻撃範囲
 
+	int m_MoveCount = 0;    //停止せずに移動した数
+	int m_MoveCountMax = 3; //停止せずに移動する最大数
+
+	int m_StopCount = 0;    //停止した数
+	int m_StopCountMax = 2; //停止する最大数
+
 	bool m_DrawHitBox = false;
 	Vector2 m_AttackHitBoxPos = { 0.0f, 0.0f };	//攻撃判定の位置（デバッグ用）
 	Vector2 m_AttackHitBoxDrawPos = { 0.0f, 0.0f };	//攻撃判定の描画位置（デバッグ用）
