@@ -30,6 +30,7 @@ void Player::Init()
 	InitSprite();
 
 	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_NormalAnimation.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_Normal_MoveAnimation.png"));
 	m_TextureList.push_back(Texture::Load("asset\\texture\\roboR1_red.png"));
 	m_TextureList.push_back(Texture::Load("asset\\texture\\roboR1_blue.png"));
 	m_TextureList.push_back(Texture::Load("asset\\texture\\roboR1_green.png"));
@@ -184,11 +185,11 @@ void Player::Draw()
 		//軌跡移動中とそれ以外で違うテクスチャに
 		if (m_MoveTrail)
 		{
-			m_TextureType = 2;
+			m_TextureType = 3;
 		}
 		else
 		{
-			m_TextureType = 2;
+			m_TextureType = 3;
 		}
 	}
 	else if ((m_GettingTrail || m_HaveTrail) && !m_TrailType)
@@ -196,16 +197,30 @@ void Player::Draw()
 		//軌跡移動中とそれ以外で違うテクスチャに
 		if (m_MoveTrail)
 		{
-			m_TextureType = 1;
+			m_TextureType = 2;
 		}
 		else
 		{
-			m_TextureType = 1;
+			m_TextureType = 2;
 		}
 	}
 	else
 	{
-		m_TextureType = 0;
+		if (m_Vector.y != 0.0f)
+		{
+			//ジャンプ、落下中のアニメーション
+			m_TextureType = 1;
+		}
+		else if (m_Vector.x != 0.0f)
+		{
+			//移動中のアニメーション
+			m_TextureType = 1;
+		}
+		else
+		{
+			//待機中のアニメーション
+			m_TextureType = 0;
+		}
 	}
 
 	//描画位置更新
@@ -220,7 +235,7 @@ void Player::Draw()
 		break;
 	case 1:
 		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-			XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, !m_Direction);
+			XMFLOAT2(m_Scale.x, m_Scale.y), 8, 8, 1, m_TextureType, 1.0f, m_Direction);
 		break;
 	case 2:
 		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
@@ -253,17 +268,14 @@ void Player::PlayerMove()
 		m_Vector.x = -m_Speed; //左に移動
 		m_OnGround = false;
 	}
-
-	if (Input::GetKeyPress('S') || Input::GetKeyPress('s'))
-	{
-		//m_PlayerVector.y = m_Speed; //下に移動
-		//m_OnGround = false;
-	}
-
-	if (Input::GetKeyPress('D') || Input::GetKeyPress('d'))
+	else if (Input::GetKeyPress('D') || Input::GetKeyPress('d'))
 	{
 		m_Vector.x = m_Speed; //右に移動
 		m_OnGround = false;
+	}
+	else
+	{
+		m_Vector.x = 0.0f; //移動しない
 	}
 
 	if (Input::GetKeyPress(VK_SHIFT))
