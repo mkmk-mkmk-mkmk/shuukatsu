@@ -37,7 +37,11 @@ private:
 
 	PlayerState m_PlayerState = PlayerState::Player_Normal;	//プレイヤーの状態
 
-	VERTEX_3D vertex[4];
+	int m_AnimationPattern = 0; //アニメーションパターン数
+	int m_Animationcols = 0;	//アニメーション列数
+	int m_Animationrows = 0;	//アニメーション行数
+
+	bool m_DrawDirection = true; //描画の向き true：通常、false：反転
 
 public:
 	void Init();

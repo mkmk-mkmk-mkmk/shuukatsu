@@ -35,8 +35,14 @@ void Player::Init()
 	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_Normal_FlyingAnimation.png"));
 	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_Normal_Flying2.png"));
 
+	//再生取得中
 	m_TextureList.push_back(Texture::Load("asset\\texture\\roboR1_red.png"));
+
+	//逆再生取得中
 	m_TextureList.push_back(Texture::Load("asset\\texture\\roboR1_blue.png"));
+
+	//再生中
+	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_TrailMoveAnimation.png"));
 }
 
 void Player::Uninit()
@@ -188,7 +194,7 @@ void Player::Draw()
 		//軌跡移動中とそれ以外で違うテクスチャに
 		if (m_MoveTrail)
 		{
-			m_TextureType = 5;
+			m_TextureType = 6;
 		}
 		else
 		{
@@ -200,7 +206,7 @@ void Player::Draw()
 		//軌跡移動中とそれ以外で違うテクスチャに
 		if (m_MoveTrail)
 		{
-			m_TextureType = 4;
+			m_TextureType = 6;
 		}
 		else
 		{
@@ -246,32 +252,56 @@ void Player::Draw()
 	switch (m_TextureType)
 	{
 	case 0:
-		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-			XMFLOAT2(m_Scale.x, m_Scale.y), 8, 8, 1, m_TextureType, 1.0f, m_Direction);
+		m_AnimationPattern = 8;
+		m_Animationcols = 8;
+		m_Animationrows = 1;
+		m_DrawDirection = m_Direction;
 		break;
 	case 1:
-		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-			XMFLOAT2(m_Scale.x, m_Scale.y), 8, 8, 1, m_TextureType, 1.0f, m_Direction);
+		m_AnimationPattern = 8;
+		m_Animationcols = 8;
+		m_Animationrows = 1;
+		m_DrawDirection = m_Direction;
 		break;
 	case 2:
-		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-			XMFLOAT2(m_Scale.x, m_Scale.y), 8, 8, 1, m_TextureType, 1.0f, m_Direction);
+		m_AnimationPattern = 8;
+		m_Animationcols = 8;
+		m_Animationrows = 1;
+		m_DrawDirection = m_Direction;
 		break;
 	case 3:
-		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-			XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, m_Direction);
+		m_AnimationPattern = 1;
+		m_Animationcols = 1;
+		m_Animationrows = 1;
+		m_DrawDirection = m_Direction;
 		break;
 	case 4:
-		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-			XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, !m_Direction);
+		m_AnimationPattern = 1;
+		m_Animationcols = 1;
+		m_Animationrows = 1;
+		m_DrawDirection = !m_Direction; //左右反転
 		break;
 	case 5:
-		DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), m_Rotate,
-			XMFLOAT2(m_Scale.x, m_Scale.y), 1, 1, 1, m_TextureType, 1.0f, !m_Direction);
+		m_AnimationPattern = 1;
+		m_Animationcols = 1;
+		m_Animationrows = 1;
+		m_DrawDirection = !m_Direction;
+		break;
+	case 6:
+		m_AnimationPattern = 8;
+		m_Animationcols = 8;
+		m_Animationrows = 1;
+		m_DrawDirection = m_Direction;
 		break;
 	default:
 		break;
 	}
+
+	DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y),
+		m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y),
+		m_AnimationPattern, m_Animationcols, m_Animationrows,
+		m_TextureType, 1.0f, m_DrawDirection);
+
 }
 
 void Player::PlayerMove()

@@ -103,6 +103,12 @@
     <Filter Include="ヘッダー ファイル\ObjectsHedder\SpringHedder">
       <UniqueIdentifier>{66fe4814-c8ad-4548-928a-8961a9ca24eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\SoundHedder">
+      <UniqueIdentifier>{9bccb2ad-2b40-4409-a76a-8f2dcaec55e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Sound">
+      <UniqueIdentifier>{ae2f1625-2304-4b5f-ab4d-cc77d52d4b8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -306,6 +312,12 @@
     <ClInclude Include="UI_TrailSecond.h">
       <Filter>ヘッダー ファイル\UIHedder</Filter>
     </ClInclude>
+    <ClInclude Include="BGM.h">
+      <Filter>ヘッダー ファイル\SoundHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="soundManager.h">
+      <Filter>ヘッダー ファイル\SoundHedder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GM31_shokika.rc">
@@ -482,6 +494,9 @@
     </ClCompile>
     <ClCompile Include="UI_TrailSecond.cpp">
       <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BGM.cpp">
+      <Filter>ソース ファイル\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
