@@ -35,13 +35,19 @@ void Player::Init()
 	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_Normal_FlyingAnimation.png"));
 	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_Normal_Flying2.png"));
 
-	//再生取得中
-	m_TextureList.push_back(Texture::Load("asset\\texture\\roboR1_red.png"));
+	//再生取得状態
+	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_PlaybackAnimation.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_Playback_MoveAnimation.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_Playback_FlyingAnimation.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_Playback_Flying2.png"));
 
-	//逆再生取得中
-	m_TextureList.push_back(Texture::Load("asset\\texture\\roboR1_blue.png"));
+	//逆再生取得状態
+	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_ReverseAnimation.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_Reverse_MoveAnimation.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_Reverse_FlyingAnimation.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_Reverse_Flying2.png"));
 
-	//再生中
+	//再生状態
 	m_TextureList.push_back(Texture::Load("asset\\texture\\player\\player_TrailMoveAnimation.png"));
 }
 
@@ -168,7 +174,7 @@ void Player::Update()
 		m_MoveTrail = true;
 
 		//全て移動し終わったら終了
-		if (m_TrailDiffList.empty())
+		if (m_TrailDiffList.size() == 1)
 		{
 			m_TrailDiffList.clear();
 
@@ -178,39 +184,91 @@ void Player::Update()
 			m_PlayerState = PlayerState::Player_Normal;
 		}
 		break;
-	}}
-	
+	}
+	}
+
 
 	//ワールド座標更新
 	m_Position += m_Vector;
-	
+
 }
 
 void Player::Draw()
 {
 	//テクスチャセット
-	if ((m_GettingTrail || m_HaveTrail) && m_TrailType)
+	if (m_MoveTrail)
 	{
-		//軌跡移動中とそれ以外で違うテクスチャに
-		if (m_MoveTrail)
+		m_TextureType = 12;
+	}
+	else if ((m_GettingTrail || m_HaveTrail) && m_TrailType)
+	{
+		if (!m_OnGround)
 		{
-			m_TextureType = 6;
+			//ジャンプ、落下中のアニメーション
+			if (!m_JumpAnimationFirst)
+			{
+				m_TextureType = 6;
+				m_JumpAnimationFirst = true;
+			}
+			else if (AnimFinish())
+			{
+				m_TextureType = 7;
+			}
+			else
+			{
+				m_TextureType = 7;
+			}
+		}
+		else if (m_Vector.x != 0.0f)
+		{
+			//移動中のアニメーション
+			m_TextureType = 5;
 		}
 		else
 		{
-			m_TextureType = 5;
+			//待機中のアニメーション
+			m_TextureType = 4;
 		}
+
+		if (m_OnGround)
+		{
+			m_JumpAnimationFirst = false;
+		}
+
 	}
 	else if ((m_GettingTrail || m_HaveTrail) && !m_TrailType)
 	{
-		//軌跡移動中とそれ以外で違うテクスチャに
-		if (m_MoveTrail)
+		if (!m_OnGround)
 		{
-			m_TextureType = 6;
+			//ジャンプ、落下中のアニメーション
+			if (!m_JumpAnimationFirst)
+			{
+				m_TextureType = 10;
+				m_JumpAnimationFirst = true;
+			}
+			else if (AnimFinish())
+			{
+				m_TextureType = 11;
+			}
+			else
+			{
+				m_TextureType = 11;
+			}
+		}
+		else if (m_Vector.x != 0.0f)
+		{
+			//移動中のアニメーション
+			m_TextureType = 9;
 		}
 		else
 		{
-			m_TextureType = 4;
+			//待機中のアニメーション
+			m_TextureType = 8;
+		}
+
+		if (m_OnGround)
+		{
+			m_JumpAnimationFirst = false;
 		}
 	}
 	else
@@ -224,6 +282,10 @@ void Player::Draw()
 				m_JumpAnimationFirst = true;
 			}
 			else if (AnimFinish())
+			{
+				m_TextureType = 3;
+			}
+			else
 			{
 				m_TextureType = 3;
 			}
@@ -276,18 +338,54 @@ void Player::Draw()
 		m_DrawDirection = m_Direction;
 		break;
 	case 4:
-		m_AnimationPattern = 1;
-		m_Animationcols = 1;
+		m_AnimationPattern = 8;
+		m_Animationcols = 8;
 		m_Animationrows = 1;
-		m_DrawDirection = !m_Direction; //左右反転
+		m_DrawDirection = m_Direction;
 		break;
 	case 5:
+		m_AnimationPattern = 8;
+		m_Animationcols = 8;
+		m_Animationrows = 1;
+		m_DrawDirection = m_Direction;
+		break;
+	case 6:
+		m_AnimationPattern = 8;
+		m_Animationcols = 8;
+		m_Animationrows = 1;
+		m_DrawDirection = m_Direction;
+		break;
+	case 7:
 		m_AnimationPattern = 1;
 		m_Animationcols = 1;
 		m_Animationrows = 1;
-		m_DrawDirection = !m_Direction;
+		m_DrawDirection = m_Direction;
 		break;
-	case 6:
+	case 8:
+		m_AnimationPattern = 8;
+		m_Animationcols = 8;
+		m_Animationrows = 1;
+		m_DrawDirection = m_Direction;
+		break;
+	case 9:
+		m_AnimationPattern = 8;
+		m_Animationcols = 8;
+		m_Animationrows = 1;
+		m_DrawDirection = m_Direction;
+		break;
+	case 10:
+		m_AnimationPattern = 8;
+		m_Animationcols = 8;
+		m_Animationrows = 1;
+		m_DrawDirection = m_Direction;
+		break;
+	case 11:
+		m_AnimationPattern = 1;
+		m_Animationcols = 1;
+		m_Animationrows = 1;
+		m_DrawDirection = m_Direction;
+		break;
+	case 12:
 		m_AnimationPattern = 8;
 		m_Animationcols = 8;
 		m_Animationrows = 1;
@@ -369,7 +467,7 @@ void Player::NoDamage()
 void Player::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale)
 {
 	if (m_Position.y < boxPos.y	//ボックスの上に乗っている場合
-		&& m_Position.x + m_Scale.x * 0.25f >= boxPos.x - boxScale.x * 0.5f 
+		&& m_Position.x + m_Scale.x * 0.25f >= boxPos.x - boxScale.x * 0.5f
 		&& m_Position.x - m_Scale.x * 0.25f <= boxPos.x + boxScale.x * 0.5f)
 	{
 		m_Position.y = boxPos.y - boxScale.y * 0.5f - m_Scale.y * 0.5f; //位置をボックスの上に調整
@@ -381,14 +479,14 @@ void Player::BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 b
 		&& m_Position.x - m_Scale.x * 0.25f <= boxPos.x + boxScale.x * 0.5f)
 	{
 		m_Position.y = boxPos.y + boxScale.y * 0.5f + m_Scale.y * 0.5f; //位置をボックスの下に調整
-		
+
 		if (m_Vector.y < 0)
 		{
 			m_Vector.y = 0.0f; //落下速度リセット
 		}
 	}
 	else if (m_Position.x < boxPos.x	//ボックスの左にいる場合
-		&& m_Position.y + m_Scale.y * 0.25f >= boxPos.y - boxScale.y * 0.5f 
+		&& m_Position.y + m_Scale.y * 0.25f >= boxPos.y - boxScale.y * 0.5f
 		&& m_Position.y - m_Scale.y * 0.25f <= boxPos.y + boxScale.y * 0.5f)
 	{
 		m_Position.x = boxPos.x - boxScale.x * 0.5f - m_Scale.x * 0.5f; //位置をボックスの左に調整
