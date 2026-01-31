@@ -162,6 +162,19 @@ void Sprite::DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale,
 	Renderer::GetDeviceContext()->Draw(4, 0);
 }
 
+bool Sprite::AnimFinish()
+{
+	if (m_AnimationFrame == m_AnimationUpdateFrame - 1 && m_AnimationFrameCount == 7)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
 void Sprite::DrawSpritePiece(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale,
 	int pattern, int cols, int rows, int texNum, float alpha, bool flip)
 {

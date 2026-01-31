@@ -19,6 +19,7 @@ private:
 	float m_Speed = 10.0f;			//プレイヤーの移動速度
 	float m_JumpPower = -12.0f;		//ジャンプ力
 	bool m_Dash = false;			//ダッシュ中かどうか
+	bool m_JumpAnimationFirst = false; //ジャンプアニメーションの初回か
 
 	int m_DamageFrame = 0;			//ダメージ処理用フレームカウント
 	int m_NoDamageFrame = 60;		//無敵時間用フレームカウント

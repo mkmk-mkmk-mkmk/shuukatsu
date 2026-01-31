@@ -32,6 +32,7 @@ public:
 	void DrawSprite(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale, int texNum, float alpha = 1.0f);
 	void DrawSpriteAnim(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale,
 		int pattern, int cols, int rows, int texNum, float alpha, bool flip);
+	bool AnimFinish();
 	void DrawSpritePiece(XMFLOAT2 Position, float Rotate, XMFLOAT2 Scale,
 		int pattern, int cols, int rows, int texNum, float alpha, bool flip);
 
