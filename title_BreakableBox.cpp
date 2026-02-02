@@ -97,6 +97,7 @@ void Title_BreakableBox::Update()
 			if (m_BoxBreakEffectList.empty())
 			{
 				this->SetDestroy();
+				m_DeleteAnimationFinished = true;
 			}
 		}
 	}
@@ -104,6 +105,7 @@ void Title_BreakableBox::Update()
 	if (m_Position.y > screenHeight * 1.2f)
 	{
 		this->SetDestroy();
+		m_DeleteAnimationFinished = true;
 	}
 }
 

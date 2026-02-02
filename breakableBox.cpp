@@ -84,6 +84,7 @@ void BreakableBox::Update(const std::list<Enemy*>& enemies)
 			if (m_BoxBreakEffectList.empty())
 			{
 				this->SetDestroy();
+				m_DeleteAnimationFinished = true;
 			}
 		}
 
