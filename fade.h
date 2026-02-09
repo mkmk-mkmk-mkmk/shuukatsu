@@ -9,9 +9,9 @@ private:
 
 	float m_FadeSpeed = 0.05f;
 	float m_Alpha = 0.0f;
-	bool m_Fade = false;
-	bool m_FadeInFinished = false;
-	bool m_FadeOutFinished = false;
+	bool m_Fade = false;			//フェード中かどうか
+	bool m_FadeInFinished = false;	//フェードインが終了したかどうか
+	bool m_FadeOutFinished = false;	//フェードアウトが終了したかどうか
 
 public:
 	void Init();

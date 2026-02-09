@@ -318,6 +318,12 @@
     <ClInclude Include="soundManager.h">
       <Filter>ヘッダー ファイル\SoundHedder</Filter>
     </ClInclude>
+    <ClInclude Include="SE.h">
+      <Filter>ヘッダー ファイル\SoundHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="miniaudio.h">
+      <Filter>ヘッダー ファイル\SoundHedder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GM31_shokika.rc">
@@ -496,6 +502,12 @@
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="BGM.cpp">
+      <Filter>ソース ファイル\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="soundManager.cpp">
+      <Filter>ソース ファイル\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="SE.cpp">
       <Filter>ソース ファイル\Sound</Filter>
     </ClCompile>
   </ItemGroup>

@@ -22,6 +22,10 @@ public:
 	template <typename T>
 	static void SetScene()
 	{
+		if (m_Fade->GetFade())
+		{
+			return;
+		}
 		m_NextScene = new T();
 	}
 };

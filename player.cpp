@@ -64,6 +64,7 @@ void Player::Update()
 		Manager::SetScene<GameOver>();
 	}
 
+	//デバッグ用体力減少
 	if (Input::GetKeyPress('g') || Input::GetKeyPress('G'))
 	{
 		m_Life = 0;

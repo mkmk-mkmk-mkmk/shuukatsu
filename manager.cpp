@@ -34,12 +34,6 @@ void Manager::Update()
 {
 	Input::Update();
 
-	//if (m_Fade->GetFade())
-	//{
-	//	
-	//}
-	//else
-
 	if (m_NextScene != nullptr && m_Fade->GetFadeOutFinished())
 	{
 		m_Scene->Uninit();

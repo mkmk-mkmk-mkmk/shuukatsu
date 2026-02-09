@@ -1,17 +1,15 @@
 #pragma once
 
-enum SoundType
-{
-	BGM,
-	SE
-};
+#include "miniaudio.h"
 
 class SoundManager
 {
 protected:
 
-	int m_Volume;
-	bool m_Mute;
+	ma_engine m_MaEngine;
+
+	float m_Volume;
+	bool m_Stop;
 
 public:
 
