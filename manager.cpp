@@ -3,18 +3,19 @@
 #include "input.h"
 #include "title.h"
 
-
 Scene* Manager::m_Scene = nullptr;
 Scene* Manager::m_NextScene = nullptr;
 Scene* Manager::m_FadeScene = nullptr;
 
 Fade* Manager::m_Fade = new Fade();
+SoundManager* Manager::m_SoundManager = new SoundManager();
 
 void Manager::Init()
 {
 	Renderer::Init();
 	Input::Init();
 	m_Fade->Init();
+	m_SoundManager->Init();
 
 	m_Scene = new Title();
 	m_Scene->Init();
@@ -25,6 +26,7 @@ void Manager::Init()
 void Manager::Uninit()
 {
 	m_Scene->Uninit();
+	m_SoundManager->Uninit();
 
 	Input::Uninit();
 	Renderer::Uninit();
