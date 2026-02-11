@@ -10,8 +10,11 @@
 #include "title_BreakableBox.h"
 #include "title_Button.h"
 
+
 void Title::Init()
 {
+	Manager::GetBGM()->Play(BGM_Title);
+
 	//”wŒi‚Ì’Ç‰Á
 	AddGameObject<BackGround>(0)->Init(0);
 	
@@ -30,6 +33,8 @@ void Title::Init()
 
 	//ƒJ[ƒ\ƒ‹‚Ìæ“¾
 	AddUIObject<UI_Cursor>(1)->Init();
+
+
 }
 
 void Title::Uninit()

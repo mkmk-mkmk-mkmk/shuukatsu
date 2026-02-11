@@ -14,10 +14,13 @@ enum BGMType
 class BGM : public SoundManager
 {
 private:
+	ma_engine* m_pEngine;
 	ma_sound m_BGM[5];
 	BGMType m_BGMType;
 
 public:
+	void SetEngine(ma_engine* engine) { m_pEngine = engine; }
+
 	void Init();
 	void Uninit();
 	void Play(BGMType type);

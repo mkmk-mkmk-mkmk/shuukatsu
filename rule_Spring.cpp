@@ -1,7 +1,3 @@
-#include "main.h"
-#include "texture.h"
-#include "scene.h"
-#include "manager.h"
 
 #include "rule_Spring.h"
 

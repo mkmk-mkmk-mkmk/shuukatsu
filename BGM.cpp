@@ -1,21 +1,22 @@
 
+#include "Windows.h"
 #include "BGM.h"
 
 void BGM::Init()
 {
 	static const char* BGMName[5] =
 	{
-		"asset\\sound\\BGM\\title.mp3",
-		"asset\\sound\\BGM\\stage1.mp3",
-		"asset\\sound\\BGM\\stage2.mp3",
-		"asset\\sound\\BGM\\stageClear.mp3",
-		"asset\\sound\\BGM\\gameOver.mp3",
+		"asset\\sound\\BGM\\kyuumiraikuukan.mp3",
+		"asset\\sound\\BGM\\kyuumiraikuukan.mp3",
+		"asset\\sound\\BGM\\kyuumiraikuukan.mp3",
+		"asset\\sound\\BGM\\kyuumiraikuukan.mp3",
+		"asset\\sound\\BGM\\kyuumiraikuukan.mp3",
 	};
 
 	for (int i = 0; i < 5; i++)
 	{
 		ma_sound_init_from_file(
-			&m_MaEngine,
+			m_pEngine,
 			BGMName[i],
 			MA_SOUND_FLAG_STREAM,
 			NULL,
@@ -24,6 +25,7 @@ void BGM::Init()
 
 		ma_sound_set_looping(&m_BGM[i], MA_TRUE);
 	}
+
 }
 
 void BGM::Uninit()

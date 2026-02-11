@@ -8,14 +8,24 @@ Scene* Manager::m_NextScene = nullptr;
 Scene* Manager::m_FadeScene = nullptr;
 
 Fade* Manager::m_Fade = new Fade();
+
 SoundManager* Manager::m_SoundManager = new SoundManager();
+BGM* Manager::m_BGM = new BGM();
+SE* Manager::m_SE = new SE();
 
 void Manager::Init()
 {
 	Renderer::Init();
 	Input::Init();
 	m_Fade->Init();
+
 	m_SoundManager->Init();
+
+	m_BGM->SetEngine(m_SoundManager->GetMaEngine());
+	m_SE->SetEngine(m_SoundManager->GetMaEngine());
+
+	m_BGM->Init();
+	m_SE->Init();
 
 	m_Scene = new Title();
 	m_Scene->Init();

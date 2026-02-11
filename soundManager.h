@@ -13,7 +13,8 @@ protected:
 
 public:
 
+	ma_engine* GetMaEngine() { return &m_MaEngine; }
+
 	virtual void Init();
 	virtual void Uninit();
-	virtual void Play();
 };
