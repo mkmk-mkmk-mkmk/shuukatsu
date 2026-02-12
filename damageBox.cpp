@@ -4,31 +4,30 @@
 #include "scene.h"
 #include "manager.h"
 
-#include "box.h"
+#include "damageBox.h"
 #include "map.h"
 #include "player.h"
 #include "camera.h"
 #include "enemy.h"
 
-void Box::Init()
+void DamageBox::Init()
 {
-
 	//初期位置設定
-	m_Position = Manager::GetScene()->GetGameObject<Map>()->m_BoxPosList.front();
+	m_Position = Manager::GetScene()->GetGameObject<Map>()->m_DamageBoxPosList.front();
 
 	//大きさ設定
 	m_Scale = Vector2(MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 	InitSprite();
-	m_TextureList.push_back(Texture::Load("asset\\texture\\tile.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\tile_Breakable.png"));
 }
 
-void Box::Uninit()
+void DamageBox::Uninit()
 {
 	UnInitSprite();
 }
 
-void Box::Update(const std::list<Enemy*>& enemies)
+void DamageBox::Update(const std::list<Enemy*>& enemies)
 {
 	//描画位置更新
 	m_DrawPosition =
@@ -45,7 +44,7 @@ void Box::Update(const std::list<Enemy*>& enemies)
 	if (m_DrawPosition.x < -m_Scale.x || m_DrawPosition.x > screenWidth + m_Scale.x ||
 		m_DrawPosition.y < -m_Scale.y || m_DrawPosition.y > screenHeight + m_Scale.y)
 	{
-		return; //画面外ならプレイヤーのほうは更新しない
+		return; //画面外ならプレイヤーのほうの更新はしない
 	}
 
 	//プレイヤーの位置と大きさ更新
@@ -55,9 +54,17 @@ void Box::Update(const std::list<Enemy*>& enemies)
 	//プレイヤーのボックス当たり判定
 	Manager::GetScene()->GetGameObject<Player>()->BoxCollision(playerPos, playerScale, m_Position, m_Scale);
 
+	if (BoxCollisionCommon(playerPos, playerScale, m_Position, m_Scale))
+	{
+		if (!Manager::GetScene()->GetGameObject<Player>()->GetNoDamage())
+		{
+			Manager::GetScene()->GetGameObject<Player>()->AddLife(-m_Damage);
+			Manager::GetScene()->GetGameObject<Player>()->SetNoDamage(true);
+		}
+	}
 }
 
-void Box::Draw()
+void DamageBox::Draw()
 {
 
 	if (m_DrawPosition.x < -m_Scale.x / 2 ||

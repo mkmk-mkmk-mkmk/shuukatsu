@@ -17,7 +17,6 @@ private:
 public:
 
 	void Init(Rule_ChainPoint* leftPoint, Rule_ChainPoint* rightPoint, float height);
-	//void Uninit();
 	void Update();
 	void Draw();
 

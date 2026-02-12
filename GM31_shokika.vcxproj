@@ -151,6 +151,7 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="component.h" />
     <ClInclude Include="cursor.h" />
+    <ClInclude Include="damageBox.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="fade.h" />
@@ -228,13 +229,19 @@
     <ClCompile Include="click_ColorCircle.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="damageBox.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="gameOver.cpp" />
     <ClCompile Include="gameOver_Button.cpp" />
     <ClCompile Include="pause.cpp" />
     <ClCompile Include="rule_Button.cpp" />
-    <ClCompile Include="rule_Spring.cpp" />
+    <ClCompile Include="rule_Spring.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="rule_SpringBoard.cpp" />
     <ClCompile Include="rule_Spring.h" />
     <ClCompile Include="rule_SpringChain.cpp" />

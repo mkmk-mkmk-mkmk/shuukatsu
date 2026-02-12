@@ -6,33 +6,33 @@ void Rule_Spring::Init(Vector2 topLeftPos, Vector2 topRightPos, Vector2 bottomLe
 {
 	//チェーンオブジェクト作成
 	//左側
-	leftChain.Init(topLeftPos, bottomLeftPos, chainSplitLeft, chainWidth);
+	leftChain_Rule.Init(topLeftPos, bottomLeftPos, chainSplitLeft, chainWidth);
 
 	//右側
-	rightChain.Init(topRightPos, bottomRightPos, chainSplitRight, chainWidth);
+	rightChain_Rule.Init(topRightPos, bottomRightPos, chainSplitRight, chainWidth);
 
 	//ボードオブジェクト作成
-	board.Init(&leftChain.GetEndPoint(), &rightChain.GetEndPoint(), boardHeight);
+	board.Init(&leftChain_Rule.GetEndPoint(), &rightChain_Rule.GetEndPoint(), boardHeight);
 }
 
 void Rule_Spring::Uninit()
 {
-	leftChain.Uninit();
-	rightChain.Uninit();
+	leftChain_Rule.Uninit();
+	rightChain_Rule.Uninit();
 }
 
 void Rule_Spring::Update()
 {
-	leftChain.Update();
-	rightChain.Update();
+	leftChain_Rule.Update();
+	rightChain_Rule.Update();
 
 	board.Update();
 }
 
 void Rule_Spring::Draw()
 {
-	leftChain.Draw();
-	rightChain.Draw();
+	leftChain_Rule.Draw();
+	rightChain_Rule.Draw();
 
 	board.Draw();
 }

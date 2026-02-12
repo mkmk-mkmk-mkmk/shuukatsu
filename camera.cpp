@@ -39,10 +39,10 @@ void Camera::Update()
 			m_CameraCenterPosition.x = screenWidth * 0.5f + MAPCHIP_WIDTH * 1.5f;
 		}
 		else if (m_CameraCenterPosition.x >
-			float(MAPCHIP_WIDTH - 1.5f) * m_StageBlockWidth - screenWidth * 0.5f)	//右端
+			MAPCHIP_WIDTH * (m_StageBlockWidth - 1.5f) - screenWidth * 0.5f)	//右端
 		{
 			m_CameraCenterPosition.x =
-				float(MAPCHIP_WIDTH - 1.5f) * m_StageBlockWidth - screenWidth * 0.5f;
+				MAPCHIP_WIDTH * (m_StageBlockWidth - 1.5f) - screenWidth * 0.5f;
 		}
 
 		//y座標
@@ -51,10 +51,10 @@ void Camera::Update()
 			m_CameraCenterPosition.y = screenHeight * 0.5f + MAPCHIP_HEIGHT * 1.5f;
 		}
 		else if (m_CameraCenterPosition.y >
-			float(MAPCHIP_HEIGHT - 1.5f) * m_StageBlockHeight - screenHeight * 0.45f)//下端
+			MAPCHIP_HEIGHT * (m_StageBlockHeight - 0.5f) - (screenHeight * 0.45f))//下端
 		{
 			m_CameraCenterPosition.y =
-				float(MAPCHIP_HEIGHT - 1.5f) * m_StageBlockHeight - screenHeight * 0.45f;
+				MAPCHIP_HEIGHT * (m_StageBlockHeight - 0.5f) - (screenHeight * 0.45f);
 		}
 
 		//カメラ左上座標更新
@@ -62,21 +62,21 @@ void Camera::Update()
 	}
 	else
 	{
-		//カメラズーム処理
-		m_CameraShakeFrame = Manager::GetScene()->GetHitStopFrame();
+		////カメラズーム処理
+		//m_CameraShakeFrame = Manager::GetScene()->GetHitStopFrame();
 
-		if (m_CameraShakeFrame <= m_CameraShakeFrameMax / 2)
-		{
+		//if (m_CameraShakeFrame <= m_CameraShakeFrameMax / 2)
+		//{
 
-		}
-		else if (m_CameraShakeFrame <= m_CameraShakeFrameMax)
-		{
+		//}
+		//else if (m_CameraShakeFrame <= m_CameraShakeFrameMax)
+		//{
 
-		}
-		else
-		{
-			m_CameraCenterPosition = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
-		}
+		//}
+		//else
+		//{
+		//	m_CameraCenterPosition = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
+		//}
 
 		//カメラ左上座標更新
 		m_CameraTopLeftPosition = m_CameraCenterPosition - Vector2(screenWidth * 0.5f, screenHeight * 0.5f);

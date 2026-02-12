@@ -22,11 +22,9 @@ void Map::Init(int maptype)
 	{
 	case 0:
 		break;
-
 	case 1:
 		load_file.open("map\\map1.txt");
 		break;
-
 	case 2:
 		load_file.open("map\\map2.txt");
 		break;
@@ -151,7 +149,7 @@ void Map::Init(int maptype)
 				m_Position.x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
 				m_Position.y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
 				//ƒŠƒXƒg‚É•Û‘¶
-				m_DamegeBoxPosList.push_back(m_Position);
+				m_DamageBoxPosList.push_back(m_Position);
 				break;
 
 			default:

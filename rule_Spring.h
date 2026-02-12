@@ -9,8 +9,8 @@ class Rule_Spring : public GameObject
 {
 private:
 
-	Rule_SpringChain leftChain;
-	Rule_SpringChain rightChain;
+	Rule_SpringChain leftChain_Rule;
+	Rule_SpringChain rightChain_Rule;
 
 	Rule_SpringBoard board;
 

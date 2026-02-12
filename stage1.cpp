@@ -24,12 +24,6 @@
 #include "UI_TrailSecond.h"
 #include "UI_EnemyState.h"
 
-//エネミー用リスト
-//初期データのみのリスト(Init用)
-std::list<EnemyData> m_EnemiesInitVal;
-//当たり判定のための、中身が更新されるリスト
-std::list<Enemy*> m_EnemyObjects;
-
 
 void Stage1::Init()
 {

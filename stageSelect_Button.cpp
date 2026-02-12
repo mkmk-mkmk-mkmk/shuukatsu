@@ -6,6 +6,7 @@
 #include "manager.h"
 #include "scene.h"
 #include "stage1.h"
+#include "stage2.h"
 #include "stageSelect_Button.h"
 
 void StageSelectButton::Init()
@@ -42,7 +43,7 @@ void StageSelectButton::Update()
 	}
 	else if (m_ButtonList[1].GetAction() == true)
 	{
-		Manager::SetScene<Stage1>();
+		Manager::SetScene<Stage2>();
 	}
 
 }
