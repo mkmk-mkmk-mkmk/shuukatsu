@@ -406,7 +406,7 @@ void Player::Draw()
 	DrawSpriteAnim(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y),
 		m_Rotate, XMFLOAT2(m_Scale.x, m_Scale.y),
 		m_AnimationPattern, m_Animationcols, m_Animationrows,
-		m_TextureType, 1.0f, m_DrawDirection);
+		m_TextureType, alpha, m_DrawDirection);
 
 }
 
@@ -464,6 +464,11 @@ void Player::NoDamage()
 	if (m_NoDamage)
 	{
 		m_DamageFrame++;
+		if (m_DamageFrame % 10 == 0)
+		{
+			alpha = (alpha == 1.0f) ? 0.5f : 1.0f; //“_–ÅŒø‰Ê
+		}
+
 		if (m_DamageFrame >= m_NoDamageFrame)
 		{
 			m_NoDamage = false;

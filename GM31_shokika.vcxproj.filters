@@ -333,6 +333,9 @@
     <ClInclude Include="gameOver_Button.h">
       <Filter>ヘッダー ファイル\SceneHedder\GameOverHedder</Filter>
     </ClInclude>
+    <ClInclude Include="stage2.h">
+      <Filter>ヘッダー ファイル\SceneHedder\GameHedder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GM31_shokika.rc">
@@ -527,6 +530,9 @@
     </ClCompile>
     <ClCompile Include="gameOver_Button.cpp">
       <Filter>ソース ファイル\Scene\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="stage2.cpp">
+      <Filter>ソース ファイル\Scene\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

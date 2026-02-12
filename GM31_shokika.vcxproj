@@ -179,6 +179,7 @@
     <ClInclude Include="spring.h" />
     <ClInclude Include="springBoard.h" />
     <ClInclude Include="springChain.h" />
+    <ClInclude Include="stage2.h" />
     <ClInclude Include="stageClear_Button.h" />
     <ClInclude Include="stageSelect.h" />
     <ClInclude Include="stageSelect_Button.h" />
@@ -256,6 +257,7 @@
     <ClCompile Include="spring.cpp" />
     <ClCompile Include="springBoard.cpp" />
     <ClCompile Include="springChain.cpp" />
+    <ClCompile Include="stage2.cpp" />
     <ClCompile Include="stageClear_Button.cpp" />
     <ClCompile Include="stageSelect.cpp" />
     <ClCompile Include="stageSelect_Button.cpp" />

@@ -14,7 +14,7 @@ enum PlayerState
 class Player :public GameObject
 {
 private:
-	//int frame = 0;
+	float alpha = 1.0f;
 
 	float m_Speed = 10.0f;			//プレイヤーの移動速度
 	float m_JumpPower = -12.0f;		//ジャンプ力

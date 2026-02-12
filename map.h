@@ -30,6 +30,7 @@ public:
 	std::list<Vector2> m_GoalPosList;			//ゴールの位置リスト
 	std::list<Vector2> m_GroundEnemyPosList;	//地上エネミーの位置リスト
 	std::list<Vector2> m_FlyingEnemyPosList;	//飛行エネミーの位置リスト
+	std::list<Vector2> m_DamegeBoxPosList;		//ダメージブロックの位置リスト
 
 	int GetBlockWidth() const { return STAGEBLOCK_WIDTH; }
 	int GetBlockHeight() const { return STAGEBLOCK_HEIGHT; }

@@ -146,6 +146,14 @@ void Map::Init(int maptype)
 				m_FlyingEnemyPosList.push_back(m_Position);
 				break;
 
+			case 7: //即死ブロック
+				//描画座標を割り出す
+				m_Position.x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
+				m_Position.y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
+				//リストに保存
+				m_DamegeBoxPosList.push_back(m_Position);
+				break;
+
 			default:
 				break;
 		}
