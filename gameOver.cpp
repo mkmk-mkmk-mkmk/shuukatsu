@@ -6,10 +6,14 @@
 #include "title.h"
 #include "gameOver.h"
 #include "backGround.h"
+#include "gameOver_Button.h"
 
 void GameOver::Init()
 {
 	AddGameObject<BackGround>(0)->Init(3);
+
+	//タイトルへ戻るボタン追加
+	AddUIObject<GameOverButton>(0)->Init();
 
 	//カーソルの取得
 	AddUIObject<UI_Cursor>(1)->Init();
@@ -22,10 +26,6 @@ void GameOver::Uninit()
 
 void GameOver::Update()
 {
-	if (Input::GetKeyPress(VK_RETURN))
-	{
-		Manager::SetScene<Title>();
-	}
 	Scene::Update();
 }
 

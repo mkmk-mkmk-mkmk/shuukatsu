@@ -11,6 +11,7 @@
 #include "player.h"
 
 #include "gameOver.h"
+#include "stageClear.h"
 
 void Player::Init()
 {
@@ -65,9 +66,15 @@ void Player::Update()
 	}
 
 	//デバッグ用体力減少
-	if (Input::GetKeyPress('g') || Input::GetKeyPress('G'))
+	if (Input::GetKeyPress('l') || Input::GetKeyPress('L'))
 	{
 		m_Life = 0;
+	}
+
+	//デバッグ用ステージクリア
+	if (Input::GetKeyPress('k') || Input::GetKeyPress('K'))
+	{
+		Manager::SetScene<StageClear>();
 	}
 
 	NoDamage(); //無敵時間処理

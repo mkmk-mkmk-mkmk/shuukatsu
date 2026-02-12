@@ -7,13 +7,17 @@
 #include "backGround.h"
 
 #include "stageClear.h"
+#include "stageClear_Button.h"
 
 void StageClear::Init()
 {
 	AddGameObject<BackGround>(0)->Init(2);
 
+	//ステージクリアボタンの追加
+	AddUIObject<StageClearButton>(0)->Init();
+
 	//カーソルの取得
-	AddUIObject<UI_Cursor>(0)->Init();
+	AddUIObject<UI_Cursor>(1)->Init();
 }
 
 void StageClear::Uninit()
@@ -24,11 +28,6 @@ void StageClear::Uninit()
 void StageClear::Update()
 {
 	Scene::Update();
-
-	if (Input::GetKeyTrigger(VK_RETURN))
-	{
-		Manager::SetScene<Title>();
-	}
 }
 
 void StageClear::Draw()

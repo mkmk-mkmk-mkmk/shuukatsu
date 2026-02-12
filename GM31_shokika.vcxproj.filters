@@ -327,6 +327,12 @@
     <ClInclude Include="UI_EnemyState.h">
       <Filter>ヘッダー ファイル\UIHedder</Filter>
     </ClInclude>
+    <ClInclude Include="stageClear_Button.h">
+      <Filter>ヘッダー ファイル\SceneHedder\StageClearHedder</Filter>
+    </ClInclude>
+    <ClInclude Include="gameOver_Button.h">
+      <Filter>ヘッダー ファイル\SceneHedder\GameOverHedder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GM31_shokika.rc">
@@ -515,6 +521,12 @@
     </ClCompile>
     <ClCompile Include="UI_EnemyState.cpp">
       <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="stageClear_Button.cpp">
+      <Filter>ソース ファイル\Scene\StageClear</Filter>
+    </ClCompile>
+    <ClCompile Include="gameOver_Button.cpp">
+      <Filter>ソース ファイル\Scene\GameOver</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

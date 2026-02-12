@@ -47,6 +47,13 @@ void Manager::Update()
 {
 	Input::Update();
 
+	//デバッグ用体力減少
+	if (Input::GetKeyPress(VK_RETURN))
+	{
+		Manager::SetScene<Title>();
+	}
+
+
 	if (m_NextScene != nullptr && m_Fade->GetFadeOutFinished())
 	{
 		m_Scene->Uninit();

@@ -4,6 +4,7 @@
 #include "input.h"
 
 #include "stage1.h"
+#include "stageSelect.h"
 #include "player.h"
 #include "cursor.h"
 #include "polygon.h"
@@ -150,6 +151,18 @@ void Stage1::Uninit()
 
 void Stage1::Update()
 {
+	//デバッグ用リスタート
+	if (Input::GetKeyPress('p') || Input::GetKeyPress('P'))
+	{
+		Manager::SetScene<Stage1>();
+	}
+
+	//デバッグ用ステージセレクトへ
+	if (Input::GetKeyPress('o') || Input::GetKeyPress('O'))
+	{
+		Manager::SetScene<StageSelect>();
+	}
+
 	if (HitStop())
 	{
 		//ヒットストップ中はカメラのみ更新
