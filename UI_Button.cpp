@@ -10,6 +10,8 @@
 #include "UI_Cursor.h"
 #include "UI_Button.h"
 
+#include "SE.h"
+
 void UI_Button::Init(Vector2 position, Vector2 scale,
 	ID3D11ShaderResourceView* texture, ID3D11ShaderResourceView* onCursorTexture)
 {
@@ -47,6 +49,7 @@ void UI_Button::Update()
 	if (m_CursorOnButton && GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 	{
 		m_ClickButton = true;
+		Manager::GetSE()->Play(SE_PushButton);
 	}
 	if (m_ClickButton && !m_CursorOnButton)
 	{

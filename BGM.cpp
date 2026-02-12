@@ -4,16 +4,16 @@
 
 void BGM::Init()
 {
-	static const char* BGMName[5] =
+	static const char* BGMName[BGMMaxNum] =
 	{
 		"asset\\sound\\BGM\\kyuumiraikuukan.mp3",
 		"asset\\sound\\BGM\\kyuumiraikuukan.mp3",
 		"asset\\sound\\BGM\\kyuumiraikuukan.mp3",
 		"asset\\sound\\BGM\\kyuumiraikuukan.mp3",
-		"asset\\sound\\BGM\\kyuumiraikuukan.mp3",
+		"asset\\sound\\BGM\\kyuumiraikuukan.mp3"
 	};
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < BGMMaxNum; i++)
 	{
 		ma_sound_init_from_file(
 			m_pEngine,
@@ -24,13 +24,15 @@ void BGM::Init()
 			&m_BGM[i]);
 
 		ma_sound_set_looping(&m_BGM[i], MA_TRUE);
+
+		ma_sound_set_volume(&m_BGM[i], 0.05f);
 	}
 
 }
 
 void BGM::Uninit()
 {
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < BGMMaxNum; i++)
 	{
 		ma_sound_uninit(&m_BGM[i]);
 	}

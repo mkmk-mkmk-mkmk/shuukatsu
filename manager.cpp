@@ -36,6 +36,7 @@ void Manager::Init()
 void Manager::Uninit()
 {
 	m_Scene->Uninit();
+	m_BGM->Uninit();
 	m_SoundManager->Uninit();
 
 	Input::Uninit();

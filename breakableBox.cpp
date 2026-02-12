@@ -11,6 +11,7 @@
 #include "enemy.h"
 #include "boxBreakEffect.h"
 
+#include "SE.h"
 
 void BreakableBox::Init()
 {
@@ -42,6 +43,9 @@ void BreakableBox::Update(const std::list<Enemy*>& enemies)
 
 		if (m_HitPlayerMoveTrail)
 		{
+			//SE再生
+			Manager::GetSE()->Play(SE_BreakBox);
+
 			Manager::GetScene()->SetHitStop(true); //ヒットストップ発生
 
 			m_Breaking = true;

@@ -5,6 +5,8 @@
 #include "BGM.h"
 #include "SE.h"
 
+#include <vector>
+
 class Manager
 {
 private:
@@ -18,6 +20,8 @@ private:
 	static class BGM* m_BGM;
 	static class SE* m_SE;
 
+	std::unique_ptr<SE> m_SEPtr;
+
 public:
 	static void Init();
 	static void Uninit();
@@ -28,6 +32,11 @@ public:
 
 	static BGM* GetBGM() { return m_BGM; }
 	static SE* GetSE() { return m_SE; }
+
+	//static void SetSE(SEType type)
+	//{
+	//	m_SE->Init(type);
+	//}
 
 	template <typename T>
 	static void SetScene()

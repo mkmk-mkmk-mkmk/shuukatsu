@@ -5,6 +5,7 @@
 #include "manager.h"
 #include "camera.h"
 #include "map.h"
+#include "SE.h"
 
 #include "enemy.h"
 
@@ -177,6 +178,7 @@ void Enemy::Update()
 			&& !m_HitPlayerAttackOnce)
 		{
 			AddLife(-1);
+			Manager::GetSE()->Play(SE_BreakBox);
 			m_HitPlayerAttackOnce = true;
 		}
 
@@ -239,6 +241,7 @@ void Enemy::Update()
 			&& !m_HitPlayerAttackOnce)
 		{
 			AddLife(-1);
+
 			m_HitPlayerAttackOnce = true;
 		}
 

@@ -11,11 +11,13 @@ enum BGMType
 	BGM_GameOver,
 };
 
+#define BGMMaxNum 5
+
 class BGM : public SoundManager
 {
 private:
 	ma_engine* m_pEngine;
-	ma_sound m_BGM[5];
+	ma_sound m_BGM[BGMMaxNum];
 	BGMType m_BGMType;
 
 public:
