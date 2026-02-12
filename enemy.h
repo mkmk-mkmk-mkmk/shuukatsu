@@ -91,6 +91,8 @@ protected:
 	float m_JumpPower;		//ジャンプ力
 	bool m_JumpStairs;		//段差をジャンプするか
 
+	int m_PatrolFrame = 150;	//徘徊状態のフレーム数
+	int m_AttackFrame = 120;	//攻撃状態のフレーム数
 
 public:
 
@@ -111,6 +113,8 @@ public:
 	void UpdateAttack();
 	void UpdateFind();
 	void UpdateLookAround();
+
+	AnimationState GetEnemyAnimState() { return m_AnimationState; }
 
 	void DeleteAnimation() override;
 

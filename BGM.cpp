@@ -4,6 +4,8 @@
 
 void BGM::Init()
 {
+	m_Volume = m_MaxVolume;
+
 	static const char* BGMName[BGMMaxNum] =
 	{
 		"asset\\sound\\BGM\\kyuumiraikuukan.mp3",
@@ -25,7 +27,7 @@ void BGM::Init()
 
 		ma_sound_set_looping(&m_BGM[i], MA_TRUE);
 
-		ma_sound_set_volume(&m_BGM[i], 0.05f);
+		ma_sound_set_volume(&m_BGM[i], m_Volume);
 	}
 
 }

@@ -44,6 +44,17 @@ void Title::Uninit()
 
 void Title::Update()
 {
+	if (Input::GetKeyPress(VK_RETURN))
+	{
+		Manager::GetBGM()->Stop();
+	}
+
+	if (Input::GetKeyTrigger(VK_DELETE))
+	{
+		Manager::GetBGM()->Play(BGM_Title);
+	}
+
+
 	m_Frame++;
 	if (m_Frame > 20)
 	{

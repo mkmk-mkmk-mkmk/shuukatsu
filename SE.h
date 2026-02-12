@@ -18,10 +18,11 @@ class SE : public SoundManager
 private:
 	ma_engine* m_pEngine;
 	ma_sound m_SE[SEMaxNum];
-	bool m_Playing[SEMaxNum];
+	ma_sound m_BreakBoxSE[8];
 public:
 	void SetEngine(ma_engine* engine) { m_pEngine = engine; }
 
 	void Init();
 	void Play(SEType type);
+	void PlayBreakBox();
 };

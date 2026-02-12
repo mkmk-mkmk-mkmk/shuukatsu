@@ -44,7 +44,7 @@ void BreakableBox::Update(const std::list<Enemy*>& enemies)
 		if (m_HitPlayerMoveTrail)
 		{
 			//SE再生
-			Manager::GetSE()->Play(SE_BreakBox);
+			Manager::GetSE()->PlayBreakBox();
 
 			Manager::GetScene()->SetHitStop(true); //ヒットストップ発生
 

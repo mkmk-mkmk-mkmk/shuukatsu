@@ -324,6 +324,9 @@
     <ClInclude Include="miniaudio.h">
       <Filter>ヘッダー ファイル\SoundHedder</Filter>
     </ClInclude>
+    <ClInclude Include="UI_EnemyState.h">
+      <Filter>ヘッダー ファイル\UIHedder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GM31_shokika.rc">
@@ -509,6 +512,9 @@
     </ClCompile>
     <ClCompile Include="SE.cpp">
       <Filter>ソース ファイル\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_EnemyState.cpp">
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -181,6 +181,7 @@
     <ClInclude Include="stageSelect.h" />
     <ClInclude Include="stageSelect_Button.h" />
     <ClInclude Include="UI_Button.h" />
+    <ClInclude Include="UI_EnemyState.h" />
     <ClInclude Include="UI_PlayerLife.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="random.h" />
@@ -255,6 +256,7 @@
     <ClCompile Include="stageSelect.cpp" />
     <ClCompile Include="stageSelect_Button.cpp" />
     <ClCompile Include="UI_Button.cpp" />
+    <ClCompile Include="UI_EnemyState.cpp" />
     <ClCompile Include="UI_PlayerLife.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="renderer.cpp" />

@@ -414,7 +414,7 @@ void Enemy::UpdatePatrol()
 	{
 	case Ground:
 		m_Frame++;
-		if (m_Frame > 150)
+		if (m_Frame > m_PatrolFrame)
 		{
 			switch (m_RandomInt)
 			{
@@ -466,7 +466,7 @@ void Enemy::UpdatePatrol()
 		break;
 	case Flying:
 		m_Frame++;
-		if (m_Frame > 150)
+		if (m_Frame > m_PatrolFrame)
 		{
 			m_RandomFloat = random.RandomFloat(-1.0f, 1.0f);
 
@@ -566,7 +566,7 @@ void Enemy::UpdateAttack()
 		m_Frame++;
 
 		//攻撃処理
-		if (m_Frame > 200)	//攻撃アニメーションを継続するか判定
+		if (m_Frame > m_AttackFrame)	//攻撃アニメーションを継続するか判定
 		{
 			m_StopTick = false;
 			m_HitAttack = false;
@@ -574,7 +574,7 @@ void Enemy::UpdateAttack()
 
 			m_Frame = 0;
 		}
-		else if (m_Frame > 100)	//攻撃判定が発生するタイミング
+		else if (m_Frame > 50)	//攻撃判定が発生するタイミング
 		{
 			m_HitAttack = InRangeObject(m_Position, m_Scale, m_PlayerPos, m_PlayerScale, m_AttackRange, m_Direction);
 
@@ -737,12 +737,14 @@ void Enemy::CheckStairs()
 			m_JumpStairs = false;
 
 			//ずっと壁に直進しないようにする
-			if (m_Position.x < m_HitSideBoxPos.front().x)	//ボックスの左にいる
+			if (!m_JumpStairs && m_Position.x < m_HitSideBoxPos.front().x)	//ボックスの左にいる
 			{
+				m_Frame = m_PatrolFrame;
 				m_RandomInt = 1;
 			}
-			else											//ボックスの右にいる
+			else if (!m_JumpStairs)									//ボックスの右にいる
 			{
+				m_Frame = m_PatrolFrame;
 				m_RandomInt = 0;
 			}
 		}

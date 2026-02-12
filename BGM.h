@@ -20,6 +20,10 @@ private:
 	ma_sound m_BGM[BGMMaxNum];
 	BGMType m_BGMType;
 
+	float m_MaxVolume = 0.5f;
+	float m_MinVolume = 0.0f;
+	float m_FadeSpeed = 0.02f;
+
 public:
 	void SetEngine(ma_engine* engine) { m_pEngine = engine; }
 

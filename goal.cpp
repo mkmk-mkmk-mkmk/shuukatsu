@@ -15,7 +15,7 @@ void Goal::Init()
 	m_Position = Manager::GetScene()->GetGameObject<Map>()->m_GoalPosList.front();
 
 	//ëÂÇ´Ç≥ê›íË
-	m_Scale = Vector2(MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
+	m_Scale = Vector2(MAPCHIP_WIDTH * 3, MAPCHIP_HEIGHT * 3);
 
 	InitSprite();
 	m_TextureList.push_back(Texture::Load("asset\\texture\\goal.png"));

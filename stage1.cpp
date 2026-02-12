@@ -21,6 +21,7 @@
 #include "UI_PlayerState.h"
 #include "UI_PlayerLife.h"
 #include "UI_TrailSecond.h"
+#include "UI_EnemyState.h"
 
 //エネミー用リスト
 //初期データのみのリスト(Init用)
@@ -116,7 +117,7 @@ void Stage1::Init()
 	}
 
 	//ゴールの追加
-	int m_GoalCount = GetGameObject<Map>()->m_GoalPosList.size(); //箱の数を保存しておく
+	int m_GoalCount = GetGameObject<Map>()->m_GoalPosList.size(); //ゴールの数を保存しておく
 
 	for (int i = 0; i < m_GoalCount; i++)
 	{
@@ -126,16 +127,19 @@ void Stage1::Init()
 
 
 	//カーソルの取得
-	AddUIObject<Cursor>(0)->Init();
+	AddUIObject<Cursor>(1)->Init();
 
 	//PlayerStateUIの追加
-	AddUIObject<UI_PlayerState>(1)->Init();
+	AddUIObject<UI_PlayerState>(2)->Init();
 
 	//PlayerLifeUIの追加
-	AddUIObject<UI_PlayerLife>(1)->Init();
+	AddUIObject<UI_PlayerLife>(2)->Init();
 
 	//TrailSecondUIの追加
-	AddUIObject<UI_TrailSecond>(1)->Init();
+	AddUIObject<UI_TrailSecond>(2)->Init();
+
+	//EnemyStateUIの追加
+	AddUIObject<UI_EnemyState>(0)->Init();
 }
 
 void Stage1::Uninit()

@@ -7,7 +7,7 @@ class Fade : public Sprite
 {
 private:
 
-	float m_FadeSpeed = 0.05f;
+	float m_FadeSpeed = 0.03f;
 	float m_Alpha = 0.0f;
 	bool m_Fade = false;			//フェード中かどうか
 	bool m_FadeInFinished = false;	//フェードインが終了したかどうか

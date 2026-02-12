@@ -9,7 +9,7 @@
 #include "title_BreakableBox.h"
 #include "boxBreakEffect.h"
 #include "collision.h"
-
+#include "SE.h"
 
 void Title_BreakableBox::Init()
 {
@@ -71,6 +71,9 @@ void Title_BreakableBox::Update()
 
 		if (m_HitCursor && !m_Breaking)
 		{
+			//SE再生
+			Manager::GetSE()->PlayBreakBox();
+
 			m_Breaking = true;
 			//エフェクト生成
 			auto effect = std::make_unique<BoxBreakEffect>();
