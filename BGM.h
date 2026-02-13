@@ -20,7 +20,7 @@ private:
 	ma_sound m_BGM[BGMMaxNum];
 	BGMType m_BGMType;
 
-	float m_MaxVolume = 0.5f;
+	float m_MaxVolume = 0.3f;
 	float m_MinVolume = 0.0f;
 	float m_FadeSpeed = 0.02f;
 

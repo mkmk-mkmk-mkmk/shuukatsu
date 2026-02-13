@@ -3,6 +3,7 @@
 #include "renderer.h"
 #include "input.h"
 
+#include "title.h"
 #include "stage2.h"
 #include "stageSelect.h"
 #include "player.h"
@@ -154,6 +155,12 @@ void Stage2::Uninit()
 
 void Stage2::Update()
 {
+	//デバッグ用タイトルへ
+	if (Input::GetKeyPress('i') || Input::GetKeyPress('I'))
+	{
+		Manager::SetScene<Title>();
+	}
+
 	//デバッグ用リスタート
 	if (Input::GetKeyPress('p') || Input::GetKeyPress('P'))
 	{

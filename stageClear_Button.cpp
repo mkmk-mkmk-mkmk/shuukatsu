@@ -6,15 +6,23 @@
 #include "manager.h"
 #include "scene.h"
 #include "title.h"
+#include "stageSelect.h"
 #include "stageClear_Button.h"
 
 void StageClearButton::Init()
 {
 	m_ButtonList.push_back(button);
-	m_ButtonList[0].Init(Vector2((float)screenWidth * 0.5f, (float)screenHeight * 0.8),
-		Vector2((float)screenWidth * 0.4, (float)screenHeight * 0.2f),
+	m_ButtonList[0].Init(Vector2((float)screenWidth * 0.25f, (float)screenHeight * 0.8),
+		Vector2((float)screenWidth * 0.3, (float)screenHeight * 0.15f),
 		Texture::Load("asset\\texture\\UI\\StartButton.png"),
 		Texture::Load("asset\\texture\\UI\\StartButton_2.png"));
+
+	m_ButtonList.push_back(button);
+	m_ButtonList[1].Init(Vector2((float)screenWidth * 0.75f, (float)screenHeight * 0.8),
+		Vector2((float)screenWidth * 0.3, (float)screenHeight * 0.15f),
+		Texture::Load("asset\\texture\\UI\\StartButton.png"),
+		Texture::Load("asset\\texture\\UI\\StartButton_2.png"));
+
 }
 
 void StageClearButton::Uninit()
@@ -33,6 +41,12 @@ void StageClearButton::Update()
 	{
 		Manager::SetScene<Title>();
 	}
+
+	if (m_ButtonList[1].GetAction() == true)
+	{
+		Manager::SetScene<StageSelect>();
+	}
+
 }
 
 void StageClearButton::Draw()

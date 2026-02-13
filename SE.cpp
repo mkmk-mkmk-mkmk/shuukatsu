@@ -3,7 +3,7 @@
 
 void SE::Init()
 {
-	m_Volume = 0.1f;
+	m_Volume = 0.3f;
 
 	const char* SEName[SEMaxNum] = 
 	{

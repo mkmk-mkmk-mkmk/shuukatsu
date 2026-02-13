@@ -5,6 +5,7 @@
 #include "manager.h"
 #include "backGround.h"
 
+#include "title.h"
 #include "stageSelect.h"
 #include "stageSelect_Button.h"
 
@@ -26,6 +27,12 @@ void StageSelect::Uninit()
 
 void StageSelect::Update()
 {
+	//デバッグ用タイトルへ
+	if (Input::GetKeyPress('i') || Input::GetKeyPress('I'))
+	{
+		Manager::SetScene<Title>();
+	}
+
 	Scene::Update();
 }
 
