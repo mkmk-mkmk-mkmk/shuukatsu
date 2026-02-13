@@ -122,6 +122,7 @@ void Player::Update()
 			{
 				m_TrailDiffList.clear();
 				m_HaveTrail = false;
+				m_PlayerState = PlayerState::Player_Normal;
 			}
 			else
 			{

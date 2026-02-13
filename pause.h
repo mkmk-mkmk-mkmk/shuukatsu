@@ -6,7 +6,7 @@ class Pause : public Sprite
 {
 private:
 
-	float m_Alpha = 0.5f;
+	float m_Alpha = 0.7f;
 
 	bool m_SceneStop = false;
 

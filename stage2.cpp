@@ -166,16 +166,17 @@ void Stage2::Update()
 		Manager::SetScene<StageSelect>();
 	}
 
-	if (HitStop())
-	{
-		//ヒットストップ中はカメラのみ更新
-		GetGameObject<Camera>()->Update();
-		return;
-	}
+	//if (HitStop())
+	//{
+	//	//ヒットストップ中はカメラのみ更新
+	//	GetGameObject<Camera>()->Update();
+	//	return;
+	//}
 
 	m_Pause->Update();
 	if (m_Pause->GetSceneStop())
 	{
+		GetGameObject<Camera>()->Update();	//カメラのみ更新
 		return;
 	}
 

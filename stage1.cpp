@@ -22,7 +22,6 @@
 #include "UI_PlayerState.h"
 #include "UI_PlayerLife.h"
 #include "UI_TrailSecond.h"
-#include "UI_EnemyState.h"
 
 
 void Stage1::Init()
@@ -133,8 +132,6 @@ void Stage1::Init()
 	//TrailSecondUIの追加
 	AddUIObject<UI_TrailSecond>(2)->Init();
 
-	//EnemyStateUIの追加
-	AddUIObject<UI_EnemyState>(0)->Init();
 }
 
 void Stage1::Uninit()
@@ -157,20 +154,15 @@ void Stage1::Update()
 		Manager::SetScene<StageSelect>();
 	}
 
-	if (HitStop())
-	{
-		//ヒットストップ中はカメラのみ更新
-		GetGameObject<Camera>()->Update();
-		return;
-	}
-
 	m_Pause->Update();
 	if (m_Pause->GetSceneStop())
 	{
-		return;
+		GetGameObject<Camera>()->Update();	//カメラのみ更新
 	}
-
-	Scene::Update();
+	else
+	{
+		Scene::Update();
+	}
 }
 
 void Stage1::Draw()
@@ -180,4 +172,5 @@ void Stage1::Draw()
 	{
 		m_Pause->Draw();
 	}
+
 }

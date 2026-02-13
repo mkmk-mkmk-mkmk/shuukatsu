@@ -16,8 +16,8 @@ class Player :public GameObject
 private:
 	float alpha = 1.0f;
 
-	float m_Speed = 10.0f;			//プレイヤーの移動速度
-	float m_JumpPower = -12.0f;		//ジャンプ力
+	float m_Speed = 8.0f;			//プレイヤーの移動速度
+	float m_JumpPower = -10.0f;		//ジャンプ力
 	bool m_Dash = false;			//ダッシュ中かどうか
 	bool m_JumpAnimationFirst = false; //ジャンプアニメーションの初回か
 

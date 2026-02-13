@@ -51,6 +51,7 @@ public:
 	virtual void DeleteAnimation() {}
 
 	void SetDestroy() { m_Destroy = true; }
+	bool GetDestroy() { return m_Destroy; }
 
 	bool Destroy()
 	{

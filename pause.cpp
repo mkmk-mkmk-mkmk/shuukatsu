@@ -4,19 +4,21 @@
 #include "manager.h"
 #include "input.h"
 
+#include "camera.h"
 #include "pause.h"
 
 void Pause::Init()
 {
 	InitSprite();
-	m_TextureList.push_back(Texture::Load("asset\\texture\\fade.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\pause.png"));
 }
 
 void Pause::Update()
 {
-	if (Input::GetKeyTrigger(VK_RETURN))
+	if (Input::GetKeyTrigger(VK_ESCAPE))
 	{
 		m_SceneStop = !m_SceneStop;
+		Manager::GetScene()->GetGameObject<Camera>()->SetCameraMove(m_SceneStop);
 	}
 }
 

@@ -3,9 +3,6 @@
 #include "manager.h"
 
 #include "spring.h"
-#include "map.h"
-#include "player.h"
-#include "camera.h"
 
 void Spring::Init(Vector2 topLeftPos, Vector2 topRightPos, Vector2 bottomLeftPos, Vector2 bottomRightPos,
 	float chainSplitLeft, float chainSplitRight, float chainWidth, float boardHeight, int gameObjectNumber)

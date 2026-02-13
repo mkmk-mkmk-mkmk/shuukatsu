@@ -8,7 +8,6 @@
 #include "map.h"
 #include "player.h"
 #include "camera.h"
-#include "enemy.h"
 
 void DamageBox::Init()
 {
@@ -27,19 +26,16 @@ void DamageBox::Uninit()
 	UnInitSprite();
 }
 
-void DamageBox::Update(const std::list<Enemy*>& enemies)
+void DamageBox::Update()
 {
-	//描画位置更新
-	m_DrawPosition =
-		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
-	//敵のボックス当たり判定
-	for (auto enemy : enemies)
-	{
-		Vector2 enemyPos = enemy->GetPosition();
-		Vector2 enemyScale = enemy->GetScale();
-		enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
-	}
+	////敵のボックス当たり判定
+	//for (auto enemy : enemies)
+	//{
+	//	Vector2 enemyPos = enemy->GetPosition();
+	//	Vector2 enemyScale = enemy->GetScale();
+	//	enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
+	//}
 
 	if (m_DrawPosition.x < -m_Scale.x || m_DrawPosition.x > screenWidth + m_Scale.x ||
 		m_DrawPosition.y < -m_Scale.y || m_DrawPosition.y > screenHeight + m_Scale.y)
@@ -66,6 +62,9 @@ void DamageBox::Update(const std::list<Enemy*>& enemies)
 
 void DamageBox::Draw()
 {
+	//描画位置更新
+	m_DrawPosition =
+		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
 	if (m_DrawPosition.x < -m_Scale.x / 2 ||
 		m_DrawPosition.x > screenWidth + m_Scale.x / 2 ||

@@ -13,7 +13,7 @@ private:
 public:
 	void Init();
 	void Uninit();
-	void Update(const std::list<Enemy*>& enemies);
+	void Update();
 	void Draw();
 
 };

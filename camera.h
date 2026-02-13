@@ -15,10 +15,8 @@ private:
 	Vector2  m_Scale;	 //カメラサイズ（ズームイン、アウト用に一応）
 	float	 m_Rotation; //カメラ回転角
 
-	bool m_CameraShake = false; //ヒットストップなど、カメラを瞬間的に揺らす動き
-	float m_CameraShakePower = 0.01f; //カメラ揺れの強さ
-	int m_CameraShakeFrame = 0; //カメラの揺れが始まってからのフレーム数
-	int m_CameraShakeFrameMax; //カメラの揺れが続くフレーム数
+	bool m_CameraMove = false; //カメラ操作状態
+	float m_CameraSpeed = 15.0f;
 
 public:
 	void Init();
@@ -34,4 +32,5 @@ public:
 
 	const Vector2 GetCameraTopLeftPosition() { return m_CameraTopLeftPosition; }
 
+	void SetCameraMove(bool move) { m_CameraMove = move; }
 };

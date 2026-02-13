@@ -43,98 +43,86 @@ void Scene::Uninit()
 
 void Scene::Update()
 {
-	for (int i = 0; i < 10; i++)
+	if (!HitStop())
 	{
-		auto& list = m_GameObject[i];
-		for (auto it = list.begin(); it != list.end(); )
+		for (int i = 0; i < 10; i++)
 		{
-			GameObject* obj = *it;
-			obj->Update();
-
-			//BoxのUpdate
-			if (Box* box = dynamic_cast<Box*>(obj))
+			auto& list = m_GameObject[i];
+			for (auto it = list.begin(); it != list.end(); )
 			{
-				//enemyのリストが必要なので作る
-				std::list<Enemy*> enemies;
-				for (int j = 0; j < 10; j++)
+				GameObject* obj = *it;
+				obj->Update();
+
+				//BoxのUpdate
+				if (Box* box = dynamic_cast<Box*>(obj))
 				{
-					for (auto enemyObj : m_GameObject[j])
+					//enemyのリストが必要なので作る
+					std::list<Enemy*> enemies;
+					for (int j = 0; j < 10; j++)
 					{
-						if (Enemy* enemy = dynamic_cast<Enemy*>(enemyObj))
+						for (auto enemyObj : m_GameObject[j])
 						{
-							enemies.push_back(enemy);
+							if (Enemy* enemy = dynamic_cast<Enemy*>(enemyObj))
+							{
+								enemies.push_back(enemy);
+							}
 						}
 					}
+
+					box->Update(enemies);
 				}
 
-				box->Update(enemies);
-			}
-
-			//BreakableBoxのUpdate
-			if (BreakableBox* bBox = dynamic_cast<BreakableBox*>(obj))
-			{
-				//enemyのリストが必要なので作る
-				std::list<Enemy*> enemies;
-				for (int j = 0; j < 10; j++)
+				//BreakableBoxのUpdate
+				if (BreakableBox* bBox = dynamic_cast<BreakableBox*>(obj))
 				{
-					for (auto enemyObj : m_GameObject[j])
+					//enemyのリストが必要なので作る
+					std::list<Enemy*> enemies;
+					for (int j = 0; j < 10; j++)
 					{
-						if (Enemy* enemy = dynamic_cast<Enemy*>(enemyObj))
+						for (auto enemyObj : m_GameObject[j])
 						{
-							enemies.push_back(enemy);
+							if (Enemy* enemy = dynamic_cast<Enemy*>(enemyObj))
+							{
+								enemies.push_back(enemy);
+							}
 						}
 					}
+
+					bBox->Update(enemies);
 				}
 
-				bBox->Update(enemies);
-			}
-
-			//DamageBoxのUpdate
-			if (DamageBox* bBox = dynamic_cast<DamageBox*>(obj))
-			{
-				//enemyのリストが必要なので作る
-				std::list<Enemy*> enemies;
-				for (int j = 0; j < 10; j++)
+				if (obj->Destroy())
 				{
-					for (auto enemyObj : m_GameObject[j])
-					{
-						if (Enemy* enemy = dynamic_cast<Enemy*>(enemyObj))
-						{
-							enemies.push_back(enemy);
-						}
-					}
+					it = list.erase(it);	//ここでeraseした次のイテレータを返してる
 				}
-
-				bBox->Update(enemies);
+				else
+				{
+					it++;
+				}
 			}
+		}
 
-			if (obj->Destroy())
+		for (int i = 0; i < 30; i++)
+		{
+			auto& uiList = m_UIObject[i];
+			for (auto it = uiList.begin(); it != uiList.end(); )
 			{
-				it = list.erase(it);	//ここでeraseした次のイテレータを返してる
-			}
-			else
-			{
-				it++;
+				UI* ui = *it;
+				ui->Update();
+				if (ui->Destroy())
+				{
+					it = uiList.erase(it);
+				}
+				else
+				{
+					it++;
+				}
 			}
 		}
 	}
-
-	for (int i = 0; i < 30; i++)
+	else
 	{
-		auto& uiList = m_UIObject[i];
-		for (auto it = uiList.begin(); it != uiList.end(); )
-		{
-			UI* ui = *it;
-			ui->Update();
-			if (ui->Destroy())
-			{
-				it = uiList.erase(it);
-			}
-			else
-			{
-				it++;
-			}
-		}
+
 	}
 }
 

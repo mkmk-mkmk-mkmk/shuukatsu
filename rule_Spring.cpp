@@ -1,3 +1,6 @@
+#include "main.h"
+#include "scene.h"
+#include "manager.h"
 
 #include "rule_Spring.h"
 

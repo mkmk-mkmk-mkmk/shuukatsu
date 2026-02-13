@@ -4,8 +4,6 @@
 #include "manager.h"
 
 #include "rule_SpringBoard.h"
-#include "map.h"
-#include "player.h"
 
 void Rule_SpringBoard::Init(Rule_ChainPoint* leftPoint, Rule_ChainPoint* rightPoint, float height)
 {

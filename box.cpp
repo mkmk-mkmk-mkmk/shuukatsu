@@ -30,9 +30,6 @@ void Box::Uninit()
 
 void Box::Update(const std::list<Enemy*>& enemies)
 {
-	//描画位置更新
-	m_DrawPosition =
-		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
 	//敵のボックス当たり判定
 	for (auto enemy : enemies)
@@ -59,6 +56,9 @@ void Box::Update(const std::list<Enemy*>& enemies)
 
 void Box::Draw()
 {
+	//描画位置更新
+	m_DrawPosition =
+		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
 
 	if (m_DrawPosition.x < -m_Scale.x / 2 ||
 		m_DrawPosition.x > screenWidth + m_Scale.x / 2 ||

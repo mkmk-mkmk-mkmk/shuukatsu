@@ -4,8 +4,6 @@
 #include "manager.h"
 
 #include "rule_SpringChain.h"
-#include "map.h"
-#include "player.h"
 
 void Rule_SpringChain::Init(Vector2 topPos, Vector2 bottomPos, float chainSplit, float chainWidth)
 {

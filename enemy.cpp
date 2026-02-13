@@ -8,11 +8,14 @@
 #include "SE.h"
 
 #include "enemy.h"
+#include "UI_EnemyState.h"
 
 #include "BehaviorTree/actionNode.h"
 #include "BehaviorTree/conditionNode.h"
 #include "BehaviorTree/sequenceNode.h"
 #include "BehaviorTree/selectorNode.h"
+
+UI_EnemyState enemyState;
 
 void Enemy::Init(Vector2 pos, Vector2 scale, EnemyType enemyType)
 {
@@ -100,10 +103,14 @@ void Enemy::Init(Vector2 pos, Vector2 scale, EnemyType enemyType)
 	m_RootNode->AddChild(attackSeq);
 	m_RootNode->AddChild(chaseSeq);
 	m_RootNode->AddChild(patrol);
+
+	enemyState.Init();
 }
 
 void Enemy::Uninit()
 {
+	enemyState.Uninit();
+
 	UnInitSprite();
 
 	delete m_RootNode;
@@ -112,6 +119,8 @@ void Enemy::Uninit()
 
 void Enemy::Update()
 {
+	enemyState.Update();
+
 	switch (m_EnemyType)
 	{
 	case Ground:
@@ -265,6 +274,12 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
+	if (m_Destroy)
+	{
+		return;
+	}
+
+
 	//•`‰æˆÊ’uXV
 	m_DrawPosition =
 		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
@@ -341,6 +356,8 @@ void Enemy::Draw()
 	{
 		DrawAttackHitBox();
 	}
+
+	enemyState.Draw();
 }
 
 void Enemy::DrawAttackHitBox()
