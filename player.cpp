@@ -6,9 +6,9 @@
 #include "scene.h"
 #include "manager.h"
 #include "camera.h"
-#include "map.h"
 #include "sprite.h"
 #include "player.h"
+#include "map.h"
 
 #include "gameOver.h"
 #include "stageClear.h"
@@ -19,11 +19,9 @@ void Player::Init()
 	m_Life = 5;
 
 	//プレイヤースタート位置
-	float playerFirstPosX = MAPCHIP_WIDTH * 5.0f + m_Scale.x * 0.5f;
-	float playerFirstPosY = Manager::GetScene()->GetGameObject<Map>()->GetBlockHeight() * MAPCHIP_HEIGHT
+	m_Position.x = MAPCHIP_WIDTH * 5.0f + m_Scale.x * 0.5f;
+	m_Position.y = Manager::GetScene()->GetGameObject<Map>()->GetBlockHeight() * MAPCHIP_HEIGHT
 		- (MAPCHIP_HEIGHT + m_Scale.y * 0.5f);
-
-	SetPosition(Vector2(playerFirstPosX, playerFirstPosY));
 
 	//スケール設定
 	m_Scale = { 100.0f,100.0f };
