@@ -6,9 +6,9 @@
 #include "title.h"
 #include "stage1.h"
 #include "stageSelect.h"
+
 #include "player.h"
 #include "cursor.h"
-#include "polygon.h"
 #include "backGround.h"
 #include "box.h"
 #include "breakableBox.h"
@@ -18,7 +18,7 @@
 #include "camera.h"
 #include "enemy.h"
 
-//#include "spring.h"
+#include "spring.h"
 
 #include "UI_PlayerState.h"
 #include "UI_PlayerLife.h"
@@ -45,6 +45,12 @@ void Stage1::Init()
 
 	AddGameObject<BackGround>(0)->Init(1);
 
+	//AddGameObject<Spring>(0)->Init(Vector2(MAPCHIP_WIDTH * 10, MAPCHIP_HEIGHT * 10),
+	//	Vector2(MAPCHIP_WIDTH * 13, MAPCHIP_HEIGHT * 10),
+	//	Vector2(MAPCHIP_WIDTH * 10, MAPCHIP_HEIGHT * 13),
+	//	Vector2(MAPCHIP_WIDTH * 13, MAPCHIP_HEIGHT * 13),
+	//	3.0f, 3.0f, MAPCHIP_WIDTH, MAPCHIP_HEIGHT, 0);
+
 	//プレイヤーの追加
 	AddGameObject<Player>(1)->Init();
 
@@ -63,16 +69,6 @@ void Stage1::Init()
 		GetGameObject<Map>()->m_GroundEnemyPosList.pop_front();
 	}
 
-	int flyingEnemyCount = GetGameObject<Map>()->m_FlyingEnemyPosList.size();
-	for (int i = 0; i < flyingEnemyCount; i++)
-	{
-		//エネミーの位置、大きさ、タイプを入れて生成
-		Vector2 enemyScale = { 100.0f, 100.0f };
-		Vector2 enemyPos = { GetGameObject<Map>()->m_FlyingEnemyPosList.front().x,
-			GetGameObject<Map>()->m_FlyingEnemyPosList.front().y - (MAPCHIP_HEIGHT + enemyScale.y * 0.5f) };
-		m_EnemiesInitVal.push_back({ enemyPos, enemyScale, Flying });
-		GetGameObject<Map>()->m_FlyingEnemyPosList.pop_front();
-	}
 
 	//追加した敵を生成
 	for (auto& enemies : m_EnemiesInitVal)

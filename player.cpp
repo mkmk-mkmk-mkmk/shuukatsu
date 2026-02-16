@@ -415,7 +415,7 @@ void Player::PlayerMove()
 	if (Input::GetKeyPress('W') || Input::GetKeyPress('w'))
 	{
 		//ƒWƒƒƒ“ƒv
-		if (m_OnGround)
+		if (m_OnGround || m_Jump)
 		{
 			m_Vector.y = m_JumpPower; //ã‚ÉˆÚ“®
 			m_OnGround = false;

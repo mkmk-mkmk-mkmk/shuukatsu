@@ -28,7 +28,7 @@ public:
 	std::list<Vector2> m_UntouchableBoxPosList;	//当たり判定のない箱の位置リスト
 	std::list<Vector2> m_GoalPosList;			//ゴールの位置リスト
 	std::list<Vector2> m_GroundEnemyPosList;	//地上エネミーの位置リスト
-	std::list<Vector2> m_FlyingEnemyPosList;	//飛行エネミーの位置リスト
+	std::list<Vector2> m_UnvisualBoxPosList;	//透明壁の位置リスト
 	std::list<Vector2> m_DamageBoxPosList;		//ダメージブロックの位置リスト
 
 	int GetBlockWidth() const { return STAGEBLOCK_WIDTH; }

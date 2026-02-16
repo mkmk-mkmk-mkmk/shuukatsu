@@ -33,11 +33,6 @@ public:
 	static BGM* GetBGM() { return m_BGM; }
 	static SE* GetSE() { return m_SE; }
 
-	//static void SetSE(SEType type)
-	//{
-	//	m_SE->Init(type);
-	//}
-
 	template <typename T>
 	static void SetScene()
 	{

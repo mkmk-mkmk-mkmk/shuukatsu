@@ -81,11 +81,8 @@ void Map::Init(int maptype)
 		int i = idx / STAGEBLOCK_WIDTH; //行番号
 		int j = idx % STAGEBLOCK_WIDTH; //列番号
 
-		//マップチップ番号取得
-		int chip_id = g_MapChipList.at(idx);
-
 		//値をチェック
-		switch (chip_id)
+		switch (g_MapChipList.at(idx))
 		{
 			case 0:	//空白
 				break;
@@ -135,16 +132,16 @@ void Map::Init(int maptype)
 				m_GroundEnemyPosList.push_back(m_Position);
 				break;
 
-			case 6: //飛行エネミー
+			case 6: //透明壁
 				//描画座標を割り出す
 				m_Position.x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
 				m_Position.y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;
 
 				//リストに保存
-				m_FlyingEnemyPosList.push_back(m_Position);
+				m_UnvisualBoxPosList.push_back(m_Position);
 				break;
 
-			case 7: //即死ブロック
+			case 7: //ダメージブロック
 				//描画座標を割り出す
 				m_Position.x = MAPCHIP_WIDTH * j + MAPCHIP_WIDTH * 0.5f;
 				m_Position.y = MAPCHIP_HEIGHT * i + MAPCHIP_HEIGHT * 0.5f;

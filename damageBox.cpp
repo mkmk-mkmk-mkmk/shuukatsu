@@ -28,15 +28,6 @@ void DamageBox::Uninit()
 
 void DamageBox::Update()
 {
-
-	////敵のボックス当たり判定
-	//for (auto enemy : enemies)
-	//{
-	//	Vector2 enemyPos = enemy->GetPosition();
-	//	Vector2 enemyScale = enemy->GetScale();
-	//	enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
-	//}
-
 	if (m_DrawPosition.x < -m_Scale.x || m_DrawPosition.x > screenWidth + m_Scale.x ||
 		m_DrawPosition.y < -m_Scale.y || m_DrawPosition.y > screenHeight + m_Scale.y)
 	{

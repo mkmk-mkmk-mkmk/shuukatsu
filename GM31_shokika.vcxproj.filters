@@ -339,6 +339,9 @@
     <ClInclude Include="damageBox.h">
       <Filter>ヘッダー ファイル\BlocksHedder</Filter>
     </ClInclude>
+    <ClInclude Include="unvisualBox.h">
+      <Filter>ヘッダー ファイル\BlocksHedder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GM31_shokika.rc">
@@ -538,6 +541,9 @@
       <Filter>ソース ファイル\Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="damageBox.cpp">
+      <Filter>ソース ファイル\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="unvisualBox.cpp">
       <Filter>ソース ファイル\Blocks</Filter>
     </ClCompile>
   </ItemGroup>

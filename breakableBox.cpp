@@ -32,6 +32,20 @@ void BreakableBox::Uninit()
 
 void BreakableBox::Update(const std::list<Enemy*>& enemies)
 {
+	//敵のボックス当たり判定
+	for (auto enemy : enemies)
+	{
+		Vector2 enemyPos = enemy->GetPosition();
+		Vector2 enemyScale = enemy->GetScale();
+		enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
+	}
+
+	if (m_DrawPosition.x < -m_Scale.x || m_DrawPosition.x > screenWidth + m_Scale.x ||
+		m_DrawPosition.y < -m_Scale.y || m_DrawPosition.y > screenHeight + m_Scale.y)
+	{
+		return; //画面外ならプレイヤーのほうは更新しない
+	}
+
 	//プレイヤーのボックス当たり判定
 	Vector2 playerPos = Manager::GetScene()->GetGameObject<Player>()->GetPosition();
 	Vector2 playerScale = Manager::GetScene()->GetGameObject<Player>()->GetScale();
@@ -62,13 +76,6 @@ void BreakableBox::Update(const std::list<Enemy*>& enemies)
 		//それ以外なら普通のboxと同じ
 		Manager::GetScene()->GetGameObject<Player>()->BoxCollision(playerPos, playerScale, m_Position, m_Scale);
 
-		//敵のボックス当たり判定
-		for (auto enemy : enemies)
-		{
-			Vector2 enemyPos = enemy->GetPosition();
-			Vector2 enemyScale = enemy->GetScale();
-			enemy->BoxCollision(enemyPos, enemyScale, m_Position, m_Scale);
-		}
 	}
 	else
 	{

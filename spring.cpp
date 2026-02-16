@@ -29,7 +29,7 @@ void Spring::Update()
 	leftChain.Update();
 	rightChain.Update();
 
-	//board.Update();
+	board.Update();
 }
 
 void Spring::Draw()

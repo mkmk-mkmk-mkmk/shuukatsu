@@ -81,7 +81,7 @@ void SpringChain::Update()
 	}
 
 	//距離制約
-	const int constraintLoop = 10;	//距離制約をフレームごとに何回解くか
+	const int constraintLoop = 1;	//距離制約をフレームごとに何回解くか
 
 	for (int n = 0; n < constraintLoop; n++)
 	{
@@ -97,7 +97,7 @@ void SpringChain::Update()
 				continue;
 			}
 
-			float stiffness = 0.9f;
+			float stiffness = 0.1f;
 			float diff = (pointDistance - m_ChainLength) / pointDistance;
 
 			if (!point1.lock)
@@ -136,7 +136,11 @@ void SpringChain::DrawPiece(int count)
 	m_Rotate = PI * 0.5f - atan2(point2.pos.y - point1.pos.y,
 		point2.pos.x - point1.pos.x);
 
-	DrawSprite(XMFLOAT2(m_Position.x, m_Position.y), -m_Rotate,
+	//描画位置更新
+	m_DrawPosition =
+		m_Position - Manager::GetScene()->GetGameObject<Camera>()->GetCameraTopLeftPosition();
+
+	DrawSprite(XMFLOAT2(m_DrawPosition.x, m_DrawPosition.y), -m_Rotate,
 		XMFLOAT2(m_Scale.x, m_Scale.y + 50.0f), 0, 1.0f);
 
 }

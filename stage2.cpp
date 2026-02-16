@@ -6,14 +6,17 @@
 #include "title.h"
 #include "stage2.h"
 #include "stageSelect.h"
+
 #include "player.h"
 #include "cursor.h"
-#include "polygon.h"
 #include "backGround.h"
+
 #include "box.h"
 #include "breakableBox.h"
 #include "damageBox.h"
 #include "untouchableBox.h"
+#include "unvisualBox.h"
+
 #include "goal.h"
 #include "map.h"
 #include "camera.h"
@@ -96,14 +99,14 @@ void Stage2::Init()
 		GetGameObject<Map>()->m_BoxPosList.pop_front();
 	}
 
-	////破壊可能箱の追加
-	//int m_BreakableBoxCount = GetGameObject<Map>()->m_BreakableBoxPosList.size(); //透明箱の数を保存しておく
+	//破壊可能箱の追加
+	int m_BreakableBoxCount = GetGameObject<Map>()->m_BreakableBoxPosList.size(); //透明箱の数を保存しておく
 
-	//for (int i = 0; i < m_BreakableBoxCount; i++)
-	//{
-	//	AddGameObject<BreakableBox>(4)->Init();
-	//	GetGameObject<Map>()->m_BreakableBoxPosList.pop_front();
-	//}
+	for (int i = 0; i < m_BreakableBoxCount; i++)
+	{
+		AddGameObject<BreakableBox>(4)->Init();
+		GetGameObject<Map>()->m_BreakableBoxPosList.pop_front();
+	}
 
 	//当たり判定のない箱の追加
 	int m_UntouchableBoxCount = GetGameObject<Map>()->m_UntouchableBoxPosList.size(); //当たり判定のない箱の数を保存しておく
@@ -111,6 +114,14 @@ void Stage2::Init()
 	{
 		AddGameObject<UntouchableBox>(4)->Init();
 		GetGameObject<Map>()->m_UntouchableBoxPosList.pop_front();
+	}
+
+	//透明壁の追加
+	int m_UnvisualBoxCount = GetGameObject<Map>()->m_UnvisualBoxPosList.size(); //透明壁の数を保存しておく
+	for (int i = 0; i < m_UnvisualBoxCount; i++)
+	{
+		AddGameObject<UnVisualBox>(4)->Init();
+		GetGameObject<Map>()->m_UnvisualBoxPosList.pop_front();
 	}
 
 	//ダメージブロックの追加
@@ -121,14 +132,14 @@ void Stage2::Init()
 		GetGameObject<Map>()->m_DamageBoxPosList.pop_front();
 	}
 
-	////ゴールの追加
-	//int m_GoalCount = GetGameObject<Map>()->m_GoalPosList.size(); //ゴールの数を保存しておく
+	//ゴールの追加
+	int m_GoalCount = GetGameObject<Map>()->m_GoalPosList.size(); //ゴールの数を保存しておく
 
-	//for (int i = 0; i < m_GoalCount; i++)
-	//{
-	//	AddGameObject<Goal>(4)->Init();
-	//	GetGameObject<Map>()->m_GoalPosList.pop_front();
-	//}
+	for (int i = 0; i < m_GoalCount; i++)
+	{
+		AddGameObject<Goal>(4)->Init();
+		GetGameObject<Map>()->m_GoalPosList.pop_front();
+	}
 
 
 	//カーソルの取得

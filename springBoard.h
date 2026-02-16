@@ -20,5 +20,6 @@ public:
 	//void Uninit();
 	void Update();
 	void Draw();
+	void BoxCollisionExtra(Vector2 objectPos, Vector2 objectScale, Vector2 boxPos, Vector2 boxScale) override;
 
 };

@@ -209,6 +209,7 @@
     <ClInclude Include="title_Button.h" />
     <ClInclude Include="UI_TrailSecond.h" />
     <ClInclude Include="untouchableBox.h" />
+    <ClInclude Include="unvisualBox.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="zoom.h" />
@@ -289,6 +290,7 @@
     <ClCompile Include="title_Button.cpp" />
     <ClCompile Include="UI_TrailSecond.cpp" />
     <ClCompile Include="untouchableBox.cpp" />
+    <ClCompile Include="unvisualBox.cpp" />
     <ClCompile Include="Vertex.h" />
     <ClCompile Include="zoom.cpp" />
   </ItemGroup>

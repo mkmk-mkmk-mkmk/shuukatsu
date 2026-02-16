@@ -17,6 +17,7 @@ private:
 	float alpha = 1.0f;
 
 	float m_Speed = 8.0f;			//プレイヤーの移動速度
+	bool m_Jump = false;			//ジャンプできるかどうか
 	float m_JumpPower = -10.0f;		//ジャンプ力
 	bool m_Dash = false;			//ダッシュ中かどうか
 	bool m_JumpAnimationFirst = false; //ジャンプアニメーションの初回か
@@ -60,6 +61,10 @@ public:
 	{
 		m_NoDamage = noDamage;
 	}
+
+	void SetJump(bool jump) { m_Jump = jump; }
+
+	void SetOnGround(bool onGround) { m_OnGround = onGround; }
 
 	//軌跡を少しでも持っているかどうか取得
 	bool GetPlayerHaveTrail()
