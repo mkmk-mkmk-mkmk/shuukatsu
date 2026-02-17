@@ -12,16 +12,16 @@
 void StageSelectButton::Init()
 {
 	m_ButtonList.push_back(button);
-	m_ButtonList[0].Init(Vector2((float)screenWidth * 0.3f, (float)screenHeight * 0.25),
-		Vector2((float)screenWidth * 0.2, (float)screenHeight * 0.4f),
+	m_ButtonList[0].Init(Vector2((float)screenWidth * 0.3f, (float)screenHeight * 0.3),
+		Vector2((float)screenWidth * 0.2, (float)screenHeight * 0.5f),
 		Texture::Load("asset\\texture\\UI\\Stage1Button.png"),
 		Texture::Load("asset\\texture\\UI\\Stage1Button_2.png"));
 
 	m_ButtonList.push_back(button);
-	m_ButtonList[1].Init(Vector2((float)screenWidth * 0.6f, (float)screenHeight * 0.75),
-		Vector2((float)screenWidth * 0.2, (float)screenHeight * 0.4f),
-		Texture::Load("asset\\texture\\UI\\StartButton.png"),
-		Texture::Load("asset\\texture\\UI\\StartButton_2.png"));
+	m_ButtonList[1].Init(Vector2((float)screenWidth * 0.6f, (float)screenHeight * 0.7),
+		Vector2((float)screenWidth * 0.2, (float)screenHeight * 0.5f),
+		Texture::Load("asset\\texture\\UI\\Stage2Button.png"),
+		Texture::Load("asset\\texture\\UI\\Stage2Button_2.png"));
 
 }
 

@@ -114,7 +114,7 @@ void Cursor::Draw()
 {
 	if (m_DrawCurcle)
 	{
-		m_ClickColorCircle.Draw();
+		m_ClickColorCircle.Draw(m_Position);
 	}
 
 	switch (m_CursorState)

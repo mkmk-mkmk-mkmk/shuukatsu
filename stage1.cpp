@@ -112,7 +112,7 @@ void Stage1::Init()
 
 	for (int i = 0; i < m_GoalCount; i++)
 	{
-		AddGameObject<Goal>(4)->Init();
+		AddGameObject<Goal>(0)->Init();
 		GetGameObject<Map>()->m_GoalPosList.pop_front();
 	}
 

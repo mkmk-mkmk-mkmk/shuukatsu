@@ -16,7 +16,7 @@ public:
 	void Init(Vector2 position, int type);
 	void Uninit();
 	void Update(bool click);
-	void Draw();
+	void Draw(Vector2 position);
 
 	bool GetEndDraw() { return m_EndDraw; }
 

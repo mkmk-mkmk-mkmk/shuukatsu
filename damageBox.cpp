@@ -18,7 +18,7 @@ void DamageBox::Init()
 	m_Scale = Vector2(MAPCHIP_WIDTH, MAPCHIP_HEIGHT);
 
 	InitSprite();
-	m_TextureList.push_back(Texture::Load("asset\\texture\\tile_Breakable.png"));
+	m_TextureList.push_back(Texture::Load("asset\\texture\\damageBox.png"));
 }
 
 void DamageBox::Uninit()

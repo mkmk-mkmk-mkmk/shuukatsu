@@ -54,8 +54,10 @@ void Click_ColorCircle::Update(bool click)
 	}
 }
 
-void Click_ColorCircle::Draw()
+void Click_ColorCircle::Draw(Vector2 position)
 {
+	m_ColorCircle.pos = position;
+
 	DrawSprite(XMFLOAT2(m_ColorCircle.pos.x, m_ColorCircle.pos.y), 0.0f,
 		XMFLOAT2(m_ColorCircle.scale, m_ColorCircle.scale), m_ColorCircle.effectType, 0.1f);
 
